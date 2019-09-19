@@ -228,7 +228,7 @@ A segunda funcionalidade e DAO que vamos implementar é o `create`. Esta funçã
  * 
  * @param array um produto na forma de array no formato chave => valor.
  * 
- * @return 
+ * @return boolean o resultado da operação de insert: se inseriu retorna true, caso contrário retorna false.
  */
 function create($produto){        
     $conn = get_connection();
