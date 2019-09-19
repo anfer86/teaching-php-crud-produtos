@@ -192,7 +192,7 @@ $produtos = all();
 if (!$produtos){
     echo "A consulta não retornou nenhum produto.";
     exit;    
-} F
+}
 
 ?>
 
