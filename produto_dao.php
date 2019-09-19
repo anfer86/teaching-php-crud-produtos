@@ -2,7 +2,14 @@
 
 include_once("config/db_connection.php"); 
 
-function all(){
+/**
+ * A função all() retorna um array com todos os produtos encontrados na 
+ * tabela produto da base de dados. Cada produto também é um array, no formato
+ * chave => valor, que contém os dados do produto.
+ * 
+ * @return array que contém os produtos e seus dados
+ */
+function all(){    
     $conn = get_connection();
     $sql = 'SELECT id, titulo, descricao, preco FROM produto';
     $stmt = $conn->prepare($sql);
@@ -12,20 +19,27 @@ function all(){
     while ($row = $result->fetch_assoc())
         $instances[] = $row;    
     $stmt->close();    
-    $conn->close();
+    $conn->close();    
     return $instances;
 }
 
-
-function add($dados){        
+/**
+ * A função create($produto) recebe os dados de um produto e insere um registro
+ * na tabela `produto` da base de dados.
+ * 
+ * @param array um produto na forma de array no formato chave => valor.
+ * 
+ * @return 
+ */
+function create($produto){        
     $conn = get_connection();
-    $sql = 'INSERT INTO usuario (nome, email, senha) VALUES (?,?,?)';    
+    $sql = 'INSERT INTO produto (titulo, descricao, preco) VALUES (?,?,?)';    
     $stmt = $conn->prepare($sql);    
     $stmt->bind_param(
-        "sss", 
-        $dados['nome'], 
-        $dados['email'], 
-        $dados['senha']);    
+        "ssd", 
+        $produto['titulo'], 
+        $produto['descricao'], 
+        $produto['preco']);    
     $stmt->execute();
     $result = $stmt->get_result();
     $stmt->close();

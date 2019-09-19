@@ -29,7 +29,8 @@ $conn = null;
 function get_connection(){
     // Para acessar e alterar variáveis fora da função usamos a diretiva `global`
     global $conn, $host, $username, $passwd, $dbname, $post, $port;
-    if ( is_null($conn) ){
+    
+    if ( !is_resource($conn) ){
         $conn = mysqli_connect($host, $username, $passwd, $dbname, $port);
         $conn->set_charset("utf8");        
     }

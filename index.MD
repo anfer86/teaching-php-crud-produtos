@@ -85,8 +85,7 @@ Vamos iniciar o desenvolvimento do CRUD pelas funções de DAO. Vamos criar o ar
 Antes de criar esses arquivos, vamos criar um arquivo para conectar com o banco de dados, que chamaremos `db_connection.php`, dentro de uma pasta chamada `config/` com o seguinte conteúdo:
 
 ```php
-<?php
-// arquivo config/db_conneciton.php
+<?php // arquivo config/db_conneciton.php
 
 $host = "localhost";
 $username = "root";
@@ -111,7 +110,8 @@ $conn = null;
 function get_connection(){
     // Para acessar e alterar variáveis fora da função usamos a diretiva `global`
     global $conn, $host, $username, $passwd, $dbname, $post, $port;
-    if ( is_null($conn) ){
+    
+    if ( !is_resource($conn) ){
         $conn = mysqli_connect($host, $username, $passwd, $dbname, $port);
         $conn->set_charset("utf8");        
     }
@@ -141,16 +141,28 @@ echo 'Conexão fechada.';
 
 Se a conexão estiver funcionando corretamente então o resultado esperado ao acessar a página `/config/test_connection.php` será o seguinte:
 
-> Abrindo a conexão.<br>Conexão realizada com sucesso.<br>Fechando a conexão.<br>Conexão fechada.
+<div style="border: 1px dashed black; padding: 5px;">
+Abrindo a conexão.<br>
+Conexão realizada com sucesso.<br>
+Fechando a conexão.<br>
+Conexão fechada.
+</div>
+
+### Função all
 
 Com essa conexão funcionando podemos iniciar a criação das nossas funções de DAO. Para isso criamos o arquivo `produto_dao.php` no diretório raiz da nossa aplicacação. Nesse arquivo vamos implementar nossa primeira função, chamada `all()`. Esta função vai retornar os dados de todos os produtos na base de dados.
 
 ```php
-
-<?php
+<?php // arquivo produto_dao.php
 
 include_once("config/db_connection.php"); 
 
+/**
+ * A função all() retorna todos os produtos encontrados
+ * na tabela produto da base de dados.
+ * 
+ * @return array que contém os produtos e seus dados
+ */
 function all(){
     $conn = get_connection();
     $sql = 'SELECT id, titulo, descricao, preco FROM produto';
@@ -168,9 +180,11 @@ function all(){
 ?>
 ```
 
+Para verificar que essa funcionalidade esteja funcionando corretamente vamos criar um arquivo de teste. Os testes do `DAO` vamos armazená-los em uma pasta, chamada `testes_dao/`. Dentro dela criamos o nosso primeiro teste `DAO` chamado `testes_dao/produto_dao_all.php`. Esse arquivo terá o seguinte conteúdo.
+
 ```php
-<?php
-// arquivo testes_dao/produtos_dao_all.php
+<?php // arquivo testes_dao/produto_dao_all.php
+
 include('../produto_dao.php');
 
 $produtos = all();
@@ -189,6 +203,101 @@ if (!$produtos){
 <?php } ?>
 </ul>
 ```
+
+Ao executar este teste, se o mesmo funcionar corretamente, o resultado esperado é o seguinte:
+
+<div style="border: 1px dashed black; padding: 5px;">
+<p>Lista de produtos no banco de dados:</p>
+<ul>
+    <li>1;Kit 4 pares de meias;Essas meias proporcionam conforto e proteção para os pés no dia a dia e durante suas atividades físicas;20</li>
+    <li>2;Camiseta de Algodão;Em tecido de algodão de alta qualidade, a camiseta básica tem ótimo conforto, é indicada para o dia a dia, ou seja, para usar em casa, trabalho ou lazer.;80</li>
+    <li>3;Boné;Este boné tem muito estilo.;15</li>
+</ul>
+</div>
+
+### Função create
+
+A segunda funcionalidade e DAO que vamos implementar é o `create`. Esta função recebe como parâmetro os dados de um produto e tem como objetivo inserir o produto como um registro na base de dados, especificamente na tabela `produto`. No mesmo arquivo `produto_dao` onde implementamos a função `all` logo abaixo implementaremos a função `create`. A nova funcionalidade está implementada a seguir:
+
+```php
+<?php  // ... continuando o arquivo produto_dao.php
+
+/**
+ * A função create($produto) recebe os dados de um produto e insere um registro
+ * na tabela `produto` da base de dados.
+ * 
+ * @param array um produto na forma de array no formato chave => valor.
+ * 
+ * @return 
+ */
+function create($produto){        
+    $conn = get_connection();
+    $sql = 'INSERT INTO produto (titulo, descricao, preco) VALUES (?,?,?)';    
+    $stmt = $conn->prepare($sql);    
+    $stmt->bind_param(
+        "ssd", 
+        $produto['titulo'], 
+        $produto['descricao'], 
+        $produto['preco']);    
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $stmt->close();
+    $conn->close();
+    return $result;
+}
+?>
+```
+
+Após isso, vamos criar um novo programa de teste para testar essa funcionalidade. O arquivo `testes_dao/produto_dao_create.php` tem o seguinte conteúdo:
+
+```html
+// arquivo testes_dao/produto_dao_create.php`
+
+<?php 
+
+$novo_produto = [
+    'titulo' => 'Coleção Livros do Harry Potter',
+    'descricao' => 'É uma coleção muito legal',
+    'preco' => '300.00'
+    ];
+
+include('../produto_dao.php');
+
+create($novo_produto);
+
+$produtos = all();
+
+?>
+
+<p>Lista de produtos no banco de dados:</p>
+<ul>
+<?php foreach ( $produtos as $produto ) { ?>
+    <li><?= implode($produto, ';')?></li>
+<?php } ?>
+</ul>
+```
+
+O resultado esperado será a lista de produtos, a qual contém o novo produto adicionado, como segue.
+
+<div style="border: 1px dashed black; padding: 5px;">
+<p>Lista de produtos no banco de dados:</p>
+<ul>
+    <li>1;Kit 4 pares de meias;Essas meias proporcionam conforto e proteção para os pés no dia a dia e durante suas atividades físicas;20</li>
+    <li>2;Camiseta de Algodão;Em tecido de algodão de alta qualidade, a camiseta básica tem ótimo conforto, é indicada para o dia a dia, ou seja, para usar em casa, trabalho ou lazer.;80</li>
+    <li>3;Boné;Este boné tem muito estilo.;15</li>
+    <li>4;Coleção Livros do Harry Potter;É uma coleção muito legal;300</li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+
+
 
 
 
