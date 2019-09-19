@@ -59,7 +59,7 @@ A tabela de dados ficará da seguinte forma:
 
 
 
-Para implementar as funcionalidades de CRUD para a entidade `produto` vamos definiar as seguintes operações.
+Para implementar as funcionalidades de CRUD para a entidade `produto` vamos definir as seguintes operações.
 
 | Requisição | URL | Operação | Usa função DAO  | Descrição  |
 |---|---|---|---|---|
