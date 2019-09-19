@@ -9,7 +9,7 @@ $('body').mouseover(function(){
 })
 </script>
 
-# Construíndo um CRUD em PHP
+# Construindo um CRUD em PHP
 
 CRUD é a sigla utilizada para se referir as operações básicas que são realizadas com as entidades armazenadas em bases de dados. Essas operações são Create, Read, Update, and Delete. Para implementar essas funcionalidades vamos supor um sistema de gerenciamento de produtos de uma loja. A entidade produtos, que deverá persistir em banco de dados, deverá ter os seguintes campos:
 - id: chave primária, valor inteiro e auto incrementado
