@@ -109,7 +109,7 @@ $conn = null;
   */
 function get_connection(){
     // Para acessar e alterar variáveis fora da função usamos a diretiva `global`
-    global $conn, $host, $username, $passwd, $dbname, $post, $port;
+    global $conn, $host, $username, $passwd, $dbname, $port;
     
     if ( !is_resource($conn) ){
         $conn = mysqli_connect($host, $username, $passwd, $dbname, $port);
@@ -192,7 +192,7 @@ $produtos = all();
 if (!$produtos){
     echo "A consulta não retornou nenhum produto.";
     exit;    
-} 
+} F
 
 ?>
 

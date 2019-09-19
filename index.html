@@ -197,7 +197,7 @@ $conn = <span class="hljs-keyword">null</span>;
   */</span>
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">get_connection</span><span class="hljs-params">()</span></span>{
     <span class="hljs-comment">// Para acessar e alterar variáveis fora da função usamos a diretiva `global`</span>
-    <span class="hljs-keyword">global</span> $conn, $host, $username, $passwd, $dbname, $post, $port;
+    <span class="hljs-keyword">global</span> $conn, $host, $username, $passwd, $dbname, $port;
     
     <span class="hljs-keyword">if</span> ( !is_resource($conn) ){
         $conn = mysqli_connect($host, $username, $passwd, $dbname, $port);
@@ -268,7 +268,7 @@ $produtos = all();
 <span class="hljs-keyword">if</span> (!$produtos){
     <span class="hljs-keyword">echo</span> <span class="hljs-string">"A consulta não retornou nenhum produto."</span>;
     <span class="hljs-keyword">exit</span>;    
-} 
+} F
 
 <span class="hljs-meta">?&gt;</span>
 
