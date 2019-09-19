@@ -289,7 +289,9 @@ O resultado esperado será a lista de produtos, a qual contém o novo produto ad
 </ul>
 </div>
 
-**Desafio:** Implemente a função `edit($produto)` no arquivo `produto_dao.php` e crie um arquivo de teste `testes_dao/produto_dao_update.php` e verifique se está funcionando corretamente. Teste com o seguinte produto:
+**Desafio 1:** Implemente a função `find($id)` no arquivo `produto_dao.php` e crie um arquivo de teste `testes_dao/produto_dao_find.php` e verifique se está funcionando corretamente para recuperar algum dos produtos na tabela `produto`.
+
+**Desafio 2:** Implemente a função `edit($produto)` no arquivo `produto_dao.php` e crie um arquivo de teste `testes_dao/produto_dao_update.php` e verifique se está funcionando corretamente. Teste com o seguinte produto:
 
 ```php
 $produto = [
