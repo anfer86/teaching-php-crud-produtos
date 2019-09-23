@@ -391,7 +391,7 @@ function edit($produto){
     $sql = 'UPDATE produto SET titulo = ?, descricao = ?, preco = ? WHERE id = ?';    
     $stmt = $conn->prepare($sql);    
     $stmt->bind_param(
-        "sssi", 
+        "ssdi", 
         $produto['titulo'], 
         $produto['descricao'], 
         $produto['preco'],

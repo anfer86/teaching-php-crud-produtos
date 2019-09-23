@@ -438,7 +438,7 @@ $produto = find(<span class="hljs-string">"4"</span>);
     $sql = <span class="hljs-string">'UPDATE produto SET titulo = ?, descricao = ?, preco = ? WHERE id = ?'</span>;    
     $stmt = $conn-&gt;prepare($sql);    
     $stmt-&gt;bind_param(
-        <span class="hljs-string">"sssi"</span>, 
+        <span class="hljs-string">"ssdi"</span>, 
         $produto[<span class="hljs-string">'titulo'</span>], 
         $produto[<span class="hljs-string">'descricao'</span>], 
         $produto[<span class="hljs-string">'preco'</span>],
