@@ -29,7 +29,7 @@ function all(){
  * 
  * @param array um produto na forma de array no formato chave => valor.
  * 
- * @return 
+ * @return boolean o resultado da operação de insert: se inseriu retorna true, caso contrário retorna false.
  */
 function create($produto){        
     $conn = get_connection();
@@ -47,55 +47,72 @@ function create($produto){
     return $result;
 }
 
-function edit($usuario){        
+/**
+ * A função find($id) recebe id de um produto retorna os dados do produto
+ * se esse id existir, caso contrário, retorna um array vazio 
+ * 
+ * @param integer id do produto que quero procurar na tabela.
+ * 
+ * @return array array no formato chave => valor com os dados do produto.
+ */
+function find($id){    
     $conn = get_connection();
-    if (!empty($usuario['nova_senha'])){
-        $sql = 'UPDATE usuario SET nome = ?, email = ?, senha = ? WHERE id = ?';    
-        $stmt = $conn->prepare($sql);    
-        $stmt->bind_param(
-            "sssi", 
-            $usuario['nome'], 
-            $usuario['email'], 
-            $usuario['senha'],
-            $usuario['id']);
-    } else {
-        $sql = 'UPDATE usuario SET nome = ?, email = ? WHERE id = ?';    
-        $stmt = $conn->prepare($sql);    
-        $stmt->bind_param(
-            "ssi", 
-            $usuario['nome'], 
-            $usuario['email'],            
-            $usuario['id']);    
-    }
+    $sql = 'SELECT id, titulo, descricao, preco FROM produto WHERE id = ?';
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $id);    
     $stmt->execute();
+    $instance = [];
     $result = $stmt->get_result();
+    if ($row = $result->fetch_assoc())
+        $instance = $row;    
+    $stmt->close();
+    $conn->close();
+    return $instance;
+}
+
+/**
+ * A função edit($produto) recebe os dados de um produto e atualiza um registro
+ * na tabela `produto`.
+ * 
+ * @param array um produto na forma de array no formato chave => valor.
+ * 
+ * @return boolean retorna true se o registro foi alterado, caso contrário retorna false.
+ */
+function edit($produto){        
+    $conn = get_connection();
+    $sql = 'UPDATE produto SET titulo = ?, descricao = ?, preco = ? WHERE id = ?';    
+    $stmt = $conn->prepare($sql);    
+    $stmt->bind_param(
+        "ssdi", 
+        $produto['titulo'], 
+        $produto['descricao'], 
+        $produto['preco'],
+        $produto['id']);
+    $stmt->execute();
+    $result = $stmt->affected_rows > 0;
     $stmt->close();
     $conn->close();
     return $result;
 }
 
-function find($usuario_id){    
+/**
+ * A função delete($id) recebe o $id de um produto e apaga o registro da base de dados.
+ * 
+ * @param integer id do produto
+ * 
+ * @return boolean retorna true se o registro foi apagado, caso contrário retorna false.
+ */
+function delete($id){        
     $conn = get_connection();
-    $sql = 'SELECT id, nome, email FROM usuario WHERE id = ?';
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $usuario_id);    
+    $sql = 'DELETE FROM produto WHERE id = ?';    
+    $stmt = $conn->prepare($sql);    
+    $stmt->bind_param("i", $id);
     $stmt->execute();
-    $result = $stmt->get_result()->fetch_assoc();
+    $result = $stmt->affected_rows > 0;
     $stmt->close();
     $conn->close();
     return $result;
 }
 
-function login($email, $senha){
-    $conn = get_connection();
-    $sql = 'SELECT id, email, nome FROM usuario WHERE email = ? AND senha = ?';
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ss", $email, $senha);    
-    $stmt->execute();
-    $result = $stmt->get_result()->fetch_assoc();
-    $stmt->close();
-    $conn->close();
-    return $result;
-}
 
 ?>
