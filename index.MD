@@ -566,6 +566,414 @@ Não foi possível apagar esse produto.
 
 ## Desenvolvendo as Operações
 
+Nesta segunda parte do projeto vamos produzir as páginas com HTML e CSS para interagir com o usuário e relacionar essas páginas às funcionalidades implementadas no DAO.
+
+Essas páginas serão criadas dentro de uma pasta chamada `views` e consistem nos seguintes arquivos.
+
+| Arquivo | Descrição |
+|---|---|---|---|---|
+| /views/produto_create.php | Exibe o formulário para criar/cadastrar um novo produto |
+| /views/produto_index.php | Exibe a lista dos produtos presentes na base de dados |
+| /views/produto_show.php | Exibe as informações de um produto |
+| /views/produto_edit.php | Exibe o formulário para editar/alterar dados de um produto existente |
+|
+
+
+### View create
+
+Vamos iniciar pela criação da view create. Essa página consiste em um formulário com os dados que devem ser preenchidos para registrar um novo produto na base de dados. A implementação dessa página vai envolver conceitos de HTML, CSS, Bootstrap e PHP.
+
+```html
+<!-- arquivo view/produto_create.php -->
+<html>
+
+<head>
+    <title>Cadastrar Produto</title>
+</head>
+
+<?php include 'import_css.php' ?>
+
+<body>
+
+    <?php include 'header.php' ?>
+
+    <div class="container col-lg-4 col-md-6 col-sm-8 col-10 mt-2">        
+        
+        <h2>Cadastrar Produto</h2>
+        
+        <form method="POST" action="usuario_operacoes.php?action=store">
+
+            <div class="form-group">
+                <label for="nome">Título</label>
+                <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Escreva o título ou nome do produto">
+            </div>            
+
+            <div class="form-group">
+                <label for="nome">Descrição</label>
+                <textarea class="form-control" id="descricao" name="descricao" rows="4"></textarea>                
+            </div>            
+
+            <div class="form-group">
+                <label for="nome">Preço</label>
+                <div class="input-group mb-2">
+                <div class="input-group-prepend input-group-text">R$</div>
+                <input type="number" class="form-control col-3" id="preco" name="preco" min="0" step="0.01" placeholder="0,00">
+                </div>
+            </div>            
+
+            <button type="submit" id="bto-cadastrar" class="btn btn-primary">Cadastrar</button>
+
+        </form>
+    </div>
+
+</body>
+
+<?php include 'import_js.php' ?>
+
+</html>
+```
+
+Nesse código observamos o `include` de três arquivos: `import_css.php`, `header.php` e `import_js.php`. O que fizemos foi centralizar a importação de estilos, cabeçalho e a importação de javascripts. Vamos implementar cada um deles para deixar o código funcionando.
+
+Para fazer as páginas de `import_css.php` e `import_js.php` vamos acessar o site: https://getbootstrap.com/. Nesse site observamos um quadro com título `Bootstrap CDN` e dentro dele temos um subquadro chamado `CSS Only`. A linha de código  desse subquadro deve ser copiado para o arquivo `import_css.php` da seguinte forma:
+
+```html
+<!-- arquivo views/import_css.php -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+```
+
+Ainda dentro do quadro `Bootstrap CDN` temos um subquadro titulado de `JS, Popper.js, and jQuery`. As linhas de código presentes nesse subquadro vamos copiá-las para o arquivo `import_js.css` da seguinte forma:
+
+```html
+<!-- arquivo views/import_js.php -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+```
+
+Por fim, vamos criar o nosso arquivo `header.php` que será o cabeçalho de todas as nossas páginas de interação com o usuário. Ele terá o seguinte conteúdo:
+
+```html
+<!-- arquivo views/header.php -->
+<header>
+
+<nav class="navbar navbar-expand navbar-light bg-light">
+  <a class="navbar-brand" href="#">DES Loja</a>  
+  <div class="navbar-nav">      
+      <a class="nav-item nav-link" href="produtos.php?action=index"">Produtos</a>      
+  </div>
+  </div>
+</nav>
+
+</header>
+```
+
+O reusltado final da implementação dos três arquivos, ao acessarmos o arquivo `views/produto_create.php`, será o seguinte.
+
+<div style="border: 1px dashed black; padding: 5px;">
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<nav class="navbar navbar-expand navbar-light bg-light">
+  <a class="navbar-brand" href="#">DES Loja</a>  
+  <div class="navbar-nav">      
+      <a class="nav-item nav-link" href="produtos.php?action=index"">Produtos</a>      
+  </div> 
+</nav>
+
+<div class="container col-lg-4 col-md-6 col-sm-8 col-10 mt-2">        
+    
+<h2>Cadastrar Produto</h2>
+        
+<form method="POST" action="usuario_operacoes.php?action=store">
+
+<div class="form-group">
+    <label for="nome">Título</label>
+    <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Escreva o título ou nome do produto">
+</div>            
+
+<div class="form-group">
+    <label for="nome">Descrição</label>
+    <textarea class="form-control" id="descricao" name="descricao" rows="4"></textarea>                
+</div>            
+
+<div class="form-group">
+    <label for="nome">Preço</label>
+    <div class="input-group mb-2">
+    <div class="input-group-prepend input-group-text">R$</div>
+    <input type="number" class="form-control col-3" id="preco" name="preco" min="0" step="0.01" placeholder="0,00">
+    </div>
+</div>            
+
+<button type="submit" id="bto-cadastrar" class="btn btn-primary">Cadastrar</button>
+
+</form>
+
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</div>
+
+Como mencionamos no inicio deste projeto para acessar a view que exibe o formulário precisamos consultar a URL `/produto.php?action=create` via GET e para enviar os dados e armazená-los na base de dados usamos a URL `/produto.php?action=store` via POST. Abaixo seguem as duas requisições para relembrar:
+
+| Requisição | URL | Operação | Usa função DAO  | Descrição  |
+|---|---|---|---|---|
+| GET | /produto.php?action=create | create | - | Exibe o formulário de criar produto |
+| POST | /produto.php?action=store | store  | create | Recebe os dados do formulário e armazena na base de dados |
+|
+
+Vamos implementar essas duas funcionalidades em um arquivo na pasta raiz do projeto, chamado `produtos.php`. Já vamos deixar o código pronto para implementar as outras funcionalidades também.
+
+Quando a ação solicitada for `action=create` via GET será executada a inclusão do arquivo `views/usuario_create.php` para mostrar para o usuário o formulário com a página. Quando a ação solicitada for `action=store` via POST será executado a função `create($produto)` definida no arquivo `produto_dao.php`, quem vai de fato cadastrar o produto na base de dados. Após isso, é gerada uma requisição GET para a ação `action=index`, usando a função `header("Location: produto.php?action=index")`, que vai mostar a lista de produtos (esta funcionalidade não esta implementada ainda, mas será implementada logo a seguir).
+
+```php
+<?php // arquivo produto.php
+
+include_once("produto_dao.php");
+
+$action = $_GET['action'];    
+
+if ( $_SERVER['REQUEST_METHOD'] == 'GET'){
+
+    $dados = $_GET;
+
+    switch ($action) {
+
+        /**
+         * index: Exibe todas os produtos na base de dados
+         */
+        case "index":
+            break;
+
+        /**
+         * create: Exibe o formulário de criar produto
+         */
+        case "create":
+            include("views/produto_create.php");
+            break;
+
+        /**
+         * show: Procura o produto {id} na base de dados e exibe os dados desse produto
+         */
+        case "show":        
+            break;
+
+        /**
+         * edit: Procura os dados do produto {id} na base de dados e exibe o 
+         *       formulário de editar dados do produto {id}
+         */
+        case "edit":        
+            break;
+
+        /**
+         * destroy: Exclui um produto
+         */
+        case "destroy":        
+            break;
+    }
+
+}
+
+if ( $_SERVER['REQUEST_METHOD'] == 'POST'){
+    
+    $dados = $_POST;
+    
+    switch ($action) {
+
+        /**
+         * store: Recebe os dados do formulário e armazena na base de dados
+         */        
+        case "store":            
+            create($dados);
+            header("Location: produto.php?action=index");
+            break;
+
+        /**
+         * update: Recebe os dados do formulário e salva as alterações no banco
+         */                    
+        case "update":                    
+            break;
+       
+    }
+
+}
+
+?>
+
+```
+
+Desta forma ao acessarmos a URL `produto.php?action=create` declaramos nossa intenção da criar um novo produto e assim o arquivo `produto.php` popula a view apropriada. O resultado de acessar essa URL do nosso projeto será justamente a apresentação da view para criar um novo produto.
+
+### View index
+
+Nesta view o objetivo é mostrar para o usuário uma lista de todos os produtos cadastrados. Para isso vamos criar o arquivo `views/produto_index.php`. Nesse arquivo vamos aproveitar os arquivos de `import_css.php`, `header.php` e `import_js.php` que criamos para a view *create*. Vamos assumir também que uma variável `$produtos` será acessível por meio desta view. Essa variável vai contar uma lista de produtos na forma de um array simples, onde cada elemento do array, um produto, será representado como um array associativo (formato chave => valor).
+
+O arquivo `views/produto_index.php` terá o seguinte conteúdo:
+
+```html
+
+<html>
+
+<head>
+    <title>Lista de Produtos</title>
+</head>
+
+<?php include 'import_css.php' ?>
+
+<body>
+
+    <?php include 'header.php' ?>
+    
+    <div class="container col-md-8 col-12 mt-2">     
+        
+        <div class="py-2">
+            <a class="btn btn-success" href="produto.php?action=create">Criar Produto</a>
+        </div>
+
+        <h2>Lista de Produtos</h2>
+        
+        <?php if ( isset($produtos) && $produtos ) { ?> 
+        
+        <table class="table"> 
+            <thead>
+                <tr>                    
+                    <th>Id</th>
+                    <th width="30%">Título</th>
+                    <th width="40%">Conteúdo</th>                    
+                    <th width="10%">Preço</th>                    
+                    <th></th>                    
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>             
+                <?php foreach ($produtos as $produto) { ?>
+                    <tr>                    
+                    <?php foreach ($produto as $key => $value) { ?>
+                        <td><?= $value ?></td>                        
+                    <?php } ?>
+                        <td><a class="btn btn-link" href="produto.php?action=show&id=<?= $produto['id']?>">Ver</a></td>
+                        <td><a class="btn btn-link" href="produto.php?action=edit&id=<?= $produto['id']?>">Edit</a></td>
+                        <td><a class="btn btn-link" href="produto.php?action=destroy&id=<?= $produto['id']?>">Delete</a></td>
+                    </tr>                           
+                <?php } ?>
+            </tbody>
+        </table>
+        
+        <?php } else { ?> 
+        
+        <div class="alert alert-info" role="alert">
+            Nenhum produto cadastrado.
+        </div>
+        
+        <?php } ?> 
+    </div>
+
+</body>
+
+<?php include 'import_js.php' ?>
+
+</html>
+```
+
+Para que essa página seja acessível por meio de novo arquivo de operações usando a URL `produtos.php?action=index` precisamos adicionar o código abaixo à ação "action=index". Esse código executa a funcionalidade `all()` implementada em `produto_dao.php` que retorna todos os produtos na tabela `produtos` da base de dados, na variável `$produto`. Uma vez que essa variável contém a lista de produtos populamos a view `produto_index.php`, quem vai mostrar na tabela os produtos dessa lista.
+
+```php
+<?php
+// ... parte do arquivo produto.php 
+
+        /**
+         * index: Exibe todas os produtos na base de dados
+         */
+        case "index":
+            $produtos = all();  
+            include("views/produto_index.php");
+            break;
+// ...
+?>
+```
+
+Assim, ao acessarmos a URL `produto.php?action=index` será apresentado um resultado similar ao seguinte:
+
+<div style="border: 1px dashed black; padding: 5px;">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<nav class="navbar navbar-expand navbar-light bg-light">
+  <a class="navbar-brand" href="#">DES Loja</a>  
+  <div class="navbar-nav">      
+      <a class="nav-item nav-link" href="produtos.php?action=index"">Produtos</a>      
+  </div>
+</nav>
+
+</header>    
+    <div class="container col-md-8 col-12 mt-2">        
+        
+<div class="py-2">
+<a class="btn btn-success" href="produto.php?action=create">Criar Produto</a>
+</div>
+
+<h2>Lista de Produtos</h2>
+
+<table class="table"> 
+<thead>
+    <tr>                    
+        <th>Id</th>
+        <th width="30%">Título</th>
+        <th width="40%">Conteúdo</th>                    
+        <th width="10%">Preço</th>                    
+        <th></th>                    
+        <th></th>
+        <th></th>
+    </tr>
+</thead>
+<tbody>             
+    <tr>                    
+        <td>3</td>                        
+        <td>Kit 4 pares de meias</td>                        
+        <td>Essas meias proporcionam conforto e proteção para os pés no dia a dia e durante suas atividades físicas</td>                        
+        <td>20</td>                        
+        <td><a class="btn btn-link" href="produto.php?action=show&id=3">Show</a></td>
+        <td><a class="btn btn-link" href="produto.php?action=edit&id=3">Edit</a></td>
+        <td><a class="btn btn-link" href="produto.php?action=destroy&id=3">Delete</a></td>
+    </tr>                           
+    <tr>                    
+        <td>4</td>                        
+        <td>Coleção Livros do Harry Potter</td>                        
+        <td>É uma coleção muito legal</td>                        
+        <td>500</td>                        
+        <td><a class="btn btn-link" href="produto.php?action=show&id=4">Show</a></td>
+        <td><a class="btn btn-link" href="produto.php?action=edit&id=4">Edit</a></td>
+        <td><a class="btn btn-link" href="produto.php?action=destroy&id=4">Delete</a></td>
+    </tr>                           
+    <tr>                    
+        <td>5</td>                        
+        <td>Boné</td>                        
+        <td>Este boné tem muito estilo.</td>                        
+        <td>15</td>                        
+        <td><a class="btn btn-link" href="produto.php?action=show&id=5">Show</a></td>
+        <td><a class="btn btn-link" href="produto.php?action=edit&id=5">Edit</a></td>
+        <td><a class="btn btn-link" href="produto.php?action=destroy&id=5">Delete</a></td>
+    </tr>                           
+</tbody>
+</table>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</div>
+
+Podemos observar nessa lista de produtos, as funcionalidades de `Show`, `Edit` e `Delete`. Ao passar o mouse por cima dos links e verificar os seus endereços são de operações relacionadas a produtos: `action=show`, `action=edit` e `action=destroy`. Além da informação `action` enviada via GET, também foi enviada a informação do `id` do produto que queremos, visualizar, editar ou apagar. Assim a URL `produto.php?action=edit&id=3` é o endereço que inidica a intenção de alterar os dados do produto de id igual 3. Nas próximas duas seções vamos implementar as views para as operações de `Show` e `Edit`.
+
+**Desafio 1:** Implementar view `views/produto_show.php` e relacionar ela com as operações no arquivo `produto.php`.
+
+**Desafio 1:** Implementar view `views/produto_edit.php` e relacionar ela com as operações no arquivo `produto.php`.
+
 
 
 

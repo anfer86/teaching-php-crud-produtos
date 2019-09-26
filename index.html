@@ -584,6 +584,402 @@ Não foi possível apagar esse produto.
 <p><strong>Desafio 2</strong>: crie uma função chamada <code>all_order_by_preco($order)</code> que recebe a ordem de ordenação ('asc' ou 'desc') e retorna os produtos ordenados por preço de acordo com a escolha.</p>
 <p><strong>Desafio 3</strong>: crie uma função chamada <code>all_order_by($column, $order)</code> que recebe a coluna que quer ordenar ('titulo', 'descricao', 'preco') e a ordem de ordenação ('asc' ou 'desc') e retorna os produtos ordenados de acordo com a escolha.</p>
 <h2 id="desenvolvendo-as-opera%c3%a7%c3%b5es">Desenvolvendo as Operações</h2>
+<p>Nesta segunda parte do projeto vamos produzir as páginas com HTML e CSS para interagir com o usuário e relacionar essas páginas às funcionalidades implementadas no DAO.</p>
+<p>Essas páginas serão criadas dentro de uma pasta chamada <code>views</code> e consistem nos seguintes arquivos.</p>
+<table>
+<thead>
+<tr>
+<th>Arquivo</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/views/produto_create.php</td>
+<td>Exibe o formulário para criar/cadastrar um novo produto</td>
+</tr>
+<tr>
+<td>/views/produto_index.php</td>
+<td>Exibe a lista dos produtos presentes na base de dados</td>
+</tr>
+<tr>
+<td>/views/produto_show.php</td>
+<td>Exibe as informações de um produto</td>
+</tr>
+<tr>
+<td>/views/produto_edit.php</td>
+<td>Exibe o formulário para editar/alterar dados de um produto existente</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="view-create">View create</h3>
+<p>Vamos iniciar pela criação da view create. Essa página consiste em um formulário com os dados que devem ser preenchidos para registrar um novo produto na base de dados. A implementação dessa página vai envolver conceitos de HTML, CSS, Bootstrap e PHP.</p>
+<pre><code class="language-html"><div><span class="hljs-comment">&lt;!-- arquivo view/produto_create.php --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Cadastrar Produto<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+
+<span class="php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-keyword">include</span> <span class="hljs-string">'import_css.php'</span> <span class="hljs-meta">?&gt;</span></span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+
+    <span class="php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-keyword">include</span> <span class="hljs-string">'header.php'</span> <span class="hljs-meta">?&gt;</span></span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"container col-lg-4 col-md-6 col-sm-8 col-10 mt-2"</span>&gt;</span>        
+        
+        <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Cadastrar Produto<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+        
+        <span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">method</span>=<span class="hljs-string">"POST"</span> <span class="hljs-attr">action</span>=<span class="hljs-string">"usuario_operacoes.php?action=store"</span>&gt;</span>
+
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-group"</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"nome"</span>&gt;</span>Título<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-control"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"titulo"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"titulo"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Escreva o título ou nome do produto"</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>            
+
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-group"</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"nome"</span>&gt;</span>Descrição<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">textarea</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-control"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"descricao"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"descricao"</span> <span class="hljs-attr">rows</span>=<span class="hljs-string">"4"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">textarea</span>&gt;</span>                
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>            
+
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-group"</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"nome"</span>&gt;</span>Preço<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"input-group mb-2"</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"input-group-prepend input-group-text"</span>&gt;</span>R$<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"number"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-control col-3"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"preco"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"preco"</span> <span class="hljs-attr">min</span>=<span class="hljs-string">"0"</span> <span class="hljs-attr">step</span>=<span class="hljs-string">"0.01"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"0,00"</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>            
+
+            <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"submit"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"bto-cadastrar"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"btn btn-primary"</span>&gt;</span>Cadastrar<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+
+        <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+
+<span class="php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-keyword">include</span> <span class="hljs-string">'import_js.php'</span> <span class="hljs-meta">?&gt;</span></span>
+
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</div></code></pre>
+<p>Nesse código observamos o <code>include</code> de três arquivos: <code>import_css.php</code>, <code>header.php</code> e <code>import_js.php</code>. O que fizemos foi centralizar a importação de estilos, cabeçalho e a importação de javascripts. Vamos implementar cada um deles para deixar o código funcionando.</p>
+<p>Para fazer as páginas de <code>import_css.php</code> e <code>import_js.php</code> vamos acessar o site: <a href="https://getbootstrap.com/">https://getbootstrap.com/</a>. Nesse site observamos um quadro com título <code>Bootstrap CDN</code> e dentro dele temos um subquadro chamado <code>CSS Only</code>. A linha de código  desse subquadro deve ser copiado para o arquivo <code>import_css.php</code> da seguinte forma:</p>
+<pre><code class="language-html"><div><span class="hljs-comment">&lt;!-- arquivo views/import_css.php --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"</span> <span class="hljs-attr">integrity</span>=<span class="hljs-string">"sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"</span> <span class="hljs-attr">crossorigin</span>=<span class="hljs-string">"anonymous"</span>&gt;</span>
+</div></code></pre>
+<p>Ainda dentro do quadro <code>Bootstrap CDN</code> temos um subquadro titulado de <code>JS, Popper.js, and jQuery</code>. As linhas de código presentes nesse subquadro vamos copiá-las para o arquivo <code>import_js.css</code> da seguinte forma:</p>
+<pre><code class="language-html"><div><span class="hljs-comment">&lt;!-- arquivo views/import_js.php --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://code.jquery.com/jquery-3.3.1.slim.min.js"</span> <span class="hljs-attr">integrity</span>=<span class="hljs-string">"sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"</span> <span class="hljs-attr">crossorigin</span>=<span class="hljs-string">"anonymous"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"</span> <span class="hljs-attr">integrity</span>=<span class="hljs-string">"sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"</span> <span class="hljs-attr">crossorigin</span>=<span class="hljs-string">"anonymous"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"</span> <span class="hljs-attr">integrity</span>=<span class="hljs-string">"sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"</span> <span class="hljs-attr">crossorigin</span>=<span class="hljs-string">"anonymous"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</div></code></pre>
+<p>Por fim, vamos criar o nosso arquivo <code>header.php</code> que será o cabeçalho de todas as nossas páginas de interação com o usuário. Ele terá o seguinte conteúdo:</p>
+<pre><code class="language-html"><div><span class="hljs-comment">&lt;!-- arquivo views/header.php --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">header</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">nav</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"navbar navbar-expand navbar-light bg-light"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"navbar-brand"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#"</span>&gt;</span>DES Loja<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>  
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"navbar-nav"</span>&gt;</span>      
+      <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"nav-item nav-link"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"produtos.php?action=index"</span>"&gt;</span>Produtos<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>      
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">nav</span>&gt;</span>
+
+<span class="hljs-tag">&lt;/<span class="hljs-name">header</span>&gt;</span>
+</div></code></pre>
+<p>O reusltado final da implementação dos três arquivos, ao acessarmos o arquivo <code>views/produto_create.php</code>, será o seguinte.</p>
+<div style="border: 1px dashed black; padding: 5px;">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<nav class="navbar navbar-expand navbar-light bg-light">
+  <a class="navbar-brand" href="#">DES Loja</a>  
+  <div class="navbar-nav">      
+      <a class="nav-item nav-link" href="produtos.php?action=index"">Produtos</a>      
+  </div> 
+</nav>
+<div class="container col-lg-4 col-md-6 col-sm-8 col-10 mt-2">        
+<h2>Cadastrar Produto</h2>
+<form method="POST" action="usuario_operacoes.php?action=store">
+<div class="form-group">
+    <label for="nome">Título</label>
+    <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Escreva o título ou nome do produto">
+</div>            
+<div class="form-group">
+    <label for="nome">Descrição</label>
+    <textarea class="form-control" id="descricao" name="descricao" rows="4"></textarea>                
+</div>            
+<div class="form-group">
+    <label for="nome">Preço</label>
+    <div class="input-group mb-2">
+    <div class="input-group-prepend input-group-text">R$</div>
+    <input type="number" class="form-control col-3" id="preco" name="preco" min="0" step="0.01" placeholder="0,00">
+    </div>
+</div>            
+<p><button type="submit" id="bto-cadastrar" class="btn btn-primary">Cadastrar</button></p>
+</form>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</div>
+<p>Como mencionamos no inicio deste projeto para acessar a view que exibe o formulário precisamos consultar a URL <code>/produto.php?action=create</code> via GET e para enviar os dados e armazená-los na base de dados usamos a URL <code>/produto.php?action=store</code> via POST. Abaixo seguem as duas requisições para relembrar:</p>
+<table>
+<thead>
+<tr>
+<th>Requisição</th>
+<th>URL</th>
+<th>Operação</th>
+<th>Usa função DAO</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td>/produto.php?action=create</td>
+<td>create</td>
+<td>-</td>
+<td>Exibe o formulário de criar produto</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>/produto.php?action=store</td>
+<td>store</td>
+<td>create</td>
+<td>Recebe os dados do formulário e armazena na base de dados</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Vamos implementar essas duas funcionalidades em um arquivo na pasta raiz do projeto, chamado <code>produtos.php</code>. Já vamos deixar o código pronto para implementar as outras funcionalidades também.</p>
+<p>Quando a ação solicitada for <code>action=create</code> via GET será executada a inclusão do arquivo <code>views/usuario_create.php</code> para mostrar para o usuário o formulário com a página. Quando a ação solicitada for <code>action=store</code> via POST será executado a função <code>create($produto)</code> definida no arquivo <code>produto_dao.php</code>, quem vai de fato cadastrar o produto na base de dados. Após isso, é gerada uma requisição GET para a ação <code>action=index</code>, usando a função <code>header(&quot;Location: produto.php?action=index&quot;)</code>, que vai mostar a lista de produtos (esta funcionalidade não esta implementada ainda, mas será implementada logo a seguir).</p>
+<pre><code class="language-php"><div><span class="hljs-meta">&lt;?php</span> <span class="hljs-comment">// arquivo produto.php</span>
+
+<span class="hljs-keyword">include_once</span>(<span class="hljs-string">"produto_dao.php"</span>);
+
+$action = $_GET[<span class="hljs-string">'action'</span>];    
+
+<span class="hljs-keyword">if</span> ( $_SERVER[<span class="hljs-string">'REQUEST_METHOD'</span>] == <span class="hljs-string">'GET'</span>){
+
+    $dados = $_GET;
+
+    <span class="hljs-keyword">switch</span> ($action) {
+
+        <span class="hljs-comment">/**
+         * index: Exibe todas os produtos na base de dados
+         */</span>
+        <span class="hljs-keyword">case</span> <span class="hljs-string">"index"</span>:
+            <span class="hljs-keyword">break</span>;
+
+        <span class="hljs-comment">/**
+         * create: Exibe o formulário de criar produto
+         */</span>
+        <span class="hljs-keyword">case</span> <span class="hljs-string">"create"</span>:
+            <span class="hljs-keyword">include</span>(<span class="hljs-string">"views/produto_create.php"</span>);
+            <span class="hljs-keyword">break</span>;
+
+        <span class="hljs-comment">/**
+         * show: Procura o produto {id} na base de dados e exibe os dados desse produto
+         */</span>
+        <span class="hljs-keyword">case</span> <span class="hljs-string">"show"</span>:        
+            <span class="hljs-keyword">break</span>;
+
+        <span class="hljs-comment">/**
+         * edit: Procura os dados do produto {id} na base de dados e exibe o 
+         *       formulário de editar dados do produto {id}
+         */</span>
+        <span class="hljs-keyword">case</span> <span class="hljs-string">"edit"</span>:        
+            <span class="hljs-keyword">break</span>;
+
+        <span class="hljs-comment">/**
+         * destroy: Exclui um produto
+         */</span>
+        <span class="hljs-keyword">case</span> <span class="hljs-string">"destroy"</span>:        
+            <span class="hljs-keyword">break</span>;
+    }
+
+}
+
+<span class="hljs-keyword">if</span> ( $_SERVER[<span class="hljs-string">'REQUEST_METHOD'</span>] == <span class="hljs-string">'POST'</span>){
+    
+    $dados = $_POST;
+    
+    <span class="hljs-keyword">switch</span> ($action) {
+
+        <span class="hljs-comment">/**
+         * store: Recebe os dados do formulário e armazena na base de dados
+         */</span>        
+        <span class="hljs-keyword">case</span> <span class="hljs-string">"store"</span>:            
+            create($dados);
+            header(<span class="hljs-string">"Location: produto.php?action=index"</span>);
+            <span class="hljs-keyword">break</span>;
+
+        <span class="hljs-comment">/**
+         * update: Recebe os dados do formulário e salva as alterações no banco
+         */</span>                    
+        <span class="hljs-keyword">case</span> <span class="hljs-string">"update"</span>:                    
+            <span class="hljs-keyword">break</span>;
+       
+    }
+
+}
+
+<span class="hljs-meta">?&gt;</span>
+
+</div></code></pre>
+<p>Desta forma ao acessarmos a URL <code>produto.php?action=create</code> declaramos nossa intenção da criar um novo produto e assim o arquivo <code>produto.php</code> popula a view apropriada. O resultado de acessar essa URL do nosso projeto será justamente a apresentação da view para criar um novo produto.</p>
+<h3 id="view-index">View index</h3>
+<p>Nesta view o objetivo é mostrar para o usuário uma lista de todos os produtos cadastrados. Para isso vamos criar o arquivo <code>views/produto_index.php</code>. Nesse arquivo vamos aproveitar os arquivos de <code>import_css.php</code>, <code>header.php</code> e <code>import_js.php</code> que criamos para a view <em>create</em>. Vamos assumir também que uma variável <code>$produtos</code> será acessível por meio desta view. Essa variável vai contar uma lista de produtos na forma de um array simples, onde cada elemento do array, um produto, será representado como um array associativo (formato chave =&gt; valor).</p>
+<p>O arquivo <code>views/produto_index.php</code> terá o seguinte conteúdo:</p>
+<pre><code class="language-html"><div>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Lista de Produtos<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+
+<span class="php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-keyword">include</span> <span class="hljs-string">'import_css.php'</span> <span class="hljs-meta">?&gt;</span></span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+
+    <span class="php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-keyword">include</span> <span class="hljs-string">'header.php'</span> <span class="hljs-meta">?&gt;</span></span>
+    
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"container col-md-8 col-12 mt-2"</span>&gt;</span>     
+        
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"py-2"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"btn btn-success"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"produto.php?action=create"</span>&gt;</span>Criar Produto<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+        <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Lista de Produtos<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+        
+        <span class="php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-keyword">if</span> ( <span class="hljs-keyword">isset</span>($produtos) &amp;&amp; $produtos ) { <span class="hljs-meta">?&gt;</span></span> 
+        
+        <span class="hljs-tag">&lt;<span class="hljs-name">table</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"table"</span>&gt;</span> 
+            <span class="hljs-tag">&lt;<span class="hljs-name">thead</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>                    
+                    <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>Id<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">th</span> <span class="hljs-attr">width</span>=<span class="hljs-string">"30%"</span>&gt;</span>Título<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">th</span> <span class="hljs-attr">width</span>=<span class="hljs-string">"40%"</span>&gt;</span>Conteúdo<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>                    
+                    <span class="hljs-tag">&lt;<span class="hljs-name">th</span> <span class="hljs-attr">width</span>=<span class="hljs-string">"10%"</span>&gt;</span>Preço<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>                    
+                    <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>                    
+                    <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">thead</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">tbody</span>&gt;</span>             
+                <span class="php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-keyword">foreach</span> ($produtos <span class="hljs-keyword">as</span> $produto) { <span class="hljs-meta">?&gt;</span></span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>                    
+                    <span class="php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-keyword">foreach</span> ($produto <span class="hljs-keyword">as</span> $key =&gt; $value) { <span class="hljs-meta">?&gt;</span></span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="php"><span class="hljs-meta">&lt;?</span>= $value <span class="hljs-meta">?&gt;</span></span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>                        
+                    <span class="php"><span class="hljs-meta">&lt;?php</span> } <span class="hljs-meta">?&gt;</span></span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"btn btn-link"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"produto.php?action=show&amp;id=&lt;?= $produto['id']?&gt;"</span>&gt;</span>Ver<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"btn btn-link"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"produto.php?action=edit&amp;id=&lt;?= $produto['id']?&gt;"</span>&gt;</span>Edit<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"btn btn-link"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"produto.php?action=destroy&amp;id=&lt;?= $produto['id']?&gt;"</span>&gt;</span>Delete<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>                           
+                <span class="php"><span class="hljs-meta">&lt;?php</span> } <span class="hljs-meta">?&gt;</span></span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">tbody</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">table</span>&gt;</span>
+        
+        <span class="php"><span class="hljs-meta">&lt;?php</span> } <span class="hljs-keyword">else</span> { <span class="hljs-meta">?&gt;</span></span> 
+        
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"alert alert-info"</span> <span class="hljs-attr">role</span>=<span class="hljs-string">"alert"</span>&gt;</span>
+            Nenhum produto cadastrado.
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        
+        <span class="php"><span class="hljs-meta">&lt;?php</span> } <span class="hljs-meta">?&gt;</span></span> 
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+
+<span class="php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-keyword">include</span> <span class="hljs-string">'import_js.php'</span> <span class="hljs-meta">?&gt;</span></span>
+
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</div></code></pre>
+<p>Para que essa página seja acessível por meio de novo arquivo de operações usando a URL <code>produtos.php?action=index</code> precisamos adicionar o código abaixo à ação &quot;action=index&quot;. Esse código executa a funcionalidade <code>all()</code> implementada em <code>produto_dao.php</code> que retorna todos os produtos na tabela <code>produtos</code> da base de dados, na variável <code>$produto</code>. Uma vez que essa variável contém a lista de produtos populamos a view <code>produto_index.php</code>, quem vai mostrar na tabela os produtos dessa lista.</p>
+<pre><code class="language-php"><div><span class="hljs-meta">&lt;?php</span>
+<span class="hljs-comment">// ... parte do arquivo produto.php </span>
+
+        <span class="hljs-comment">/**
+         * index: Exibe todas os produtos na base de dados
+         */</span>
+        <span class="hljs-keyword">case</span> <span class="hljs-string">"index"</span>:
+            $produtos = all();  
+            <span class="hljs-keyword">include</span>(<span class="hljs-string">"views/produto_index.php"</span>);
+            <span class="hljs-keyword">break</span>;
+<span class="hljs-comment">// ...</span>
+<span class="hljs-meta">?&gt;</span>
+</div></code></pre>
+<p>Assim, ao acessarmos a URL <code>produto.php?action=index</code> será apresentado um resultado similar ao seguinte:</p>
+<div style="border: 1px dashed black; padding: 5px;">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<nav class="navbar navbar-expand navbar-light bg-light">
+  <a class="navbar-brand" href="#">DES Loja</a>  
+  <div class="navbar-nav">      
+      <a class="nav-item nav-link" href="produtos.php?action=index"">Produtos</a>      
+  </div>
+</nav>
+</header>    
+    <div class="container col-md-8 col-12 mt-2">        
+<div class="py-2">
+<a class="btn btn-success" href="produto.php?action=create">Criar Produto</a>
+</div>
+<h2>Lista de Produtos</h2>
+<table class="table"> 
+<thead>
+    <tr>                    
+        <th>Id</th>
+        <th width="30%">Título</th>
+        <th width="40%">Conteúdo</th>                    
+        <th width="10%">Preço</th>                    
+        <th></th>                    
+        <th></th>
+        <th></th>
+    </tr>
+</thead>
+<tbody>             
+    <tr>                    
+        <td>3</td>                        
+        <td>Kit 4 pares de meias</td>                        
+        <td>Essas meias proporcionam conforto e proteção para os pés no dia a dia e durante suas atividades físicas</td>                        
+        <td>20</td>                        
+        <td><a class="btn btn-link" href="produto.php?action=show&id=3">Ver</a></td>
+        <td><a class="btn btn-link" href="produto.php?action=edit&id=3">Edit</a></td>
+        <td><a class="btn btn-link" href="produto.php?action=destroy&id=3">Delete</a></td>
+    </tr>                           
+    <tr>                    
+        <td>4</td>                        
+        <td>Coleção Livros do Harry Potter</td>                        
+        <td>É uma coleção muito legal</td>                        
+        <td>500</td>                        
+        <td><a class="btn btn-link" href="produto.php?action=show&id=4">Ver</a></td>
+        <td><a class="btn btn-link" href="produto.php?action=edit&id=4">Edit</a></td>
+        <td><a class="btn btn-link" href="produto.php?action=destroy&id=4">Delete</a></td>
+    </tr>                           
+    <tr>                    
+        <td>5</td>                        
+        <td>Boné</td>                        
+        <td>Este boné tem muito estilo.</td>                        
+        <td>15</td>                        
+        <td><a class="btn btn-link" href="produto.php?action=show&id=5">Ver</a></td>
+        <td><a class="btn btn-link" href="produto.php?action=edit&id=5">Edit</a></td>
+        <td><a class="btn btn-link" href="produto.php?action=destroy&id=5">Delete</a></td>
+    </tr>                           
+</tbody>
+</table>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</div>
 
     </body>
     </html>
