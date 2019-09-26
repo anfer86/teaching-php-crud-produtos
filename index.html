@@ -557,7 +557,7 @@ $produto_alterado = find(<span class="hljs-string">'4'</span>)
 <span class="hljs-meta">?&gt;</span>
 </div></code></pre>
 <p>Criamos o arquivo de teste</p>
-<p><code>testes_dao/produto_dao_find.php</code> tem o seguinte conteúdo:</p>
+<p><code>testes_dao/produto_dao_delete.php</code> tem o seguinte conteúdo:</p>
 <pre><code class="language-html"><div><span class="php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-comment">// arquivo testes_dao/produto_dao_delete.php</span>
 
 <span class="hljs-keyword">include</span>(<span class="hljs-string">'../produto_dao.php'</span>);
@@ -951,7 +951,7 @@ $action = $_GET[<span class="hljs-string">'action'</span>];
         <td>Kit 4 pares de meias</td>                        
         <td>Essas meias proporcionam conforto e proteção para os pés no dia a dia e durante suas atividades físicas</td>                        
         <td>20</td>                        
-        <td><a class="btn btn-link" href="produto.php?action=show&id=3">Ver</a></td>
+        <td><a class="btn btn-link" href="produto.php?action=show&id=3">Show</a></td>
         <td><a class="btn btn-link" href="produto.php?action=edit&id=3">Edit</a></td>
         <td><a class="btn btn-link" href="produto.php?action=destroy&id=3">Delete</a></td>
     </tr>                           
@@ -959,8 +959,8 @@ $action = $_GET[<span class="hljs-string">'action'</span>];
         <td>4</td>                        
         <td>Coleção Livros do Harry Potter</td>                        
         <td>É uma coleção muito legal</td>                        
-        <td>500</td>                        
-        <td><a class="btn btn-link" href="produto.php?action=show&id=4">Ver</a></td>
+        <td>500</td>                        ****
+        <td><a class="btn btn-link" href="produto.php?action=show&id=4">Show</a></td>****
         <td><a class="btn btn-link" href="produto.php?action=edit&id=4">Edit</a></td>
         <td><a class="btn btn-link" href="produto.php?action=destroy&id=4">Delete</a></td>
     </tr>                           
@@ -969,7 +969,7 @@ $action = $_GET[<span class="hljs-string">'action'</span>];
         <td>Boné</td>                        
         <td>Este boné tem muito estilo.</td>                        
         <td>15</td>                        
-        <td><a class="btn btn-link" href="produto.php?action=show&id=5">Ver</a></td>
+        <td><a class="btn btn-link" href="produto.php?action=show&id=5">Show</a></td>
         <td><a class="btn btn-link" href="produto.php?action=edit&id=5">Edit</a></td>
         <td><a class="btn btn-link" href="produto.php?action=destroy&id=5">Delete</a></td>
     </tr>                           
@@ -980,6 +980,9 @@ $action = $_GET[<span class="hljs-string">'action'</span>];
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </div>
+<p>Podemos observar nessa lista de produtos, as funcionalidades de <code>Show</code>, <code>Edit</code> e <code>Delete</code>. Ao passar o mouse por cima dos links e verificar os seus endereços são de operações relacionadas a produtos: <code>action=show</code>, <code>action=edit</code> e <code>action=destroy</code>. Além da informação <code>action</code> enviada via GET, também foi enviada a informação do <code>id</code> do produto que queremos, visualizar, editar ou apagar. Assim a URL <code>produto.php?action=edit&amp;id=3</code> é o endereço que inidica a intenção de alterar os dados do produto de id igual 3. Nas próximas duas seções vamos implementar as views para as operações de <code>Show</code> e <code>Edit</code>.</p>
+<p><strong>Desafio 1:</strong> Implementar view <code>views/produto_show.php</code> e relacionar ela com as operações no arquivo <code>produto.php</code>.</p>
+<p><strong>Desafio 1:</strong> Implementar view <code>views/produto_edit.php</code> e relacionar ela com as operações no arquivo <code>produto.php</code>.</p>
 
     </body>
     </html>

@@ -528,7 +528,7 @@ function delete($id){
 
 Criamos o arquivo de teste 
 
-`testes_dao/produto_dao_find.php` tem o seguinte conteúdo:
+`testes_dao/produto_dao_delete.php` tem o seguinte conteúdo:
 
 ```html
 <?php // arquivo testes_dao/produto_dao_delete.php
@@ -944,8 +944,8 @@ Assim, ao acessarmos a URL `produto.php?action=index` será apresentado um resul
         <td>4</td>                        
         <td>Coleção Livros do Harry Potter</td>                        
         <td>É uma coleção muito legal</td>                        
-        <td>500</td>                        
-        <td><a class="btn btn-link" href="produto.php?action=show&id=4">Show</a></td>
+        <td>500</td>                        ****
+        <td><a class="btn btn-link" href="produto.php?action=show&id=4">Show</a></td>****
         <td><a class="btn btn-link" href="produto.php?action=edit&id=4">Edit</a></td>
         <td><a class="btn btn-link" href="produto.php?action=destroy&id=4">Delete</a></td>
     </tr>                           
