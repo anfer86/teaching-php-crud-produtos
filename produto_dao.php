@@ -114,5 +114,50 @@ function delete($id){
     return $result;
 }
 
+function all_order_by_preco_asc(){    
+    $conn = get_connection();
+    $sql = 'SELECT id, titulo, descricao, preco 
+            FROM produto ORDER BY preco ASC';
+    $stmt = $conn->prepare($sql);
+    $instances = [];
+    $stmt->execute();
+    $result = $stmt->get_result();
+    while ($row = $result->fetch_assoc())
+        $instances[] = $row;    
+    $stmt->close();    
+    $conn->close();    
+    return $instances;
+}
+
+function all_order_by_preco($order){    
+    $conn = get_connection();
+    $sql = 'SELECT id, titulo, descricao, preco 
+            FROM produto ORDER BY preco ' . $order;
+    $stmt = $conn->prepare($sql);
+    $instances = [];
+    $stmt->execute();
+    $result = $stmt->get_result();
+    while ($row = $result->fetch_assoc())
+        $instances[] = $row;    
+    $stmt->close();    
+    $conn->close();    
+    return $instances;
+}
+
+function all_order_by($column, $order){    
+    $conn = get_connection();
+    $sql = 'SELECT id, titulo, descricao, preco 
+            FROM produto 
+            ORDER BY ' . $column . ' ' . $order;
+    $stmt = $conn->prepare($sql);
+    $instances = [];
+    $stmt->execute();
+    $result = $stmt->get_result();
+    while ($row = $result->fetch_assoc())
+        $instances[] = $row;    
+    $stmt->close();    
+    $conn->close();    
+    return $instances;
+}
 
 ?>

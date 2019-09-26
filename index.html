@@ -111,7 +111,7 @@ $('body').mouseover(function(){
 <tbody>
 <tr>
 <td>GET</td>
-<td>/produto.php</td>
+<td>/produto.php?action=index</td>
 <td>index</td>
 <td>all</td>
 <td>Exibe todas os produtos na base de dados</td>
@@ -635,7 +635,7 @@ Não foi possível apagar esse produto.
         
         <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Cadastrar Produto<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
         
-        <span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">method</span>=<span class="hljs-string">"POST"</span> <span class="hljs-attr">action</span>=<span class="hljs-string">"usuario_operacoes.php?action=store"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">method</span>=<span class="hljs-string">"POST"</span> <span class="hljs-attr">action</span>=<span class="hljs-string">"produto.php?action=store"</span>&gt;</span>
 
             <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-group"</span>&gt;</span>
                 <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"nome"</span>&gt;</span>Título<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
@@ -671,7 +671,7 @@ Não foi possível apagar esse produto.
 <pre><code class="language-html"><div><span class="hljs-comment">&lt;!-- arquivo views/import_css.php --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"</span> <span class="hljs-attr">integrity</span>=<span class="hljs-string">"sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"</span> <span class="hljs-attr">crossorigin</span>=<span class="hljs-string">"anonymous"</span>&gt;</span>
 </div></code></pre>
-<p>Ainda dentro do quadro <code>Bootstrap CDN</code> temos um subquadro titulado de <code>JS, Popper.js, and jQuery</code>. As linhas de código presentes nesse subquadro vamos copiá-las para o arquivo <code>import_js.css</code> da seguinte forma:</p>
+<p>Ainda dentro do quadro <code>Bootstrap CDN</code> temos um subquadro titulado de <code>JS, Popper.js, and jQuery</code>. As linhas de código presentes nesse subquadro vamos copiá-las para o arquivo <code>import_js.php</code> da seguinte forma:</p>
 <pre><code class="language-html"><div><span class="hljs-comment">&lt;!-- arquivo views/import_js.php --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://code.jquery.com/jquery-3.3.1.slim.min.js"</span> <span class="hljs-attr">integrity</span>=<span class="hljs-string">"sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"</span> <span class="hljs-attr">crossorigin</span>=<span class="hljs-string">"anonymous"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"</span> <span class="hljs-attr">integrity</span>=<span class="hljs-string">"sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"</span> <span class="hljs-attr">crossorigin</span>=<span class="hljs-string">"anonymous"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>

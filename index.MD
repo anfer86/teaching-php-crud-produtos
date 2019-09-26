@@ -63,7 +63,7 @@ Para implementar as funcionalidades de CRUD para a entidade `produto` vamos defi
 
 | Requisição | URL | Operação | Usa função DAO  | Descrição  |
 |---|---|---|---|---|
-| GET | /produto.php | index | all | Exibe todas os produtos na base de dados |
+| GET | /produto.php?action=index | index | all | Exibe todas os produtos na base de dados |
 | GET | /produto.php?action=create | create | - | Exibe o formulário de criar produto |
 | POST | /produto.php?action=store | store  | create | Recebe os dados do formulário e armazena na base de dados |
 | GET  | /produto.php?action=show&id={id} | show | find | Procura o produto {id} na base de dados e exibe os dados desse produto 
@@ -601,7 +601,7 @@ Vamos iniciar pela criação da view create. Essa página consiste em um formul�
         
         <h2>Cadastrar Produto</h2>
         
-        <form method="POST" action="usuario_operacoes.php?action=store">
+        <form method="POST" action="produto.php?action=store">
 
             <div class="form-group">
                 <label for="nome">Título</label>
@@ -642,7 +642,7 @@ Para fazer as páginas de `import_css.php` e `import_js.php` vamos acessar o sit
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 ```
 
-Ainda dentro do quadro `Bootstrap CDN` temos um subquadro titulado de `JS, Popper.js, and jQuery`. As linhas de código presentes nesse subquadro vamos copiá-las para o arquivo `import_js.css` da seguinte forma:
+Ainda dentro do quadro `Bootstrap CDN` temos um subquadro titulado de `JS, Popper.js, and jQuery`. As linhas de código presentes nesse subquadro vamos copiá-las para o arquivo `import_js.php` da seguinte forma:
 
 ```html
 <!-- arquivo views/import_js.php -->
