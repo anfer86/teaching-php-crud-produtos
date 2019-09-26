@@ -660,8 +660,7 @@ Por fim, vamos criar o nosso arquivo `header.php` que será o cabeçalho de toda
 <nav class="navbar navbar-expand navbar-light bg-light">
   <a class="navbar-brand" href="#">DES Loja</a>  
   <div class="navbar-nav">      
-      <a class="nav-item nav-link" href="produtos.php?action=index"">Produtos</a>      
-  </div>
+      <a class="nav-item nav-link" href="produtos.php?action=index">Produtos</a> 
   </div>
 </nav>
 
