@@ -684,7 +684,7 @@ O reusltado final da implementação dos três arquivos, ao acessarmos o arquivo
     
 <h2>Cadastrar Produto</h2>
         
-<form method="POST" action="usuario_operacoes.php?action=store">
+<form method="POST" action="produto.php?action=store">
 
 <div class="form-group">
     <label for="nome">Título</label>
@@ -727,7 +727,7 @@ Como mencionamos no inicio deste projeto para acessar a view que exibe o formul�
 
 Vamos implementar essas duas funcionalidades em um arquivo na pasta raiz do projeto, chamado `produtos.php`. Já vamos deixar o código pronto para implementar as outras funcionalidades também.
 
-Quando a ação solicitada for `action=create` via GET será executada a inclusão do arquivo `views/usuario_create.php` para mostrar para o usuário o formulário com a página. Quando a ação solicitada for `action=store` via POST será executado a função `create($produto)` definida no arquivo `produto_dao.php`, quem vai de fato cadastrar o produto na base de dados. Após isso, é gerada uma requisição GET para a ação `action=index`, usando a função `header("Location: produto.php?action=index")`, que vai mostar a lista de produtos (esta funcionalidade não esta implementada ainda, mas será implementada logo a seguir).
+Quando a ação solicitada for `action=create` via GET será executada a inclusão do arquivo `views/produto_create.php` para mostrar para o usuário o formulário com a página. Quando a ação solicitada for `action=store` via POST será executado a função `create($produto)` definida no arquivo `produto_dao.php`, quem vai de fato cadastrar o produto na base de dados. Após isso, é gerada uma requisição GET para a ação `action=index`, usando a função `header("Location: produto.php?action=index")`, que vai mostar a lista de produtos (esta funcionalidade não esta implementada ainda, mas será implementada logo a seguir).
 
 ```php
 <?php // arquivo produto.php
@@ -971,8 +971,316 @@ Podemos observar nessa lista de produtos, as funcionalidades de `Show`, `Edit` e
 
 **Desafio 1:** Implementar view `views/produto_show.php` e relacionar ela com as operações no arquivo `produto.php`.
 
-**Desafio 1:** Implementar view `views/produto_edit.php` e relacionar ela com as operações no arquivo `produto.php`.
+**Desafio 2:** Implementar view `views/produto_edit.php` e relacionar ela com as operações no arquivo `produto.php`.
+
+### View show
+
+Nesta view o objetivo é mostrar para o usuário as informações de um produto. Para isso primeiro vamos criar um arquivo chamado `views/produto_show.php` e depois vamos implementar a ação no arquivo `produto.php` para que seja possível acessar os dados de um produto usando a URL `produto.php?action=show&id=1` (para exibir o produto id=1).
+
+Para implementar o arquivo `views/produto_show.php` vamos assumir que uma variável `$produto` será acessível por meio desta view e que contém os dados do produto na forma de um array associativo (formato chave => valor).
+
+```html
+<!-- arquivo views/produto_show.php -->
+<html>
+
+<head>
+    <title>Mostrar Produto</title>
+</head>
+
+<?php include 'import_css.php' ?>
+
+<body>
+
+    <?php include 'header.php' ?>
+
+    <div class="container col-lg-4 col-md-6 col-sm-8 col-10 mt-2">    
+
+        <?php if ( isset($produto) && $produto ) { ?> 
+
+        <h2>Mostrar dados do Produto</h2>
+        
+        <div class="row my-2">
+            <div class="col-4 font-weight-bold">Título</div>
+            <div class="col-8"><?= $produto['titulo'] ?></div>            
+        </div>          
+
+        <div class="row my-2">
+            <div class="col-4 font-weight-bold">Descricão</div>
+            <div class="col-8"><?= $produto['descricao'] ?></div>            
+        </div>            
+
+        <div class="row my-2">
+            <div class="col-4 font-weight-bold">Preco</div>
+            <div class="col-8"><?= $produto['preco'] ?></div>            
+        </div>            
+        
+        <div class="btn-group col-12 mt-3">
+            <a class="btn btn-success" href="produto.php?action=edit">Editar Dados</a>
+            <a class="btn btn-danger"  href="produto.php?action=destroy">Apagar Produto</a>
+        </div>
+
+        <?php } else { ?>
+
+        <div class="alert alert-info" role="alert">
+            Nenhum produto para mostrar.
+        </div>        
+
+        <?php } ?>       
+
+    </div>
+
+</body>
+
+<?php include 'import_js.php' ?>
+
+</html>
+```
+
+Para que essa página seja acessada usando a URL `produtos.php?action=show&id=1` precisamos adicionar o código abaixo à ação "action=show". Esse código utiliza a informação `id` enviada pela URL na requisição GET e executa a funcionalidade `find($id)`, implementada em `produto_dao.php`, que procura na base de dados o referido produto e retorna os dados do produto. Esses dados são armazenados na variável `$produto`. Uma vez que essa variável contém os dados do produto que queremos mostrar populamos a view `produto_show.php`.
+
+```php
+<?php
+// ... parte do arquivo produto.php 
+
+        /**
+         * index: Exibe todas os produtos na base de dados
+         */
+        case "show":
+            $produto = find($dados['id']);
+            include("views/produto_show.php");
+            break;
+// ...
+?>
+```
+
+Assim, ao acessarmos a URL `produto.php?action=show&id=1`, para um `id=1` existente na base de dados será apresentado um resultado similar ao seguinte:
+
+<div style="border: 1px dashed black; padding: 5px;">
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<body>
+
+<header>
+
+<nav class="navbar navbar-expand navbar-light bg-light">
+  <a class="navbar-brand" href="#">DES Loja</a>  
+  <div class="navbar-nav">      
+      <a class="nav-item nav-link" href="produtos.php?action=index"">Produtos</a>  
+  </div>
+</nav>
+
+</header>
+
+<div class="container col-lg-4 col-md-6 col-sm-8 col-10 mt-2">    
+
+<h2>Mostrar dados do Produto</h2>
+
+<div class="row my-2">
+    <div class="col-4 font-weight-bold">Título</div>
+    <div class="col-8">Kit 4 pares de meias</div>            
+</div>          
+
+<div class="row my-2">
+    <div class="col-4 font-weight-bold">Descricão</div>
+    <div class="col-8">Essas meias proporcionam conforto e proteção para os pés no dia a dia e durante suas atividades físicas</div>            
+</div>            
+
+<div class="row my-2">
+    <div class="col-4 font-weight-bold">Preco</div>
+    <div class="col-8">20</div>            
+</div>            
+
+<div class="btn-group col-12 mt-3">
+    <a class="btn btn-success" href="produto.php?action=edit">Editar Dados</a>
+    <a class="btn btn-danger"  href="produto.php?action=destroy">Apagar Produto</a>
+</div>
+
+</div>
+
+</body>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</div>
 
 
+### View edit
 
+Nesta view o objetivo é mostrar para o usuário as informações de um produto em um formulário para que o mesmo possa alterar os dados do produto. Esse formulário certamente será parecido com o formulário construído para a view create.
 
+Primeiramente vamos criar um arquivo chamado `views/produto_edit.php` e depois vamos implementar a ação no arquivo `produto.php` para que seja possível mostrar o formulário de edição usando a URL `produto.php?action=edit&id=1` (para editar o produto id=1).
+
+Para implementar o arquivo `views/produto_edit.php` também vamos assumir que uma variável `$produto` será acessível por meio desta view e que contém os dados do produto na forma de um array associativo (formato chave => valor).
+
+```html
+<html>
+
+<head>
+    <title>Editar Produto</title>
+</head>
+
+<?php include 'import_css.php' ?>
+
+<body>
+
+    <?php include 'header.php' ?>
+
+    <div class="container col-lg-4 col-md-6 col-sm-8 col-10 mt-2">        
+        
+        <h2>Editar Produto</h2>
+        
+        <form method="POST" action="produto.php?action=update">
+
+            <input type="hidden" name="id" value="<?= $produto['id'] ?>">
+
+            <div class="form-group">
+                <label for="nome">Título</label>
+                <input type="text" class="form-control" id="titulo" 
+                name="titulo" placeholder="Escreva o título ou nome do produto"
+                value="<?= $produto['titulo'] ?>">
+            </div>            
+
+            <div class="form-group">
+                <label for="nome">Descrição</label>
+                <textarea class="form-control" id="descricao" name="descricao" 
+                rows="4"><?= $produto['descricao'] ?></textarea>                
+            </div>            
+
+            <div class="form-group">
+                <label for="nome">Preço</label>
+                <div class="input-group mb-2">
+                <div class="input-group-prepend input-group-text">R$</div>
+                <input type="number" class="form-control col-3" id="preco" name="preco" 
+                min="0" step="0.01" placeholder="0,00" value="<?= $produto['preco'] ?>">
+                </div>
+            </div>            
+
+            <button type="submit" id="bto-cadastrar" class="btn btn-primary">Confirmar</button>
+
+        </form>
+    </div>
+
+</body>
+
+<?php include 'import_js.php' ?>
+
+</html>
+```
+
+Para que essa página seja acessada usando a URL `produtos.php?action=edit&id=1` precisamos adicionar o código abaixo à ação "action=edit". Este código também utiliza a informação `id` enviada pela URL na requisição GET e executa a funcionalidade `find($id)`, que procura na base de dados o referido produto e retorna os dados do produto. Esses dados são armazenados na variável `$produto` e utilizados para popular a view `produto_edit.php`.
+
+```php
+<?php
+// ... parte do arquivo produto.php 
+
+        /**
+         * index: Exibe todas os produtos na base de dados
+         */
+        case "edit":
+            $produto = find($dados['id']);
+            include("views/produto_edit.php");
+            break;
+// ...
+?>
+```
+
+Assim, ao acessarmos a URL `produto.php?action=edit&id=1`, para um `id=1` existente na base de dados será apresentado um resultado similar ao seguinte:
+
+<div style="border: 1px dashed black; padding: 5px;">
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<body>
+
+<header>
+
+<nav class="navbar navbar-expand navbar-light bg-light">
+  <a class="navbar-brand" href="#">DES Loja</a>  
+  <div class="navbar-nav">      
+      <a class="nav-item nav-link" href="produtos.php?action=index"">Produtos</a>      
+  </div>
+</nav>
+
+</header>
+    <div class="container col-lg-4 col-md-6 col-sm-8 col-10 mt-2">        
+        
+<h2>Editar Produto</h2>
+
+<form method="POST" action="produto.php?action=store">
+
+<input type="hidden" name="id" value="3">
+
+<div class="form-group">
+    <label for="nome">Título</label>
+    <input type="text" class="form-control" id="titulo" 
+    name="titulo" placeholder="Escreva o título ou nome do produto"
+    value="Kit 4 pares de meias">
+</div>            
+
+<div class="form-group">
+    <label for="nome">Descrição</label>
+    <textarea class="form-control" id="descricao" name="descricao" 
+    rows="4">Essas meias proporcionam conforto e proteção para os pés no dia a dia e durante suas atividades físicas</textarea>                
+</div>            
+
+<div class="form-group">
+    <label for="nome">Preço</label>
+    <div class="input-group mb-2">
+    <div class="input-group-prepend input-group-text">R$</div>
+    <input type="number" class="form-control col-3" id="preco" name="preco" 
+    min="0" step="0.01" placeholder="0,00" value="20">
+    </div>
+</div>            
+
+<button type="submit" id="bto-cadastrar" class="btn btn-primary">Salvar</button>
+
+</form>
+</div>
+
+</body>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</div>
+
+O botão `Salvar` deve executar a operação de atualizar os dados. Para isso ao clicar no botão será gerada uma requisição via POST para a URL `produto.php?action=update`. Portanto, devemos implementar essa ação no arquivo `produto.php`. Essa ação vai executar a operação de `edit($produto)` implementada no arquivo `produto_dao.php` e após alterar as informações vai redirecionar o usuário para a lista de produtos.
+
+```php
+<?php
+// ... parte do arquivo produto.php 
+
+        /**
+         * update: Recebe os dados do formulário e salva as alterações no banco
+         */                    
+        case "update":                    
+            edit($dados);
+            header("Location: produto.php?action=index");
+            break;
+// ...
+?>
+```
+
+Para finalizar as operações de CRUD precisamos implementar a funcionalidade de apagar um registro na base de dados. A `action=destroy` é uma ação realizada via GET com a seguinte URL `produto.php?action=destroy&id=1` (para apagar o produto de id=1). A implementação dessa funcionalidade no arquivo `produto.php` é realizada a seguir:
+
+```php
+<?php
+// ... parte do arquivo produto.php 
+
+        /**
+         * update: Recebe os dados do formulário e salva as alterações no banco
+         */                    
+        case "destroy":                    
+            delete($dados);
+            header("Location: produto.php?action=index");
+            break;
+// ...
+?>
+```
+
+Com essa funcionalidade concluímos o nosso CRUD de Produtos. Certamente existem melhorias a serem realizadas. Uma dessas melhorias é maior interação com o usuário pedindo confirmações para editar ou apagar produtos. Isso pode ser feito utilizando Javascript.
+
+**Desafio 1:** Implemente a mensagem de confirmação em Javascript (JQuery se preferir) para quando o usuário tiver a inteção de apagar um produto.
+
+**Desafio 2:** Implemente as mensagem de confirmação em Javascript para quando o usuário estiver confirmando a edição de dados de um produto.
