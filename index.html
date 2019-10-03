@@ -1020,8 +1020,8 @@ $action = $_GET[<span class="hljs-string">'action'</span>];
         <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>            
         
         <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"btn-group col-12 mt-3"</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"btn btn-success"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"produto.php?action=edit"</span>&gt;</span>Editar Dados<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"btn btn-danger"</span>  <span class="hljs-attr">href</span>=<span class="hljs-string">"produto.php?action=destroy"</span>&gt;</span>Apagar Produto<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"btn btn-success"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"produto.php?action=edit&amp;id=&lt;?= $produto['id']?&gt;"</span>&gt;</span>Editar Dados<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"btn btn-danger"</span>  <span class="hljs-attr">href</span>=<span class="hljs-string">"produto.php?action=destroy&amp;id=&lt;?= $produto['id']?&gt;"</span>&gt;</span>Apagar Produto<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
         <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 
         <span class="php"><span class="hljs-meta">&lt;?php</span> } <span class="hljs-keyword">else</span> { <span class="hljs-meta">?&gt;</span></span>
@@ -1226,7 +1226,7 @@ $action = $_GET[<span class="hljs-string">'action'</span>];
          * update: Recebe os dados do formulário e salva as alterações no banco
          */</span>                    
         <span class="hljs-keyword">case</span> <span class="hljs-string">"destroy"</span>:                    
-            delete($dados);
+            delete($dados[<span class="hljs-string">'id'</span>]);
             header(<span class="hljs-string">"Location: produto.php?action=index"</span>);
             <span class="hljs-keyword">break</span>;
 <span class="hljs-comment">// ...</span>

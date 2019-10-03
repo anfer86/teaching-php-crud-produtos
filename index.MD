@@ -1015,8 +1015,8 @@ Para implementar o arquivo `views/produto_show.php` vamos assumir que uma variá
         </div>            
         
         <div class="btn-group col-12 mt-3">
-            <a class="btn btn-success" href="produto.php?action=edit">Editar Dados</a>
-            <a class="btn btn-danger"  href="produto.php?action=destroy">Apagar Produto</a>
+            <a class="btn btn-success" href="produto.php?action=edit&id=<?= $produto['id']?>">Editar Dados</a>
+            <a class="btn btn-danger"  href="produto.php?action=destroy&id=<?= $produto['id']?>">Apagar Produto</a>
         </div>
 
         <?php } else { ?>
@@ -1272,7 +1272,7 @@ Para finalizar as operações de CRUD precisamos implementar a funcionalidade de
          * update: Recebe os dados do formulário e salva as alterações no banco
          */                    
         case "destroy":                    
-            delete($dados);
+            delete($dados['id']);
             header("Location: produto.php?action=index");
             break;
 // ...
