@@ -660,7 +660,7 @@ Por fim, vamos criar o nosso arquivo `header.php` que será o cabeçalho de toda
 <nav class="navbar navbar-expand navbar-light bg-light">
   <a class="navbar-brand" href="#">DES Loja</a>  
   <div class="navbar-nav">      
-      <a class="nav-item nav-link" href="produtos.php?action=index">Produtos</a> 
+      <a class="nav-item nav-link" href="produto.php?action=index">Produtos</a> 
   </div>
 </nav>
 
@@ -725,7 +725,7 @@ Como mencionamos no inicio deste projeto para acessar a view que exibe o formul�
 | POST | /produto.php?action=store | store  | create | Recebe os dados do formulário e armazena na base de dados |
 |
 
-Vamos implementar essas duas funcionalidades em um arquivo na pasta raiz do projeto, chamado `produtos.php`. Já vamos deixar o código pronto para implementar as outras funcionalidades também.
+Vamos implementar essas duas funcionalidades em um arquivo na pasta raiz do projeto, chamado `produto.php`. Já vamos deixar o código pronto para implementar as outras funcionalidades também.
 
 Quando a ação solicitada for `action=create` via GET será executada a inclusão do arquivo `views/produto_create.php` para mostrar para o usuário o formulário com a página. Quando a ação solicitada for `action=store` via POST será executado a função `create($produto)` definida no arquivo `produto_dao.php`, quem vai de fato cadastrar o produto na base de dados. Após isso, é gerada uma requisição GET para a ação `action=index`, usando a função `header("Location: produto.php?action=index")`, que vai mostar a lista de produtos (esta funcionalidade não esta implementada ainda, mas será implementada logo a seguir).
 
@@ -1036,7 +1036,7 @@ Para implementar o arquivo `views/produto_show.php` vamos assumir que uma variá
 </html>
 ```
 
-Para que essa página seja acessada usando a URL `produtos.php?action=show&id=1` precisamos adicionar o código abaixo à ação "action=show". Esse código utiliza a informação `id` enviada pela URL na requisição GET e executa a funcionalidade `find($id)`, implementada em `produto_dao.php`, que procura na base de dados o referido produto e retorna os dados do produto. Esses dados são armazenados na variável `$produto`. Uma vez que essa variável contém os dados do produto que queremos mostrar populamos a view `produto_show.php`.
+Para que essa página seja acessada usando a URL `produto.php?action=show&id=1` precisamos adicionar o código abaixo à ação "action=show". Esse código utiliza a informação `id` enviada pela URL na requisição GET e executa a funcionalidade `find($id)`, implementada em `produto_dao.php`, que procura na base de dados o referido produto e retorna os dados do produto. Esses dados são armazenados na variável `$produto`. Uma vez que essa variável contém os dados do produto que queremos mostrar populamos a view `produto_show.php`.
 
 ```php
 <?php
@@ -1065,7 +1065,7 @@ Assim, ao acessarmos a URL `produto.php?action=show&id=1`, para um `id=1` existe
 <nav class="navbar navbar-expand navbar-light bg-light">
   <a class="navbar-brand" href="#">DES Loja</a>  
   <div class="navbar-nav">      
-      <a class="nav-item nav-link" href="produtos.php?action=index"">Produtos</a>  
+      <a class="nav-item nav-link" href="produto.php?action=index"">Produtos</a>  
   </div>
 </nav>
 
@@ -1168,7 +1168,7 @@ Para implementar o arquivo `views/produto_edit.php` também vamos assumir que um
 </html>
 ```
 
-Para que essa página seja acessada usando a URL `produtos.php?action=edit&id=1` precisamos adicionar o código abaixo à ação "action=edit". Este código também utiliza a informação `id` enviada pela URL na requisição GET e executa a funcionalidade `find($id)`, que procura na base de dados o referido produto e retorna os dados do produto. Esses dados são armazenados na variável `$produto` e utilizados para popular a view `produto_edit.php`.
+Para que essa página seja acessada usando a URL `produto.php?action=edit&id=1` precisamos adicionar o código abaixo à ação "action=edit". Este código também utiliza a informação `id` enviada pela URL na requisição GET e executa a funcionalidade `find($id)`, que procura na base de dados o referido produto e retorna os dados do produto. Esses dados são armazenados na variável `$produto` e utilizados para popular a view `produto_edit.php`.
 
 ```php
 <?php
@@ -1197,7 +1197,7 @@ Assim, ao acessarmos a URL `produto.php?action=edit&id=1`, para um `id=1` existe
 <nav class="navbar navbar-expand navbar-light bg-light">
   <a class="navbar-brand" href="#">DES Loja</a>  
   <div class="navbar-nav">      
-      <a class="nav-item nav-link" href="produtos.php?action=index"">Produtos</a>      
+      <a class="nav-item nav-link" href="produto.php?action=index"">Produtos</a>      
   </div>
 </nav>
 

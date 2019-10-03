@@ -684,7 +684,7 @@ Não foi possível apagar esse produto.
 <span class="hljs-tag">&lt;<span class="hljs-name">nav</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"navbar navbar-expand navbar-light bg-light"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"navbar-brand"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#"</span>&gt;</span>DES Loja<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>  
   <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"navbar-nav"</span>&gt;</span>      
-      <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"nav-item nav-link"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"produtos.php?action=index"</span>&gt;</span>Produtos<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span> 
+      <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"nav-item nav-link"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"produto.php?action=index"</span>&gt;</span>Produtos<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span> 
   <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">nav</span>&gt;</span>
 
@@ -759,7 +759,7 @@ Não foi possível apagar esse produto.
 </tr>
 </tbody>
 </table>
-<p>Vamos implementar essas duas funcionalidades em um arquivo na pasta raiz do projeto, chamado <code>produtos.php</code>. Já vamos deixar o código pronto para implementar as outras funcionalidades também.</p>
+<p>Vamos implementar essas duas funcionalidades em um arquivo na pasta raiz do projeto, chamado <code>produto.php</code>. Já vamos deixar o código pronto para implementar as outras funcionalidades também.</p>
 <p>Quando a ação solicitada for <code>action=create</code> via GET será executada a inclusão do arquivo <code>views/produto_create.php</code> para mostrar para o usuário o formulário com a página. Quando a ação solicitada for <code>action=store</code> via POST será executado a função <code>create($produto)</code> definida no arquivo <code>produto_dao.php</code>, quem vai de fato cadastrar o produto na base de dados. Após isso, é gerada uma requisição GET para a ação <code>action=index</code>, usando a função <code>header(&quot;Location: produto.php?action=index&quot;)</code>, que vai mostar a lista de produtos (esta funcionalidade não esta implementada ainda, mas será implementada logo a seguir).</p>
 <pre><code class="language-php"><div><span class="hljs-meta">&lt;?php</span> <span class="hljs-comment">// arquivo produto.php</span>
 
@@ -1040,7 +1040,7 @@ $action = $_GET[<span class="hljs-string">'action'</span>];
 
 <span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
 </div></code></pre>
-<p>Para que essa página seja acessada usando a URL <code>produtos.php?action=show&amp;id=1</code> precisamos adicionar o código abaixo à ação &quot;action=show&quot;. Esse código utiliza a informação <code>id</code> enviada pela URL na requisição GET e executa a funcionalidade <code>find($id)</code>, implementada em <code>produto_dao.php</code>, que procura na base de dados o referido produto e retorna os dados do produto. Esses dados são armazenados na variável <code>$produto</code>. Uma vez que essa variável contém os dados do produto que queremos mostrar populamos a view <code>produto_show.php</code>.</p>
+<p>Para que essa página seja acessada usando a URL <code>produto.php?action=show&amp;id=1</code> precisamos adicionar o código abaixo à ação &quot;action=show&quot;. Esse código utiliza a informação <code>id</code> enviada pela URL na requisição GET e executa a funcionalidade <code>find($id)</code>, implementada em <code>produto_dao.php</code>, que procura na base de dados o referido produto e retorna os dados do produto. Esses dados são armazenados na variável <code>$produto</code>. Uma vez que essa variável contém os dados do produto que queremos mostrar populamos a view <code>produto_show.php</code>.</p>
 <pre><code class="language-php"><div><span class="hljs-meta">&lt;?php</span>
 <span class="hljs-comment">// ... parte do arquivo produto.php </span>
 
@@ -1062,7 +1062,7 @@ $action = $_GET[<span class="hljs-string">'action'</span>];
 <nav class="navbar navbar-expand navbar-light bg-light">
   <a class="navbar-brand" href="#">DES Loja</a>  
   <div class="navbar-nav">      
-      <a class="nav-item nav-link" href="produtos.php?action=index"">Produtos</a>  
+      <a class="nav-item nav-link" href="produto.php?action=index"">Produtos</a>  
   </div>
 </nav>
 </header>
@@ -1147,7 +1147,7 @@ $action = $_GET[<span class="hljs-string">'action'</span>];
 
 <span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
 </div></code></pre>
-<p>Para que essa página seja acessada usando a URL <code>produtos.php?action=edit&amp;id=1</code> precisamos adicionar o código abaixo à ação &quot;action=edit&quot;. Este código também utiliza a informação <code>id</code> enviada pela URL na requisição GET e executa a funcionalidade <code>find($id)</code>, que procura na base de dados o referido produto e retorna os dados do produto. Esses dados são armazenados na variável <code>$produto</code> e utilizados para popular a view <code>produto_edit.php</code>.</p>
+<p>Para que essa página seja acessada usando a URL <code>produto.php?action=edit&amp;id=1</code> precisamos adicionar o código abaixo à ação &quot;action=edit&quot;. Este código também utiliza a informação <code>id</code> enviada pela URL na requisição GET e executa a funcionalidade <code>find($id)</code>, que procura na base de dados o referido produto e retorna os dados do produto. Esses dados são armazenados na variável <code>$produto</code> e utilizados para popular a view <code>produto_edit.php</code>.</p>
 <pre><code class="language-php"><div><span class="hljs-meta">&lt;?php</span>
 <span class="hljs-comment">// ... parte do arquivo produto.php </span>
 
@@ -1169,7 +1169,7 @@ $action = $_GET[<span class="hljs-string">'action'</span>];
 <nav class="navbar navbar-expand navbar-light bg-light">
   <a class="navbar-brand" href="#">DES Loja</a>  
   <div class="navbar-nav">      
-      <a class="nav-item nav-link" href="produtos.php?action=index"">Produtos</a>      
+      <a class="nav-item nav-link" href="produto.php?action=index"">Produtos</a>      
   </div>
 </nav>
 </header>
