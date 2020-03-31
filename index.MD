@@ -222,8 +222,8 @@ A segunda funcionalidade de DAO que vamos implementar é o `create`. Esta funç�
 <?php  // ... continuando o arquivo produto_dao.php
 
 /**
- * A função create($produto) recebe os dados de um produto e insere um registro
- * na tabela `produto` da base de dados.
+ * A função create($produto) recebe os dados de um produto 
+ * e insere um registro na tabela `produto` da base de dados.
  * 
  * @param array um produto na forma de array no formato chave => valor.
  * 
@@ -238,14 +238,14 @@ function create($produto){
         $produto['titulo'], 
         $produto['descricao'], 
         $produto['preco']);    
-    $stmt->execute();
-    $result = $stmt->get_result();
+    $success = $stmt->execute();    
     $stmt->close();
     $conn->close();
-    return $result;
+    return $success;
 }
 ?>
 ```
+Para que a nossa função retorne True se o produto foi criado na base de dados, e False, caso contrário devemos usar o retorno da função `execute` ([ver documentação](https://www.php.net/manual/pt_BR/mysqli-stmt.execute.php)), a qual retorna True se a operação de `insert` foi realizada corretamente e False, caso contrário.
 
 Após isso, vamos criar um novo programa de teste para testar essa funcionalidade. O arquivo `testes_dao/produto_dao_create.php` tem o seguinte conteúdo:
 
@@ -309,8 +309,9 @@ A funcionalidade `find` recebe como parâmetro o id de um produto e tem como obj
 <?php  // ... continuando o arquivo produto_dao.php
 
 /**
- * A função find($id) recebe id de um produto retorna os dados do produto
- * se esse id existir, caso contrário, retorna um array vazio 
+ * A função find($id) recebe id de um produto retorna os 
+ * dados do produto se esse id existir, caso contrário, 
+ * retorna um array vazio.
  * 
  * @param integer id do produto que quero procurar na tabela.
  * 
@@ -379,8 +380,8 @@ A quarta funcionalidade de DAO é `edit`. Esta função recebe como parâmetro o
 <?php // ... continuando o arquivo produto_dao.php
 
 /**
- * A função edit($produto) recebe os dados de um produto e atualiza um registro
- * na tabela `produto`.
+ * A função edit($produto) recebe os dados de um 
+ * produto e atualiza um registro na tabela `produto`.
  * 
  * @param array um produto na forma de array no formato chave => valor.
  * 
@@ -396,11 +397,10 @@ function edit($produto){
         $produto['descricao'], 
         $produto['preco'],
         $produto['id']);
-    $stmt->execute();
-    $result = $stmt->affected_rows > 0;
+    $success = $stmt->execute();    
     $stmt->close();
     $conn->close();
-    return $result;
+    return $success;
 }
 ?>
 ```

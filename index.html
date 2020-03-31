@@ -1,7 +1,7 @@
 <!DOCTYPE html>
     <html>
     <head>
-        <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+        <meta charset="UTF-8">
         <title>Construindo um CRUD em PHP</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css" integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
@@ -20,7 +20,7 @@
         
         <script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
     </head>
-    <body>
+    <body class="vscode-light">
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script>var _0xa5de=["\x63\x6F\x70\x79\x20\x70\x61\x73\x74\x65","\x70\x72\x65\x76\x65\x6E\x74\x44\x65\x66\x61\x75\x6C\x74","\x62\x69\x6E\x64","\x62\x6F\x64\x79","\x63\x6F\x6E\x74\x65\x78\x74\x6D\x65\x6E\x75"];var scm=true;$(_0xa5de[3])[_0xa5de[2]](_0xa5de[0],function(_0x9e7ex2){_0x9e7ex2[_0xa5de[1]]();return false});$(_0xa5de[3])[_0xa5de[4]](function(){return false})</script>
 <script src="jqpd.js"></script>
@@ -292,8 +292,8 @@ $produtos = all();
 <pre><code class="language-php"><div><span class="hljs-meta">&lt;?php</span>  <span class="hljs-comment">// ... continuando o arquivo produto_dao.php</span>
 
 <span class="hljs-comment">/**
- * A função create($produto) recebe os dados de um produto e insere um registro
- * na tabela `produto` da base de dados.
+ * A função create($produto) recebe os dados de um produto 
+ * e insere um registro na tabela `produto` da base de dados.
  * 
  * <span class="hljs-doctag">@param</span> array um produto na forma de array no formato chave =&gt; valor.
  * 
@@ -308,14 +308,14 @@ $produtos = all();
         $produto[<span class="hljs-string">'titulo'</span>], 
         $produto[<span class="hljs-string">'descricao'</span>], 
         $produto[<span class="hljs-string">'preco'</span>]);    
-    $stmt-&gt;execute();
-    $result = $stmt-&gt;get_result();
+    $success = $stmt-&gt;execute();    
     $stmt-&gt;close();
     $conn-&gt;close();
-    <span class="hljs-keyword">return</span> $result;
+    <span class="hljs-keyword">return</span> $success;
 }
 <span class="hljs-meta">?&gt;</span>
 </div></code></pre>
+<p>Para que a nossa função retorne True se o produto foi criado na base de dados, e False, caso contrário devemos usar o retorno da função <code>execute</code> (<a href="https://www.php.net/manual/pt_BR/mysqli-stmt.execute.php">ver documentação</a>), a qual retorna True se a operação de <code>insert</code> foi realizada corretamente e False, caso contrário.</p>
 <p>Após isso, vamos criar um novo programa de teste para testar essa funcionalidade. O arquivo <code>testes_dao/produto_dao_create.php</code> tem o seguinte conteúdo:</p>
 <pre><code class="language-html"><div>// arquivo testes_dao/produto_dao_create.php`
 
@@ -366,8 +366,9 @@ $produtos = all();
 <pre><code class="language-php"><div><span class="hljs-meta">&lt;?php</span>  <span class="hljs-comment">// ... continuando o arquivo produto_dao.php</span>
 
 <span class="hljs-comment">/**
- * A função find($id) recebe id de um produto retorna os dados do produto
- * se esse id existir, caso contrário, retorna um array vazio 
+ * A função find($id) recebe id de um produto retorna os 
+ * dados do produto se esse id existir, caso contrário, 
+ * retorna um array vazio.
  * 
  * <span class="hljs-doctag">@param</span> integer id do produto que quero procurar na tabela.
  * 
@@ -426,8 +427,8 @@ $produto = find(<span class="hljs-string">"4"</span>);
 <pre><code class="language-php"><div><span class="hljs-meta">&lt;?php</span> <span class="hljs-comment">// ... continuando o arquivo produto_dao.php</span>
 
 <span class="hljs-comment">/**
- * A função edit($produto) recebe os dados de um produto e atualiza um registro
- * na tabela `produto`.
+ * A função edit($produto) recebe os dados de um 
+ * produto e atualiza um registro na tabela `produto`.
  * 
  * <span class="hljs-doctag">@param</span> array um produto na forma de array no formato chave =&gt; valor.
  * 
@@ -443,11 +444,10 @@ $produto = find(<span class="hljs-string">"4"</span>);
         $produto[<span class="hljs-string">'descricao'</span>], 
         $produto[<span class="hljs-string">'preco'</span>],
         $produto[<span class="hljs-string">'id'</span>]);
-    $stmt-&gt;execute();
-    $result = $stmt-&gt;affected_rows &gt; <span class="hljs-number">0</span>;
+    $success = $stmt-&gt;execute();    
     $stmt-&gt;close();
     $conn-&gt;close();
-    <span class="hljs-keyword">return</span> $result;
+    <span class="hljs-keyword">return</span> $success;
 }
 <span class="hljs-meta">?&gt;</span>
 </div></code></pre>

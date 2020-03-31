@@ -40,11 +40,10 @@ function create($produto){
         $produto['titulo'], 
         $produto['descricao'], 
         $produto['preco']);    
-    $stmt->execute();
-    $result = $stmt->get_result();
+    $success = $stmt->execute();    
     $stmt->close();
     $conn->close();
-    return $result;
+    return $success;
 }
 
 /**
