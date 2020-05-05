@@ -1269,7 +1269,7 @@ Para finalizar as operações de CRUD precisamos implementar a funcionalidade de
 // ... parte do arquivo produto.php 
 
         /**
-         * update: Recebe os dados do formulário e salva as alterações no banco
+         * destroy: Recebe o {id} do produto e apaga o produto do banco
          */                    
         case "destroy":                    
             delete($dados['id']);

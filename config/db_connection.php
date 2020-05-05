@@ -9,7 +9,7 @@
 $host = "localhost";
 $username = "root";
 $passwd = "";
-$dbname   = "des_loja";
+$dbname   = "des_loja_complete";
 $port = "3306";
 
 /**
