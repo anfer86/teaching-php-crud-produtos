@@ -74,13 +74,13 @@ Para implementar as funcionalidades de CRUD para a entidade `produto` vamos defi
 
 Note que as operações `store` e `update` são as únicas duas operações em que dados são enviados via `POST`, pois eles enviam dados preenchidos pelo usuário por meio de um formulário para que sejam salvos no banco de dados. O método `POST` encapsula os dados do formulário no corpo da requisição HTTP e, por isso, permite que possam ser enviados vários dados (inclusive imagens). Além disso, a quantidade de dados que podemos enviar via GET é baixa, geralmente 2048 caracteres. Por esse, motivo os dados preenchidos por meio de formulário sempre são enviados pelo método `POST`.
 
-Outro ponto importante é que as operações `create` e `edit` são responsáveis por apresetar os formulários para criar um novo produto ou para editar um produto existente.
+Outro ponto importante é que as operações `create` e `edit` são responsáveis por apresentar os formulários para criar um novo produto ou para editar um produto existente.
 
 As funções de DAO (Data Access Object) são as funções que efetivamente realizam as consultas com o banco de dados. Então no contexto do DAO, as funções `create` e `edit` executam as instruções SQL de `INSERT` e `UPDATE` no banco de dados. Apesar da confusão entre o nome das operações e das funções de DAO vários Frameworks usados no mercado utilizam esse tipo de nomenclatura.
 
 ## Desenvolvendo as funções de DAO
 
-Vamos iniciar o desenvolvimento do CRUD pelas funções de DAO. Vamos criar o arquivo que executa essas funções, chamado `produto_dao.php`. Posteriormente, vamos criar um arquivo de teste chamado `produto_dao_teste.php` para  para, posteriormente, criar um arquivo de teste para verificar que esteja funcionando corretamente.
+Vamos iniciar o desenvolvimento do CRUD pelas funções de DAO. Vamos criar o arquivo que executa essas funções, chamado `produto_dao.php`. Posteriormente, vamos criar um arquivo de teste chamado `produto_dao_teste.php` para, posteriormente, criar um arquivo de teste para verificar que esteja funcionando corretamente.
 
 Antes de criar esses arquivos, vamos criar um arquivo para conectar com o banco de dados, que chamaremos `db_connection.php`, dentro de uma pasta chamada `config/` com o seguinte conteúdo:
 
@@ -149,7 +149,7 @@ Conexão fechada.
 
 ### Função all
 
-Com essa conexão funcionando podemos iniciar a criação das nossas funções de DAO. Para isso criamos o arquivo `produto_dao.php` no diretório raiz da nossa aplicacação. Nesse arquivo vamos implementar nossa primeira função, chamada `all()`. Esta função vai retornar os dados de todos os produtos na base de dados.
+Com essa conexão funcionando podemos iniciar a criação das nossas funções de DAO. Para isso criamos o arquivo `produto_dao.php` no diretório raiz da nossa aplicação. Nesse arquivo vamos implementar nossa primeira função, chamada `all()`. Esta função vai retornar os dados de todos os produtos na base de dados.
 
 ```php
 <?php // arquivo produto_dao.php
@@ -635,7 +635,7 @@ Vamos iniciar pela criação da view create. Essa página consiste em um formul�
 
 Nesse código observamos o `include` de três arquivos: `import_css.php`, `header.php` e `import_js.php`. O que fizemos foi centralizar a importação de estilos, cabeçalho e a importação de javascripts. Vamos implementar cada um deles para deixar o código funcionando.
 
-Para fazer as páginas de `import_css.php` e `import_js.php` vamos acessar o site: https://getbootstrap.com/. Nesse site observamos um quadro com título `Bootstrap CDN` e dentro dele temos um subquadro chamado `CSS Only`. A linha de código  desse subquadro deve ser copiado para o arquivo `import_css.php` da seguinte forma:
+Para fazer as páginas de `import_css.php` e `import_js.php` vamos acessar o site: https://getbootstrap.com/. Nesse site observamos um quadro com título `Bootstrap CDN` e dentro dele temos um subquadro chamado `CSS Only`. A linha de código desse subquadro deve ser copiado para o arquivo `import_css.php` da seguinte forma:
 
 ```html
 <!-- arquivo views/import_css.php -->

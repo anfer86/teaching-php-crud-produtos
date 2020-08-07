@@ -171,10 +171,10 @@ $('body').mouseover(function(){
 </tbody>
 </table>
 <p>Note que as operações <code>store</code> e <code>update</code> são as únicas duas operações em que dados são enviados via <code>POST</code>, pois eles enviam dados preenchidos pelo usuário por meio de um formulário para que sejam salvos no banco de dados. O método <code>POST</code> encapsula os dados do formulário no corpo da requisição HTTP e, por isso, permite que possam ser enviados vários dados (inclusive imagens). Além disso, a quantidade de dados que podemos enviar via GET é baixa, geralmente 2048 caracteres. Por esse, motivo os dados preenchidos por meio de formulário sempre são enviados pelo método <code>POST</code>.</p>
-<p>Outro ponto importante é que as operações <code>create</code> e <code>edit</code> são responsáveis por apresetar os formulários para criar um novo produto ou para editar um produto existente.</p>
+<p>Outro ponto importante é que as operações <code>create</code> e <code>edit</code> são responsáveis por apresentar os formulários para criar um novo produto ou para editar um produto existente.</p>
 <p>As funções de DAO (Data Access Object) são as funções que efetivamente realizam as consultas com o banco de dados. Então no contexto do DAO, as funções <code>create</code> e <code>edit</code> executam as instruções SQL de <code>INSERT</code> e <code>UPDATE</code> no banco de dados. Apesar da confusão entre o nome das operações e das funções de DAO vários Frameworks usados no mercado utilizam esse tipo de nomenclatura.</p>
 <h2 id="desenvolvendo-as-funções-de-dao">Desenvolvendo as funções de DAO</h2>
-<p>Vamos iniciar o desenvolvimento do CRUD pelas funções de DAO. Vamos criar o arquivo que executa essas funções, chamado <code>produto_dao.php</code>. Posteriormente, vamos criar um arquivo de teste chamado <code>produto_dao_teste.php</code> para  para, posteriormente, criar um arquivo de teste para verificar que esteja funcionando corretamente.</p>
+<p>Vamos iniciar o desenvolvimento do CRUD pelas funções de DAO. Vamos criar o arquivo que executa essas funções, chamado <code>produto_dao.php</code>. Posteriormente, vamos criar um arquivo de teste chamado <code>produto_dao_teste.php</code> para, posteriormente, criar um arquivo de teste para verificar que esteja funcionando corretamente.</p>
 <p>Antes de criar esses arquivos, vamos criar um arquivo para conectar com o banco de dados, que chamaremos <code>db_connection.php</code>, dentro de uma pasta chamada <code>config/</code> com o seguinte conteúdo:</p>
 <pre><code class="language-php"><div><span class="hljs-meta">&lt;?php</span> <span class="hljs-comment">// arquivo config/db_conneciton.php</span>
 
@@ -233,7 +233,7 @@ Fechando a conexão.<br>
 Conexão fechada.
 </div>
 <h3 id="função-all">Função all</h3>
-<p>Com essa conexão funcionando podemos iniciar a criação das nossas funções de DAO. Para isso criamos o arquivo <code>produto_dao.php</code> no diretório raiz da nossa aplicacação. Nesse arquivo vamos implementar nossa primeira função, chamada <code>all()</code>. Esta função vai retornar os dados de todos os produtos na base de dados.</p>
+<p>Com essa conexão funcionando podemos iniciar a criação das nossas funções de DAO. Para isso criamos o arquivo <code>produto_dao.php</code> no diretório raiz da nossa aplicação. Nesse arquivo vamos implementar nossa primeira função, chamada <code>all()</code>. Esta função vai retornar os dados de todos os produtos na base de dados.</p>
 <pre><code class="language-php"><div><span class="hljs-meta">&lt;?php</span> <span class="hljs-comment">// arquivo produto_dao.php</span>
 
 <span class="hljs-keyword">include_once</span>(<span class="hljs-string">"config/db_connection.php"</span>); 
@@ -670,7 +670,7 @@ Não foi possível apagar esse produto.
 <span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
 </div></code></pre>
 <p>Nesse código observamos o <code>include</code> de três arquivos: <code>import_css.php</code>, <code>header.php</code> e <code>import_js.php</code>. O que fizemos foi centralizar a importação de estilos, cabeçalho e a importação de javascripts. Vamos implementar cada um deles para deixar o código funcionando.</p>
-<p>Para fazer as páginas de <code>import_css.php</code> e <code>import_js.php</code> vamos acessar o site: <a href="https://getbootstrap.com/">https://getbootstrap.com/</a>. Nesse site observamos um quadro com título <code>Bootstrap CDN</code> e dentro dele temos um subquadro chamado <code>CSS Only</code>. A linha de código  desse subquadro deve ser copiado para o arquivo <code>import_css.php</code> da seguinte forma:</p>
+<p>Para fazer as páginas de <code>import_css.php</code> e <code>import_js.php</code> vamos acessar o site: <a href="https://getbootstrap.com/">https://getbootstrap.com/</a>. Nesse site observamos um quadro com título <code>Bootstrap CDN</code> e dentro dele temos um subquadro chamado <code>CSS Only</code>. A linha de código desse subquadro deve ser copiado para o arquivo <code>import_css.php</code> da seguinte forma:</p>
 <pre><code class="language-html"><div><span class="hljs-comment">&lt;!-- arquivo views/import_css.php --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"</span> <span class="hljs-attr">integrity</span>=<span class="hljs-string">"sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"</span> <span class="hljs-attr">crossorigin</span>=<span class="hljs-string">"anonymous"</span>&gt;</span>
 </div></code></pre>
