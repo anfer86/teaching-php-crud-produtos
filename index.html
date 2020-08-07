@@ -3,22 +3,25 @@
     <head>
         <meta charset="UTF-8">
         <title>Construindo um CRUD em PHP</title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css" integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
-        <link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
         <style>
-.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
 </style>
-        <style>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css" integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
             body {
-                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'Ubuntu', 'Droid Sans', sans-serif;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
                 font-size: 14px;
                 line-height: 1.6;
             }
         </style>
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
         
         <script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+        
     </head>
     <body class="vscode-light">
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -170,7 +173,7 @@ $('body').mouseover(function(){
 <p>Note que as operações <code>store</code> e <code>update</code> são as únicas duas operações em que dados são enviados via <code>POST</code>, pois eles enviam dados preenchidos pelo usuário por meio de um formulário para que sejam salvos no banco de dados. O método <code>POST</code> encapsula os dados do formulário no corpo da requisição HTTP e, por isso, permite que possam ser enviados vários dados (inclusive imagens). Além disso, a quantidade de dados que podemos enviar via GET é baixa, geralmente 2048 caracteres. Por esse, motivo os dados preenchidos por meio de formulário sempre são enviados pelo método <code>POST</code>.</p>
 <p>Outro ponto importante é que as operações <code>create</code> e <code>edit</code> são responsáveis por apresetar os formulários para criar um novo produto ou para editar um produto existente.</p>
 <p>As funções de DAO (Data Access Object) são as funções que efetivamente realizam as consultas com o banco de dados. Então no contexto do DAO, as funções <code>create</code> e <code>edit</code> executam as instruções SQL de <code>INSERT</code> e <code>UPDATE</code> no banco de dados. Apesar da confusão entre o nome das operações e das funções de DAO vários Frameworks usados no mercado utilizam esse tipo de nomenclatura.</p>
-<h2 id="desenvolvendo-as-fun%c3%a7%c3%b5es-de-dao">Desenvolvendo as funções de DAO</h2>
+<h2 id="desenvolvendo-as-funções-de-dao">Desenvolvendo as funções de DAO</h2>
 <p>Vamos iniciar o desenvolvimento do CRUD pelas funções de DAO. Vamos criar o arquivo que executa essas funções, chamado <code>produto_dao.php</code>. Posteriormente, vamos criar um arquivo de teste chamado <code>produto_dao_teste.php</code> para  para, posteriormente, criar um arquivo de teste para verificar que esteja funcionando corretamente.</p>
 <p>Antes de criar esses arquivos, vamos criar um arquivo para conectar com o banco de dados, que chamaremos <code>db_connection.php</code>, dentro de uma pasta chamada <code>config/</code> com o seguinte conteúdo:</p>
 <pre><code class="language-php"><div><span class="hljs-meta">&lt;?php</span> <span class="hljs-comment">// arquivo config/db_conneciton.php</span>
@@ -229,7 +232,7 @@ Conexão realizada com sucesso.<br>
 Fechando a conexão.<br>
 Conexão fechada.
 </div>
-<h3 id="fun%c3%a7%c3%a3o-all">Função all</h3>
+<h3 id="função-all">Função all</h3>
 <p>Com essa conexão funcionando podemos iniciar a criação das nossas funções de DAO. Para isso criamos o arquivo <code>produto_dao.php</code> no diretório raiz da nossa aplicacação. Nesse arquivo vamos implementar nossa primeira função, chamada <code>all()</code>. Esta função vai retornar os dados de todos os produtos na base de dados.</p>
 <pre><code class="language-php"><div><span class="hljs-meta">&lt;?php</span> <span class="hljs-comment">// arquivo produto_dao.php</span>
 
@@ -287,7 +290,7 @@ $produtos = all();
     <li>3;Boné;Este boné tem muito estilo.;15</li>
 </ul>
 </div>
-<h3 id="fun%c3%a7%c3%a3o-create">Função create</h3>
+<h3 id="função-create">Função create</h3>
 <p>A segunda funcionalidade de DAO que vamos implementar é o <code>create</code>. Esta função recebe como parâmetro os dados de um produto e tem como objetivo inserir o produto como um registro na base de dados, especificamente na tabela <code>produto</code>. No mesmo arquivo <code>produto_dao</code> onde implementamos a função <code>all</code> logo abaixo implementaremos a função <code>create</code>. A nova funcionalidade está implementada a seguir:</p>
 <pre><code class="language-php"><div><span class="hljs-meta">&lt;?php</span>  <span class="hljs-comment">// ... continuando o arquivo produto_dao.php</span>
 
@@ -361,7 +364,7 @@ $produtos = all();
     <span class="hljs-string">'preco'</span> =&gt; <span class="hljs-string">'500.00'</span>
     ];
 </div></code></pre>
-<h3 id="fun%c3%a7%c3%a3o-find">Função find</h3>
+<h3 id="função-find">Função find</h3>
 <p>A funcionalidade <code>find</code> recebe como parâmetro o id de um produto e tem como objetivo retornar o registro da base de dados referente a esse id. Os dados são retornados no formato de um array associativo, ou seja, no formato $chave =&gt; $valor. Caso ele não encontre nada retorna uma array vazio. No arquivo <code>produto_dao</code> vamos acrescentar a função <code>find</code>, como segue:</p>
 <pre><code class="language-php"><div><span class="hljs-meta">&lt;?php</span>  <span class="hljs-comment">// ... continuando o arquivo produto_dao.php</span>
 
@@ -422,7 +425,7 @@ $produto = find(<span class="hljs-string">"4"</span>);
 </ul>
 </div>
 <p>Experimente usar outros valores de id, que existam ou não na base de dados, para verificar o resultado.</p>
-<h3 id="fun%c3%a7%c3%a3o-edit">Função edit</h3>
+<h3 id="função-edit">Função edit</h3>
 <p>A quarta funcionalidade de DAO é <code>edit</code>. Esta função recebe como parâmetro os dados de um produto, incluíndo o seu id, e tem como objetivo atualizar os dados do produto já existente na base de dados. Assim, no arquivo <code>produto_dao</code> adicionamos mais esta funcionalidade.</p>
 <pre><code class="language-php"><div><span class="hljs-meta">&lt;?php</span> <span class="hljs-comment">// ... continuando o arquivo produto_dao.php</span>
 
@@ -532,7 +535,7 @@ $produto_alterado = find(<span class="hljs-string">'4'</span>)
 </ul>
 </div>
 <p>Teste com outros id que existam ou não para verificar que funcionalidade esteja funcionando corretamente.</p>
-<h3 id="fun%c3%a7%c3%a3o-delete">Função delete</h3>
+<h3 id="função-delete">Função delete</h3>
 <p>A última funcionalidade básica é o <code>delete</code>. Esta funcionalidade apaga um registro na base de dados utilizando apenas o id do produto, já que esta é a única informação necessária para pagar um registro na base de dados. Como é uma funcionalidade que se comunica com a base de dados também é implementada no arquivo <code>produto_dao.php</code>, da seguinte forma:</p>
 <pre><code class="language-php"><div><span class="hljs-meta">&lt;?php</span> <span class="hljs-comment">// ... continuando o arquivo produto_dao.php</span>
 
@@ -583,7 +586,7 @@ Não foi possível apagar esse produto.
 <p><strong>Desafio 1</strong>: crie uma função chamada <code>all_order_by_preco_asc()</code> que retorne os produtos ordenados em ordem crescente de preço.</p>
 <p><strong>Desafio 2</strong>: crie uma função chamada <code>all_order_by_preco($order)</code> que recebe a ordem de ordenação ('asc' ou 'desc') e retorna os produtos ordenados por preço de acordo com a escolha.</p>
 <p><strong>Desafio 3</strong>: crie uma função chamada <code>all_order_by($column, $order)</code> que recebe a coluna que quer ordenar ('titulo', 'descricao', 'preco') e a ordem de ordenação ('asc' ou 'desc') e retorna os produtos ordenados de acordo com a escolha.</p>
-<h2 id="desenvolvendo-as-opera%c3%a7%c3%b5es">Desenvolvendo as Operações</h2>
+<h2 id="desenvolvendo-as-operações">Desenvolvendo as Operações</h2>
 <p>Nesta segunda parte do projeto vamos produzir as páginas com HTML e CSS para interagir com o usuário e relacionar essas páginas às funcionalidades implementadas no DAO.</p>
 <p>Essas páginas serão criadas dentro de uma pasta chamada <code>views</code> e consistem nos seguintes arquivos.</p>
 <table>
@@ -1223,7 +1226,7 @@ $action = $_GET[<span class="hljs-string">'action'</span>];
 <span class="hljs-comment">// ... parte do arquivo produto.php </span>
 
         <span class="hljs-comment">/**
-         * update: Recebe os dados do formulário e salva as alterações no banco
+         * destroy: Recebe o {id} do produto e apaga o produto do banco
          */</span>                    
         <span class="hljs-keyword">case</span> <span class="hljs-string">"destroy"</span>:                    
             delete($dados[<span class="hljs-string">'id'</span>]);
