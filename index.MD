@@ -769,8 +769,8 @@ if ( $_SERVER['REQUEST_METHOD'] == 'GET'){
             break;
 
         /**
-         * destroy: Exclui um produto
-         */
+         * destroy: Recebe o {id} do produto e apaga o produto do banco
+         */ 
         case "destroy":        
             break;
     }
@@ -1043,7 +1043,7 @@ Para que essa página seja acessada usando a URL `produto.php?action=show&id=1` 
 // ... parte do arquivo produto.php 
 
         /**
-         * index: Exibe todas os produtos na base de dados
+         * show: Procura o produto {id} na base de dados e exibe os dados desse produto
          */
         case "show":
             $produto = find($dados['id']);
@@ -1175,7 +1175,8 @@ Para que essa página seja acessada usando a URL `produto.php?action=edit&id=1` 
 // ... parte do arquivo produto.php 
 
         /**
-         * index: Exibe todas os produtos na base de dados
+         * edit: Procura os dados do produto {id} na base de dados e exibe o 
+         *       formulário de editar dados do produto {id}
          */
         case "edit":
             $produto = find($dados['id']);

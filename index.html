@@ -803,8 +803,8 @@ $action = $_GET[<span class="hljs-string">'action'</span>];
             <span class="hljs-keyword">break</span>;
 
         <span class="hljs-comment">/**
-         * destroy: Exclui um produto
-         */</span>
+         * destroy: Recebe o {id} do produto e apaga o produto do banco
+         */</span> 
         <span class="hljs-keyword">case</span> <span class="hljs-string">"destroy"</span>:        
             <span class="hljs-keyword">break</span>;
     }
@@ -1048,7 +1048,7 @@ $action = $_GET[<span class="hljs-string">'action'</span>];
 <span class="hljs-comment">// ... parte do arquivo produto.php </span>
 
         <span class="hljs-comment">/**
-         * index: Exibe todas os produtos na base de dados
+         * show: Procura o produto {id} na base de dados e exibe os dados desse produto
          */</span>
         <span class="hljs-keyword">case</span> <span class="hljs-string">"show"</span>:
             $produto = find($dados[<span class="hljs-string">'id'</span>]);
@@ -1155,7 +1155,8 @@ $action = $_GET[<span class="hljs-string">'action'</span>];
 <span class="hljs-comment">// ... parte do arquivo produto.php </span>
 
         <span class="hljs-comment">/**
-         * index: Exibe todas os produtos na base de dados
+         * edit: Procura os dados do produto {id} na base de dados e exibe o 
+         *       formulário de editar dados do produto {id}
          */</span>
         <span class="hljs-keyword">case</span> <span class="hljs-string">"edit"</span>:
             $produto = find($dados[<span class="hljs-string">'id'</span>]);
