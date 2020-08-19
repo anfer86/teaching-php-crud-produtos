@@ -604,17 +604,17 @@ Vamos iniciar pela criação da view create. Essa página consiste em um formul�
         <form method="POST" action="produto.php?action=store">
 
             <div class="form-group">
-                <label for="nome">Título</label>
+                <label for="titulo">Título</label>
                 <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Escreva o título ou nome do produto">
             </div>            
 
             <div class="form-group">
-                <label for="nome">Descrição</label>
+                <label for="descricao">Descrição</label>
                 <textarea class="form-control" id="descricao" name="descricao" rows="4"></textarea>                
             </div>            
 
             <div class="form-group">
-                <label for="nome">Preço</label>
+                <label for="preco">Preço</label>
                 <div class="input-group mb-2">
                 <div class="input-group-prepend input-group-text">R$</div>
                 <input type="number" class="form-control col-3" id="preco" name="preco" min="0" step="0.01" placeholder="0,00">
@@ -687,17 +687,17 @@ O reusltado final da implementação dos três arquivos, ao acessarmos o arquivo
 <form method="POST" action="produto.php?action=store">
 
 <div class="form-group">
-    <label for="nome">Título</label>
+    <label for="titulo">Título</label>
     <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Escreva o título ou nome do produto">
 </div>            
 
 <div class="form-group">
-    <label for="nome">Descrição</label>
+    <label for="descricao">Descrição</label>
     <textarea class="form-control" id="descricao" name="descricao" rows="4"></textarea>                
 </div>            
 
 <div class="form-group">
-    <label for="nome">Preço</label>
+    <label for="preco">Preço</label>
     <div class="input-group mb-2">
     <div class="input-group-prepend input-group-text">R$</div>
     <input type="number" class="form-control col-3" id="preco" name="preco" min="0" step="0.01" placeholder="0,00">
@@ -1135,20 +1135,20 @@ Para implementar o arquivo `views/produto_edit.php` também vamos assumir que um
             <input type="hidden" name="id" value="<?= $produto['id'] ?>">
 
             <div class="form-group">
-                <label for="nome">Título</label>
+                <label for="titulo">Título</label>
                 <input type="text" class="form-control" id="titulo" 
                 name="titulo" placeholder="Escreva o título ou nome do produto"
                 value="<?= $produto['titulo'] ?>">
             </div>            
 
             <div class="form-group">
-                <label for="nome">Descrição</label>
+                <label for="descricao">Descrição</label>
                 <textarea class="form-control" id="descricao" name="descricao" 
                 rows="4"><?= $produto['descricao'] ?></textarea>                
             </div>            
 
             <div class="form-group">
-                <label for="nome">Preço</label>
+                <label for="preco">Preço</label>
                 <div class="input-group mb-2">
                 <div class="input-group-prepend input-group-text">R$</div>
                 <input type="number" class="form-control col-3" id="preco" name="preco" 
@@ -1207,25 +1207,25 @@ Assim, ao acessarmos a URL `produto.php?action=edit&id=1`, para um `id=1` existe
         
 <h2>Editar Produto</h2>
 
-<form method="POST" action="produto.php?action=store">
+<form method="POST" action="produto.php?action=update">
 
 <input type="hidden" name="id" value="3">
 
 <div class="form-group">
-    <label for="nome">Título</label>
+    <label for="titulo">Título</label>
     <input type="text" class="form-control" id="titulo" 
     name="titulo" placeholder="Escreva o título ou nome do produto"
     value="Kit 4 pares de meias">
 </div>            
 
 <div class="form-group">
-    <label for="nome">Descrição</label>
+    <label for="descricao">Descrição</label>
     <textarea class="form-control" id="descricao" name="descricao" 
     rows="4">Essas meias proporcionam conforto e proteção para os pés no dia a dia e durante suas atividades físicas</textarea>                
 </div>            
 
 <div class="form-group">
-    <label for="nome">Preço</label>
+    <label for="preco">Preço</label>
     <div class="input-group mb-2">
     <div class="input-group-prepend input-group-text">R$</div>
     <input type="number" class="form-control col-3" id="preco" name="preco" 

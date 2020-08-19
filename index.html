@@ -641,17 +641,17 @@ Não foi possível apagar esse produto.
         <span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">method</span>=<span class="hljs-string">"POST"</span> <span class="hljs-attr">action</span>=<span class="hljs-string">"produto.php?action=store"</span>&gt;</span>
 
             <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-group"</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"nome"</span>&gt;</span>Título<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"titulo"</span>&gt;</span>Título<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
                 <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-control"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"titulo"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"titulo"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Escreva o título ou nome do produto"</span>&gt;</span>
             <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>            
 
             <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-group"</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"nome"</span>&gt;</span>Descrição<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"descricao"</span>&gt;</span>Descrição<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
                 <span class="hljs-tag">&lt;<span class="hljs-name">textarea</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-control"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"descricao"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"descricao"</span> <span class="hljs-attr">rows</span>=<span class="hljs-string">"4"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">textarea</span>&gt;</span>                
             <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>            
 
             <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-group"</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"nome"</span>&gt;</span>Preço<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"preco"</span>&gt;</span>Preço<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
                 <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"input-group mb-2"</span>&gt;</span>
                 <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"input-group-prepend input-group-text"</span>&gt;</span>R$<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
                 <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"number"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-control col-3"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"preco"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"preco"</span> <span class="hljs-attr">min</span>=<span class="hljs-string">"0"</span> <span class="hljs-attr">step</span>=<span class="hljs-string">"0.01"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"0,00"</span>&gt;</span>
@@ -706,15 +706,15 @@ Não foi possível apagar esse produto.
 <h2>Cadastrar Produto</h2>
 <form method="POST" action="produto.php?action=store">
 <div class="form-group">
-    <label for="nome">Título</label>
+    <label for="titulo">Título</label>
     <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Escreva o título ou nome do produto">
 </div>            
 <div class="form-group">
-    <label for="nome">Descrição</label>
+    <label for="descricao">Descrição</label>
     <textarea class="form-control" id="descricao" name="descricao" rows="4"></textarea>                
 </div>            
 <div class="form-group">
-    <label for="nome">Preço</label>
+    <label for="preco">Preço</label>
     <div class="input-group mb-2">
     <div class="input-group-prepend input-group-text">R$</div>
     <input type="number" class="form-control col-3" id="preco" name="preco" min="0" step="0.01" placeholder="0,00">
@@ -1118,20 +1118,20 @@ $action = $_GET[<span class="hljs-string">'action'</span>];
             <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"hidden"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"id"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"&lt;?= $produto['id'] ?&gt;"</span>&gt;</span>
 
             <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-group"</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"nome"</span>&gt;</span>Título<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"titulo"</span>&gt;</span>Título<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
                 <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-control"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"titulo"</span> 
                 <span class="hljs-attr">name</span>=<span class="hljs-string">"titulo"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Escreva o título ou nome do produto"</span>
                 <span class="hljs-attr">value</span>=<span class="hljs-string">"&lt;?= $produto['titulo'] ?&gt;"</span>&gt;</span>
             <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>            
 
             <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-group"</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"nome"</span>&gt;</span>Descrição<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"descricao"</span>&gt;</span>Descrição<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
                 <span class="hljs-tag">&lt;<span class="hljs-name">textarea</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-control"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"descricao"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"descricao"</span> 
                 <span class="hljs-attr">rows</span>=<span class="hljs-string">"4"</span>&gt;</span><span class="php"><span class="hljs-meta">&lt;?</span>= $produto[<span class="hljs-string">'descricao'</span>] <span class="hljs-meta">?&gt;</span></span><span class="hljs-tag">&lt;/<span class="hljs-name">textarea</span>&gt;</span>                
             <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>            
 
             <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-group"</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"nome"</span>&gt;</span>Preço<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"preco"</span>&gt;</span>Preço<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
                 <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"input-group mb-2"</span>&gt;</span>
                 <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"input-group-prepend input-group-text"</span>&gt;</span>R$<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
                 <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"number"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-control col-3"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"preco"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"preco"</span> 
@@ -1179,21 +1179,21 @@ $action = $_GET[<span class="hljs-string">'action'</span>];
 </header>
     <div class="container col-lg-4 col-md-6 col-sm-8 col-10 mt-2">        
 <h2>Editar Produto</h2>
-<form method="POST" action="produto.php?action=store">
+<form method="POST" action="produto.php?action=update">
 <input type="hidden" name="id" value="3">
 <div class="form-group">
-    <label for="nome">Título</label>
+    <label for="titulo">Título</label>
     <input type="text" class="form-control" id="titulo" 
     name="titulo" placeholder="Escreva o título ou nome do produto"
     value="Kit 4 pares de meias">
 </div>            
 <div class="form-group">
-    <label for="nome">Descrição</label>
+    <label for="descricao">Descrição</label>
     <textarea class="form-control" id="descricao" name="descricao" 
     rows="4">Essas meias proporcionam conforto e proteção para os pés no dia a dia e durante suas atividades físicas</textarea>                
 </div>            
 <div class="form-group">
-    <label for="nome">Preço</label>
+    <label for="preco">Preço</label>
     <div class="input-group mb-2">
     <div class="input-group-prepend input-group-text">R$</div>
     <input type="number" class="form-control col-3" id="preco" name="preco" 

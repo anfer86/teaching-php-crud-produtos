@@ -117,7 +117,7 @@ function all_order_by_preco_asc(){
     $conn = get_connection();
     $sql = 'SELECT id, titulo, descricao, preco 
             FROM produto ORDER BY preco ASC';
-    $stmt = $conn->prepare($sql);
+    $stmt = $conn->prepare($sql);    
     $instances = [];
     $stmt->execute();
     $result = $stmt->get_result();
@@ -140,7 +140,7 @@ function all_order_by_preco($order){
         $instances[] = $row;    
     $stmt->close();    
     $conn->close();    
-    return $instances;
+    return $result;
 }
 
 function all_order_by($column, $order){    
