@@ -535,12 +535,17 @@ Criamos o arquivo de teste
 
 include('../produto_dao.php');
 
-if (!delete("4")){
-    echo 'Não foi possível apagar esse produto.';
+$id = '4';
+
+if ( !find($id) ){
+    echo 'O produto não existe';
     exit;
-} else {
-    echo 'Produto apagado com sucesso.';
-    exit;
+}
+
+delete($id);
+
+if ( !find($id)){
+    echo 'Produto apagado com sucesso';
 }
 
 ?>
