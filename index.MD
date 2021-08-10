@@ -846,9 +846,8 @@ O arquivo `views/produto_index.php` terá o seguinte conteúdo:
             <thead>
                 <tr>                    
                     <th>Id</th>
-                    <th width="30%">Título</th>
-                    <th width="40%">Conteúdo</th>                    
-                    <th width="10%">Preço</th>                    
+                    <th width="50%">Título</th>                    
+                    <th>Preço</th>                    
                     <th></th>                    
                     <th></th>
                     <th></th>
@@ -857,10 +856,11 @@ O arquivo `views/produto_index.php` terá o seguinte conteúdo:
             <tbody>             
                 <?php foreach ($produtos as $produto) { ?>
                     <tr>                    
-                    <?php foreach ($produto as $key => $value) { ?>
-                        <td><?= $value ?></td>                        
-                    <?php } ?>
-                        <td><a class="btn btn-link" href="produto.php?action=show&id=<?= $produto['id']?>">Ver</a></td>
+                        <td><?= $produto['id'] ?></td>
+                        <td><?= $produto['titulo'] ?></td>
+                        <td>R$ <?= number_format( $produto['preco'], 2, ',', '.') ?></td>
+
+                        <td><a class="btn btn-link" href="produto.php?action=show&id=<?= $produto['id']?>">Show</a></td>
                         <td><a class="btn btn-link" href="produto.php?action=edit&id=<?= $produto['id']?>">Edit</a></td>
                         <td><a class="btn btn-link" href="produto.php?action=destroy&id=<?= $produto['id']?>">Delete</a></td>
                     </tr>                           
@@ -926,9 +926,8 @@ Assim, ao acessarmos a URL `produto.php?action=index` será apresentado um resul
 <thead>
     <tr>                    
         <th>Id</th>
-        <th width="30%">Título</th>
-        <th width="40%">Conteúdo</th>                    
-        <th width="10%">Preço</th>                    
+        <th width="50%">Título</th>        
+        <th>Preço</th>                    
         <th></th>                    
         <th></th>
         <th></th>
@@ -938,8 +937,7 @@ Assim, ao acessarmos a URL `produto.php?action=index` será apresentado um resul
     <tr>                    
         <td>3</td>                        
         <td>Kit 4 pares de meias</td>                        
-        <td>Essas meias proporcionam conforto e proteção para os pés no dia a dia e durante suas atividades físicas</td>                        
-        <td>20</td>                        
+        <td>R$ 20,00</td>                        
         <td><a class="btn btn-link" href="produto.php?action=show&id=3">Show</a></td>
         <td><a class="btn btn-link" href="produto.php?action=edit&id=3">Edit</a></td>
         <td><a class="btn btn-link" href="produto.php?action=destroy&id=3">Delete</a></td>
@@ -947,17 +945,15 @@ Assim, ao acessarmos a URL `produto.php?action=index` será apresentado um resul
     <tr>                    
         <td>4</td>                        
         <td>Coleção Livros do Harry Potter</td>                        
-        <td>É uma coleção muito legal</td>                        
-        <td>500</td>                        ****
-        <td><a class="btn btn-link" href="produto.php?action=show&id=4">Show</a></td>****
+        <td>R$ 500,00</td>
+        <td><a class="btn btn-link" href="produto.php?action=show&id=4">Show</a></td>
         <td><a class="btn btn-link" href="produto.php?action=edit&id=4">Edit</a></td>
         <td><a class="btn btn-link" href="produto.php?action=destroy&id=4">Delete</a></td>
     </tr>                           
     <tr>                    
         <td>5</td>                        
-        <td>Boné</td>                        
-        <td>Este boné tem muito estilo.</td>                        
-        <td>15</td>                        
+        <td>Boné</td>                                
+        <td>R$ 15,00</td>                        
         <td><a class="btn btn-link" href="produto.php?action=show&id=5">Show</a></td>
         <td><a class="btn btn-link" href="produto.php?action=edit&id=5">Edit</a></td>
         <td><a class="btn btn-link" href="produto.php?action=destroy&id=5">Delete</a></td>
