@@ -674,36 +674,35 @@ Conexão fechada.
 <blockquote>
 <p>arquivo testes_dao/produto_dao_delete.php</p>
 </blockquote>
-<pre><code class="language-html"><div><span class="hljs-comment">&lt;!-- language: php --&gt;</span>
-&lt;?php
+<pre><code class="language-php"><div><span class="hljs-meta">&lt;?php</span>
 
-include(&#x27;../produto_dao.php&#x27;);
+<span class="hljs-keyword">include</span>(<span class="hljs-string">&#x27;../produto_dao.php&#x27;</span>);
 
-echo &quot;<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Procurando um produto<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>&quot;;
-$id = 4;
-$produto = find($id);
-if (!$produto){
-    echo &quot;<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Produto não encontrado<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>&quot;;
-    exit;
+<span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;p&gt;Procurando um produto&lt;/p&gt;&quot;</span>;
+<span class="hljs-variable">$id</span> = <span class="hljs-number">4</span>;
+<span class="hljs-variable">$produto</span> = find(<span class="hljs-variable">$id</span>);
+<span class="hljs-keyword">if</span> (!<span class="hljs-variable">$produto</span>){
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;p&gt;Produto não encontrado&lt;/p&gt;&quot;</span>;
+    <span class="hljs-keyword">exit</span>;
 }
 
-echo &quot;<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Deletando um produto<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>&quot;;
-$deleted = delete($id);
+<span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;p&gt;Deletando um produto&lt;/p&gt;&quot;</span>;
+<span class="hljs-variable">$deleted</span> = delete(<span class="hljs-variable">$id</span>);
 
-if (!$deleted){
-    echo &quot;<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>O produto não pode ser deletado ou não existe<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>&quot;;
-    exit;
+<span class="hljs-keyword">if</span> (!<span class="hljs-variable">$deleted</span>){
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;p&gt;O produto não pode ser deletado ou não existe&lt;/p&gt;&quot;</span>;
+    <span class="hljs-keyword">exit</span>;
 }
 
-echo &quot;<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Produto deletado com sucesso<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>&quot;;
+<span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;p&gt;Produto deletado com sucesso&lt;/p&gt;&quot;</span>;
 
-$found = find($id);
+<span class="hljs-variable">$found</span> = find(<span class="hljs-variable">$id</span>);
 
-if (!$found){
-    echo &quot;<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>O produto já não foi encontrado na base de dados<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>&quot;;
-    exit;
+<span class="hljs-keyword">if</span> (!<span class="hljs-variable">$found</span>){
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;p&gt;O produto já não foi encontrado na base de dados&lt;/p&gt;&quot;</span>;
+    <span class="hljs-keyword">exit</span>;
 }
-?&gt;
+<span class="hljs-meta">?&gt;</span>
 </div></code></pre>
 <p>E o resultado de apagar o produto com id existente na base de dados será o seguinte.</p>
 <div style="border: 1px dashed black; padding: 5px;">
@@ -723,13 +722,32 @@ if (!$found){
 <h2 id="desenvolvendo-as-operações">Desenvolvendo as Operações</h2>
 <p>Nesta segunda parte do projeto vamos produzir as páginas com HTML e CSS para interagir com o usuário e relacionar essas páginas às funcionalidades implementadas no DAO.</p>
 <p>Essas páginas serão criadas dentro de uma pasta chamada <code>views</code> e consistem nos seguintes arquivos.</p>
-<p>| Arquivo | Descrição |
-|---|---|---|---|---|
-| /views/produto_create.php | Exibe o formulário para criar/cadastrar um novo produto |
-| /views/produto_index.php | Exibe a lista dos produtos presentes na base de dados |
-| /views/produto_show.php | Exibe as informações de um produto |
-| /views/produto_edit.php | Exibe o formulário para editar/alterar dados de um produto existente |
-|</p>
+<table>
+<thead>
+<tr>
+<th>Arquivo</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/views/produto_create.php</td>
+<td>Exibe o formulário para criar/cadastrar um novo produto</td>
+</tr>
+<tr>
+<td>/views/produto_index.php</td>
+<td>Exibe a lista dos produtos presentes na base de dados</td>
+</tr>
+<tr>
+<td>/views/produto_show.php</td>
+<td>Exibe as informações de um produto</td>
+</tr>
+<tr>
+<td>/views/produto_edit.php</td>
+<td>Exibe o formulário para editar/alterar dados de um produto existente</td>
+</tr>
+</tbody>
+</table>
 <h3 id="view-create">View create</h3>
 <p>Vamos iniciar pela criação da view create. Essa página consiste em um formulário com os dados que devem ser preenchidos para registrar um novo produto na base de dados. A implementação dessa página vai envolver conceitos de HTML, CSS, Bootstrap e PHP.</p>
 <blockquote>

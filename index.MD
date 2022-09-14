@@ -556,8 +556,7 @@ Criamos o arquivo de teste
 `testes_dao/produto_dao_delete.php` tem o seguinte conteúdo:
 
 > arquivo testes_dao/produto_dao_delete.php
-```html
-<!-- language: php -->
+```php
 <?php
 
 include('../produto_dao.php');
@@ -618,14 +617,12 @@ Nesta segunda parte do projeto vamos produzir as páginas com HTML e CSS para in
 
 Essas páginas serão criadas dentro de uma pasta chamada `views` e consistem nos seguintes arquivos.
 
-| Arquivo | Descrição |
-|---|---|---|---|---|
+| Arquivo | Descrição | 
+|---|---|
 | /views/produto_create.php | Exibe o formulário para criar/cadastrar um novo produto |
 | /views/produto_index.php | Exibe a lista dos produtos presentes na base de dados |
 | /views/produto_show.php | Exibe as informações de um produto |
 | /views/produto_edit.php | Exibe o formulário para editar/alterar dados de um produto existente |
-|
-
 
 ### View create
 
