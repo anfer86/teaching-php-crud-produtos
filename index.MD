@@ -86,8 +86,9 @@ Vamos iniciar o desenvolvimento do CRUD pelas funções de DAO. Vamos criar o ar
 
 Antes de criar esses arquivos, vamos criar um arquivo para conectar com o banco de dados, que chamaremos `db_connection.php`, dentro de uma pasta chamada `config/` com o seguinte conteúdo:
 
+> arquivo config/db_conneciton.php
 ```php
-<?php // arquivo config/db_conneciton.php
+<?php
 
 $host = "localhost";
 $username = "root";
@@ -125,8 +126,9 @@ function get_connection(){
 
 Para verificar se a nossa conexão com o banco de dados funciona vamos desenvolver um arquivo de teste para essa conexão. Chamaremos esse arquivo de `test_connection.php`, vamos criar ele dentro da pasta `config/`, com o seguinte conteúdo:
 
+> arquivo config/test_connection.php
 ```php
-<?php // arquivo config/test_connection.php
+<?php
 
 include('db_connection.php');
 
@@ -153,8 +155,9 @@ Conexão fechada.
 
 Com essa conexão funcionando podemos iniciar a criação das nossas funções de DAO. Para isso criamos o arquivo `produto_dao.php` no diretório raiz da nossa aplicação. Nesse arquivo vamos implementar nossa primeira função, chamada `all()`. Esta função vai retornar os dados de todos os produtos na base de dados.
 
+> arquivo produto_dao.php
 ```php
-<?php // arquivo produto_dao.php
+<?php
 
 include_once("config/db_connection.php"); 
 
@@ -164,9 +167,9 @@ include_once("config/db_connection.php");
  * 
  * @return array que contém os produtos e seus dados
  */
-function all(){
+function all() : array{
     $conn = get_connection();
-    $sql = 'SELECT id, titulo, descricao, preco FROM produto';
+    $sql = 'SELECT id, titulo, preco FROM produto';
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     $instances = [];
@@ -183,18 +186,13 @@ function all(){
 
 Para verificar que essa funcionalidade esteja funcionando corretamente vamos criar um arquivo de teste. Os testes do `DAO` vamos armazená-los em uma pasta, chamada `testes_dao/`. Dentro dela criamos o nosso primeiro teste `DAO` chamado `testes_dao/produto_dao_all.php`. Esse arquivo terá o seguinte conteúdo.
 
+> arquivo testes_dao/produto_dao_all.php
 ```php
-<?php // arquivo testes_dao/produto_dao_all.php
+<?php
 
 include('../produto_dao.php');
 
 $produtos = all();
-
-if (!$produtos){
-    echo "A consulta não retornou nenhum produto.";
-    exit;    
-}
-
 ?>
 
 <p>Lista de produtos no banco de dados:</p>
@@ -220,8 +218,9 @@ Ao executar este teste, se o mesmo funcionar corretamente, o resultado esperado 
 
 A segunda funcionalidade de DAO que vamos implementar é o `create`. Esta função recebe como parâmetro os dados de um produto e tem como objetivo inserir o produto como um registro na base de dados, especificamente na tabela `produto`. No mesmo arquivo `produto_dao` onde implementamos a função `all` logo abaixo implementaremos a função `create`. A nova funcionalidade está implementada a seguir:
 
+> continuando o arquivo produto_dao.php
 ```php
-<?php  // ... continuando o arquivo produto_dao.php
+<?php
 
 /**
  * A função create($produto) recebe os dados de um produto 
@@ -229,9 +228,9 @@ A segunda funcionalidade de DAO que vamos implementar é o `create`. Esta funç�
  * 
  * @param array um produto na forma de array no formato chave => valor.
  * 
- * @return boolean o resultado da operação de insert: se inseriu retorna true, caso contrário retorna false.
+ * @return bool o resultado da operação de insert: se inseriu retorna true, caso contrário retorna false.
  */
-function create($produto){        
+function create(array $produto) : bool {        
     $conn = get_connection();
     $sql = 'INSERT INTO produto (titulo, descricao, preco) VALUES (?,?,?)';    
     $stmt = $conn->prepare($sql);    
@@ -240,7 +239,8 @@ function create($produto){
         $produto['titulo'], 
         $produto['descricao'], 
         $produto['preco']);    
-    $success = $stmt->execute();    
+    $stmt->execute();
+    $success = $stmt->affected_rows > 0;
     $stmt->close();
     $conn->close();
     return $success;
@@ -251,9 +251,8 @@ Para que a nossa função retorne True se o produto foi criado na base de dados,
 
 Após isso, vamos criar um novo programa de teste para testar essa funcionalidade. O arquivo `testes_dao/produto_dao_create.php` tem o seguinte conteúdo:
 
-```html
-// arquivo testes_dao/produto_dao_create.php`
-
+> arquivo testes_dao/produto_dao_create.php
+```php
 <?php 
 
 $novo_produto = [
@@ -264,23 +263,32 @@ $novo_produto = [
 
 include('../produto_dao.php');
 
-create($novo_produto);
+echo "<p>Criando um novo produto</p>";
+
+$created = create($novo_produto);
+
+if ($created){
+    echo "<p>Produto criado com sucesso</p>";
+} else {
+    echo "<p>Erro ao criar o produto</p>";
+}
 
 $produtos = all();
 
 ?>
-
 <p>Lista de produtos no banco de dados:</p>
 <ul>
-<?php foreach ( $produtos as $produto ) { ?>
-    <li><?= implode($produto, ';')?></li>
-<?php } ?>
+    <?php foreach ( $produtos as $produto ) { ?>
+        <li><?= implode($produto, ';')?></li>
+    <?php } ?>
 </ul>
 ```
 
 O resultado esperado será a lista de produtos, a qual contém o novo produto adicionado, como segue.
 
 <div style="border: 1px dashed black; padding: 5px;">
+<p>Criando um novo produto</p>
+<p>Produto criado com sucesso</p>
 <p>Lista de produtos no banco de dados:</p>
 <ul>
     <li>1;Kit 4 pares de meias;Essas meias proporcionam conforto e proteção para os pés no dia a dia e durante suas atividades físicas;20</li>
@@ -290,25 +298,13 @@ O resultado esperado será a lista de produtos, a qual contém o novo produto ad
 </ul>
 </div>
 
-**Desafio 1:** Implemente a função `find($id)` no arquivo `produto_dao.php` e crie um arquivo de teste `testes_dao/produto_dao_find.php` e verifique se está funcionando corretamente para recuperar algum dos produtos na tabela `produto`.
-
-**Desafio 2:** Implemente a função `edit($produto)` no arquivo `produto_dao.php` e crie um arquivo de teste `testes_dao/produto_dao_edit.php` e verifique se está funcionando corretamente. Teste com o seguinte produto:
-
-```php
-$produto = [
-    'id' => '4',
-    'titulo' => 'Coleção Livros do Harry Potter',
-    'descricao' => 'É uma coleção muito legal',
-    'preco' => '500.00'
-    ];
-```
-
 ### Função find
 
 A funcionalidade `find` recebe como parâmetro o id de um produto e tem como objetivo retornar o registro da base de dados referente a esse id. Os dados são retornados no formato de um array associativo, ou seja, no formato $chave => $valor. Caso ele não encontre nada retorna uma array vazio. No arquivo `produto_dao` vamos acrescentar a função `find`, como segue:
 
+> continuando o arquivo produto_dao.php
 ```php
-<?php  // ... continuando o arquivo produto_dao.php
+<?php
 
 /**
  * A função find($id) recebe id de um produto retorna os 
@@ -319,13 +315,13 @@ A funcionalidade `find` recebe como parâmetro o id de um produto e tem como obj
  * 
  * @return array array no formato chave => valor com os dados do produto.
  */
-function find($id){    
+function find(integer $id) : array {    
     $conn = get_connection();
     $sql = 'SELECT id, titulo, descricao, preco FROM produto WHERE id = ?';
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $id);    
     $stmt->execute();
-    $instance = [];
+    $instance = []; // instance no singular, pois é apenas um produto para retornar
     $result = $stmt->get_result();
     if ($row = $result->fetch_assoc())
         $instance = $row;    
@@ -339,22 +335,25 @@ function find($id){
 
 Após isso, vamos criar um novo programa de teste para testar essa funcionalidade. O arquivo `testes_dao/produto_dao_find.php` tem o seguinte conteúdo:
 
-```html
-<?php // arquivo testes_dao/produto_dao_find.php
+> arquivo testes_dao/produto_dao_find.php
+```php
+<?php
 
 include('../produto_dao.php');
 
-$produto = find("4");
+echo "<p>Procurando um produto</p>";
+$produto = find(4);
 
 if (!$produto){
-    echo 'Produto não encontrado.';
+    echo "<p>Produto não encontrado</p>";
     exit;
 }
+
 ?>
 
 <p>Dados do produto:</p>
 <ul>
-    <?php foreach($produto as $key => $value) { ?>
+    <?php foreach ($produto as $key => $value) { ?>
         <li><b><?= $key?></b>: <?= $value ?></li>
     <?php } ?>
 </ul>
@@ -363,6 +362,7 @@ if (!$produto){
 E o resultado será o seguinte:
 
 <div style="border: 1px dashed black; padding: 5px;">
+<p>Procurando um produto</p>
 <p>Dados do produto:</p>
 <ul>
     <li><b>id</b>: 4</li>
@@ -372,14 +372,15 @@ E o resultado será o seguinte:
 </ul>
 </div>
 
-Experimente usar outros valores de id, que existam ou não na base de dados, para verificar o resultado.
+> Experimente usar outros valores de id, que existam ou não na base de dados, para verificar o resultado.
 
 ### Função edit
 
 A quarta funcionalidade de DAO é `edit`. Esta função recebe como parâmetro os dados de um produto, incluíndo o seu id, e tem como objetivo atualizar os dados do produto já existente na base de dados. Assim, no arquivo `produto_dao` adicionamos mais esta funcionalidade.
 
+> continuando o arquivo produto_dao.php
 ```php 
-<?php // ... continuando o arquivo produto_dao.php
+<?php
 
 /**
  * A função edit($produto) recebe os dados de um 
@@ -387,9 +388,9 @@ A quarta funcionalidade de DAO é `edit`. Esta função recebe como parâmetro o
  * 
  * @param array um produto na forma de array no formato chave => valor.
  * 
- * @return boolean retorna true se o registro foi alterado, caso contrário retorna false.
+ * @return bool retorna true se o registro foi alterado, caso contrário retorna false.
  */
-function edit($produto){        
+function edit(array $produto) : bool {        
     $conn = get_connection();
     $sql = 'UPDATE produto SET titulo = ?, descricao = ?, preco = ? WHERE id = ?';    
     $stmt = $conn->prepare($sql);    
@@ -399,7 +400,8 @@ function edit($produto){
         $produto['descricao'], 
         $produto['preco'],
         $produto['id']);
-    $success = $stmt->execute();    
+    $stmt->execute();
+    $success = $stmt->affected_rows > 0;   
     $stmt->close();
     $conn->close();
     return $success;
@@ -409,11 +411,12 @@ function edit($produto){
 
 Criamos o programa de teste para essa funcionalidade. O arquivo `testes_dao/produto_dao_edit.php` tem o seguinte conteúdo:
 
-```html
-<?php // arquivo testes_dao/produto_dao_edit.php
+> arquivo testes_dao/produto_dao_edit.php
+```php
+<?php 
 
 $produto = [
-    'id' => '4',
+    'id' => 4,
     'titulo' => 'Coleção Livros do Harry Potter',
     'descricao' => 'É uma coleção muito legal',
     'preco' => '500.00' // Valor editado, antes era '300.00'
@@ -421,20 +424,22 @@ $produto = [
 
 include('../produto_dao.php');
 
-// A função edit retorna falso caso não tenha conseguido editar
-if (!edit($produto)){
-    echo 'Não ocorreu alteração de dados.';
+echo "<p>Editando um produto</p>";
+$edited = edit($produto);
+
+if (!$edited){
+    echo "<p>O produto não foi editado ou não existe</p>";
     exit;
 }
 
-// Após alteração procuramos o produto na base de dados
-$produto_alterado = find('4');
-
+echo "<p>Produto editado</p>";
+echo "<p>Procurando o produto editado</p>";
+$produto_editado = find(4);
 ?>
 
-<p>Dados do produto alterado:</p>
+<p>Dados do produto editado:</p>
 <ul>
-    <?php foreach($produto_alterado as $key => $value) { ?>
+    <?php foreach ($produto_editado as $key => $value) { ?>
         <li><b><?= $key?></b>: <?= $value ?></li>
     <?php } ?>
 </ul>
@@ -443,7 +448,10 @@ $produto_alterado = find('4');
 O resultado esperado será o seguinte:
 
 <div style="border: 1px dashed black; padding: 5px;">
-<p>Dados do produto:</p>
+<p>Produto editado</p>
+<p>Editando um produto</p>
+<p>Procurando o produto editado</p>
+<p>Dados do produto editado:</p>
 <ul>
     <li><b>id</b>: 4</li>
     <li><b>titulo</b>: Coleção Livros do Harry Potter</li>
@@ -456,39 +464,53 @@ Teste alterar outros valores de id. Você irá verificar que se o id não existe
 
 Vamos realizar um segundo teste da utilização da funcionalidade `edit` combinada com a funcionalidade `find`. Neste teste vamos procurar um registro na base de dados usando `find`. Após isso, alteramos alguma informação do produto e utilizamos a função `edit` para enviar essas alterações para a base de dados. O novo arquivo de teste é `testes_dao/produto_dao_edit_find.php`.
 
-```html
-<?php // arquivo testes_dao/produto_dao_edit_find.php
+> arquivo testes_dao/produto_dao_edit_find.php
+```php
+<?php
 
 include('../produto_dao.php');
 
-$produto = find('4');
+echo "<p>Procurando um produto</p>";
+$id = 4;
+$produto = find($id);
 
 if (!$produto){
-    echo 'Produto não encontrado.';
+    echo "<p>Produto não encontrado</p>";
     exit;
 }
+echo "<p>Produto encontrado</p>";
 
+echo "<p>Editando o título do produto</p>";
 $produto['titulo'] = 'Coleção Livros do Harry Potter Capa Dura';
+$edited = edit($produto);
 
-if (!edit($produto)){
-    echo 'Não ocorreu alteração de dados.';
+if (!$edited){
+    echo "<p>O produto não foi editado ou não existe</p>";
     exit;
 }
 
-$produto_alterado = find('4')
+echo "<p>Produto editado</p>";
+echo "<p>Procurando o produto editado</p>";
+$produto_editado = find($id);
 ?>
 
-<p>Dados do produto alterado:</p>
+<p>Dados do produto editado:</p>
 <ul>
-    <?php foreach($produto_alterado as $key => $value) { ?>
+    <?php foreach ($produto_editado as $key => $value) { ?>
         <li><b><?= $key?></b>: <?= $value ?></li>
     <?php } ?>
 </ul>
 ```
 
+
 O resultado esperado será o seguinte:
 
 <div style="border: 1px dashed black; padding: 5px;">
+<p>Procurando um produto</p>
+<p>Produto encontrado</p>
+<p>Editando o título do produto</p>
+<p>Produto editado</p>
+<p>Procurando o produto editado</p>
 <p>Dados do produto:</p>
 <ul>
     <li><b>id</b>: 4</li>
@@ -504,26 +526,27 @@ Teste com outros id que existam ou não para verificar que funcionalidade esteja
 
 A última funcionalidade básica é o `delete`. Esta funcionalidade apaga um registro na base de dados utilizando apenas o id do produto, já que esta é a única informação necessária para pagar um registro na base de dados. Como é uma funcionalidade que se comunica com a base de dados também é implementada no arquivo `produto_dao.php`, da seguinte forma:
 
+> continuando o arquivo produto_dao.php
 ```php 
-<?php // ... continuando o arquivo produto_dao.php
+<?php
 
 /**
  * A função delete($id) recebe o $id de um produto e apaga o registro da base de dados.
  * 
  * @param integer id do produto
  * 
- * @return boolean retorna true se o registro foi apagado, caso contrário retorna false.
+ * @return bool retorna true se o registro foi apagado, caso contrário retorna false.
  */
-function delete($id){        
+function delete(integer $id) : bool {        
     $conn = get_connection();
     $sql = 'DELETE FROM produto WHERE id = ?';    
     $stmt = $conn->prepare($sql);    
     $stmt->bind_param("i", $id);
     $stmt->execute();
-    $result = $stmt->affected_rows > 0;
+    $success = $stmt->affected_rows > 0;
     $stmt->close();
     $conn->close();
-    return $result;
+    return $success;
 }
 ?>
 ```
@@ -532,44 +555,62 @@ Criamos o arquivo de teste
 
 `testes_dao/produto_dao_delete.php` tem o seguinte conteúdo:
 
+> arquivo testes_dao/produto_dao_delete.php
 ```html
-<?php // arquivo testes_dao/produto_dao_delete.php
+<!-- language: php -->
+<?php
 
 include('../produto_dao.php');
 
-$id = '4';
-
-if ( !find($id) ){
-    echo 'O produto não existe';
+echo "<p>Procurando um produto</p>";
+$id = 4;
+$produto = find($id);
+if (!$produto){
+    echo "<p>Produto não encontrado</p>";
     exit;
 }
 
-delete($id);
+echo "<p>Deletando um produto</p>";
+$deleted = delete($id);
 
-if ( !find($id)){
-    echo 'Produto apagado com sucesso';
+if (!$deleted){
+    echo "<p>O produto não pode ser deletado ou não existe</p>";
+    exit;
 }
 
+echo "<p>Produto deletado com sucesso</p>";
+
+$found = find($id);
+
+if (!$found){
+    echo "<p>O produto já não foi encontrado na base de dados</p>";
+    exit;
+}
 ?>
 ```
 
 E o resultado de apagar o produto com id existente na base de dados será o seguinte.
 
 <div style="border: 1px dashed black; padding: 5px;">
-Produto apagado com sucesso.
+<p>Procurando um produto</p>
+<p>Deletando um produto</p>
+<p>Produto deletado com sucesso</p>
+<p>O produto já não foi encontrado na base de dados</p>
 </div>
 
 Caso você tente apagar um produto usando um id que não está na base de dados o resultado será o seguinte. Neste caso também estão arquele produtos que acabamos de apagar da base de dados.
 
 <div style="border: 1px dashed black; padding: 5px;">
-Não foi possível apagar esse produto.
+<p>Produto não encontrado</p>
 </div>
 
-**Desafio 1**: crie uma função chamada `all_order_by_preco_asc()` que retorne os produtos ordenados em ordem crescente de preço.
+### Variações da função `all()`
 
-**Desafio 2**: crie uma função chamada `all_order_by_preco($order)` que recebe a ordem de ordenação ('asc' ou 'desc') e retorna os produtos ordenados por preço de acordo com a escolha.
+**Atividade 1**: crie uma função chamada `all_order_by_preco_asc()` que retorne os produtos ordenados em ordem crescente de preço.
 
-**Desafio 3**: crie uma função chamada `all_order_by($column, $order)` que recebe a coluna que quer ordenar ('titulo', 'descricao', 'preco') e a ordem de ordenação ('asc' ou 'desc') e retorna os produtos ordenados de acordo com a escolha.
+**Atividade 2**: crie uma função chamada `all_order_by_preco($order)` que recebe a ordem de ordenação ('asc' ou 'desc') e retorna os produtos ordenados por preço de acordo com a escolha.
+
+**Atividade 3**: crie uma função chamada `all_order_by($column, $order)` que recebe a coluna que quer ordenar ('titulo', 'descricao', 'preco') e a ordem de ordenação ('asc' ou 'desc') e retorna os produtos ordenados de acordo com a escolha.
 
 ## Desenvolvendo as Operações
 
@@ -590,8 +631,8 @@ Essas páginas serão criadas dentro de uma pasta chamada `views` e consistem no
 
 Vamos iniciar pela criação da view create. Essa página consiste em um formulário com os dados que devem ser preenchidos para registrar um novo produto na base de dados. A implementação dessa página vai envolver conceitos de HTML, CSS, Bootstrap e PHP.
 
+> arquivo view/produto_create.php
 ```html
-<!-- arquivo view/produto_create.php -->
 <html>
 
 <head>

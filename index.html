@@ -234,7 +234,10 @@ $('body').mouseover(function(){
 <h2 id="desenvolvendo-as-funções-de-dao">Desenvolvendo as funções de DAO</h2>
 <p>Vamos iniciar o desenvolvimento do CRUD pelas funções de DAO. Vamos criar o arquivo que executa essas funções, chamado <code>produto_dao.php</code>. Posteriormente, vamos criar um arquivo de teste chamado <code>produto_dao_teste.php</code> para, posteriormente, criar um arquivo de teste para verificar que esteja funcionando corretamente.</p>
 <p>Antes de criar esses arquivos, vamos criar um arquivo para conectar com o banco de dados, que chamaremos <code>db_connection.php</code>, dentro de uma pasta chamada <code>config/</code> com o seguinte conteúdo:</p>
-<pre><code class="language-php"><div><span class="hljs-meta">&lt;?php</span> <span class="hljs-comment">// arquivo config/db_conneciton.php</span>
+<blockquote>
+<p>arquivo config/db_conneciton.php</p>
+</blockquote>
+<pre><code class="language-php"><div><span class="hljs-meta">&lt;?php</span>
 
 <span class="hljs-variable">$host</span> = <span class="hljs-string">&quot;localhost&quot;</span>;
 <span class="hljs-variable">$username</span> = <span class="hljs-string">&quot;root&quot;</span>;
@@ -270,7 +273,10 @@ $('body').mouseover(function(){
 <span class="hljs-meta">?&gt;</span>
 </div></code></pre>
 <p>Para verificar se a nossa conexão com o banco de dados funciona vamos desenvolver um arquivo de teste para essa conexão. Chamaremos esse arquivo de <code>test_connection.php</code>, vamos criar ele dentro da pasta <code>config/</code>, com o seguinte conteúdo:</p>
-<pre><code class="language-php"><div><span class="hljs-meta">&lt;?php</span> <span class="hljs-comment">// arquivo config/test_connection.php</span>
+<blockquote>
+<p>arquivo config/test_connection.php</p>
+</blockquote>
+<pre><code class="language-php"><div><span class="hljs-meta">&lt;?php</span>
 
 <span class="hljs-keyword">include</span>(<span class="hljs-string">&#x27;db_connection.php&#x27;</span>);
 
@@ -292,7 +298,10 @@ Conexão fechada.
 </div>
 <h3 id="função-all">Função all</h3>
 <p>Com essa conexão funcionando podemos iniciar a criação das nossas funções de DAO. Para isso criamos o arquivo <code>produto_dao.php</code> no diretório raiz da nossa aplicação. Nesse arquivo vamos implementar nossa primeira função, chamada <code>all()</code>. Esta função vai retornar os dados de todos os produtos na base de dados.</p>
-<pre><code class="language-php"><div><span class="hljs-meta">&lt;?php</span> <span class="hljs-comment">// arquivo produto_dao.php</span>
+<blockquote>
+<p>arquivo produto_dao.php</p>
+</blockquote>
+<pre><code class="language-php"><div><span class="hljs-meta">&lt;?php</span>
 
 <span class="hljs-keyword">include_once</span>(<span class="hljs-string">&quot;config/db_connection.php&quot;</span>); 
 
@@ -302,9 +311,9 @@ Conexão fechada.
  * 
  * <span class="hljs-doctag">@return</span> array que contém os produtos e seus dados
  */</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">all</span>(<span class="hljs-params"></span>)</span>{
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">all</span>(<span class="hljs-params"></span>) : <span class="hljs-title">array</span></span>{
     <span class="hljs-variable">$conn</span> = get_connection();
-    <span class="hljs-variable">$sql</span> = <span class="hljs-string">&#x27;SELECT id, titulo, descricao, preco FROM produto&#x27;</span>;
+    <span class="hljs-variable">$sql</span> = <span class="hljs-string">&#x27;SELECT id, titulo, preco FROM produto&#x27;</span>;
     <span class="hljs-variable">$stmt</span> = <span class="hljs-variable">$conn</span>-&gt;prepare(<span class="hljs-variable">$sql</span>);
     <span class="hljs-variable">$stmt</span>-&gt;execute();
     <span class="hljs-variable">$instances</span> = [];
@@ -319,17 +328,14 @@ Conexão fechada.
 <span class="hljs-meta">?&gt;</span>
 </div></code></pre>
 <p>Para verificar que essa funcionalidade esteja funcionando corretamente vamos criar um arquivo de teste. Os testes do <code>DAO</code> vamos armazená-los em uma pasta, chamada <code>testes_dao/</code>. Dentro dela criamos o nosso primeiro teste <code>DAO</code> chamado <code>testes_dao/produto_dao_all.php</code>. Esse arquivo terá o seguinte conteúdo.</p>
-<pre><code class="language-php"><div><span class="hljs-meta">&lt;?php</span> <span class="hljs-comment">// arquivo testes_dao/produto_dao_all.php</span>
+<blockquote>
+<p>arquivo testes_dao/produto_dao_all.php</p>
+</blockquote>
+<pre><code class="language-php"><div><span class="hljs-meta">&lt;?php</span>
 
 <span class="hljs-keyword">include</span>(<span class="hljs-string">&#x27;../produto_dao.php&#x27;</span>);
 
 <span class="hljs-variable">$produtos</span> = all();
-
-<span class="hljs-keyword">if</span> (!<span class="hljs-variable">$produtos</span>){
-    <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;A consulta não retornou nenhum produto.&quot;</span>;
-    <span class="hljs-keyword">exit</span>;    
-}
-
 <span class="hljs-meta">?&gt;</span>
 
 &lt;p&gt;Lista de produtos no banco de dados:&lt;/p&gt;
@@ -350,7 +356,10 @@ Conexão fechada.
 </div>
 <h3 id="função-create">Função create</h3>
 <p>A segunda funcionalidade de DAO que vamos implementar é o <code>create</code>. Esta função recebe como parâmetro os dados de um produto e tem como objetivo inserir o produto como um registro na base de dados, especificamente na tabela <code>produto</code>. No mesmo arquivo <code>produto_dao</code> onde implementamos a função <code>all</code> logo abaixo implementaremos a função <code>create</code>. A nova funcionalidade está implementada a seguir:</p>
-<pre><code class="language-php"><div><span class="hljs-meta">&lt;?php</span>  <span class="hljs-comment">// ... continuando o arquivo produto_dao.php</span>
+<blockquote>
+<p>continuando o arquivo produto_dao.php</p>
+</blockquote>
+<pre><code class="language-php"><div><span class="hljs-meta">&lt;?php</span>
 
 <span class="hljs-comment">/**
  * A função create($produto) recebe os dados de um produto 
@@ -358,9 +367,9 @@ Conexão fechada.
  * 
  * <span class="hljs-doctag">@param</span> array um produto na forma de array no formato chave =&gt; valor.
  * 
- * <span class="hljs-doctag">@return</span> boolean o resultado da operação de insert: se inseriu retorna true, caso contrário retorna false.
+ * <span class="hljs-doctag">@return</span> bool o resultado da operação de insert: se inseriu retorna true, caso contrário retorna false.
  */</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">create</span>(<span class="hljs-params"><span class="hljs-variable">$produto</span></span>)</span>{        
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">create</span>(<span class="hljs-params"><span class="hljs-keyword">array</span> <span class="hljs-variable">$produto</span></span>) : <span class="hljs-title">bool</span> </span>{        
     <span class="hljs-variable">$conn</span> = get_connection();
     <span class="hljs-variable">$sql</span> = <span class="hljs-string">&#x27;INSERT INTO produto (titulo, descricao, preco) VALUES (?,?,?)&#x27;</span>;    
     <span class="hljs-variable">$stmt</span> = <span class="hljs-variable">$conn</span>-&gt;prepare(<span class="hljs-variable">$sql</span>);    
@@ -369,7 +378,8 @@ Conexão fechada.
         <span class="hljs-variable">$produto</span>[<span class="hljs-string">&#x27;titulo&#x27;</span>], 
         <span class="hljs-variable">$produto</span>[<span class="hljs-string">&#x27;descricao&#x27;</span>], 
         <span class="hljs-variable">$produto</span>[<span class="hljs-string">&#x27;preco&#x27;</span>]);    
-    <span class="hljs-variable">$success</span> = <span class="hljs-variable">$stmt</span>-&gt;execute();    
+    <span class="hljs-variable">$stmt</span>-&gt;execute();
+    <span class="hljs-variable">$success</span> = <span class="hljs-variable">$stmt</span>-&gt;affected_rows &gt; <span class="hljs-number">0</span>;
     <span class="hljs-variable">$stmt</span>-&gt;close();
     <span class="hljs-variable">$conn</span>-&gt;close();
     <span class="hljs-keyword">return</span> <span class="hljs-variable">$success</span>;
@@ -378,33 +388,43 @@ Conexão fechada.
 </div></code></pre>
 <p>Para que a nossa função retorne True se o produto foi criado na base de dados, e False, caso contrário devemos usar o retorno da função <code>execute</code> (<a href="https://www.php.net/manual/pt_BR/mysqli-stmt.execute.php">ver documentação</a>), a qual retorna True se a operação de <code>insert</code> foi realizada corretamente e False, caso contrário.</p>
 <p>Após isso, vamos criar um novo programa de teste para testar essa funcionalidade. O arquivo <code>testes_dao/produto_dao_create.php</code> tem o seguinte conteúdo:</p>
-<pre><code class="language-html"><div>// arquivo testes_dao/produto_dao_create.php`
+<blockquote>
+<p>arquivo testes_dao/produto_dao_create.php</p>
+</blockquote>
+<pre><code class="language-php"><div><span class="hljs-meta">&lt;?php</span> 
 
-&lt;?php 
-
-$novo_produto = [
-    &#x27;titulo&#x27; =&gt; &#x27;Coleção Livros do Harry Potter&#x27;,
-    &#x27;descricao&#x27; =&gt; &#x27;É uma coleção muito legal&#x27;,
-    &#x27;preco&#x27; =&gt; &#x27;300.00&#x27;
+<span class="hljs-variable">$novo_produto</span> = [
+    <span class="hljs-string">&#x27;titulo&#x27;</span> =&gt; <span class="hljs-string">&#x27;Coleção Livros do Harry Potter&#x27;</span>,
+    <span class="hljs-string">&#x27;descricao&#x27;</span> =&gt; <span class="hljs-string">&#x27;É uma coleção muito legal&#x27;</span>,
+    <span class="hljs-string">&#x27;preco&#x27;</span> =&gt; <span class="hljs-string">&#x27;300.00&#x27;</span>
     ];
 
-include(&#x27;../produto_dao.php&#x27;);
+<span class="hljs-keyword">include</span>(<span class="hljs-string">&#x27;../produto_dao.php&#x27;</span>);
 
-create($novo_produto);
+<span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;p&gt;Criando um novo produto&lt;/p&gt;&quot;</span>;
 
-$produtos = all();
+<span class="hljs-variable">$created</span> = create(<span class="hljs-variable">$novo_produto</span>);
 
-?&gt;
+<span class="hljs-keyword">if</span> (<span class="hljs-variable">$created</span>){
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;p&gt;Produto criado com sucesso&lt;/p&gt;&quot;</span>;
+} <span class="hljs-keyword">else</span> {
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;p&gt;Erro ao criar o produto&lt;/p&gt;&quot;</span>;
+}
 
-<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Lista de produtos no banco de dados:<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
-&lt;?php foreach ( $produtos as $produto ) { ?&gt;
-    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>&lt;?= implode($produto, &#x27;;&#x27;)?&gt;<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
-&lt;?php } ?&gt;
-<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+<span class="hljs-variable">$produtos</span> = all();
+
+<span class="hljs-meta">?&gt;</span>
+&lt;p&gt;Lista de produtos no banco de dados:&lt;/p&gt;
+&lt;ul&gt;
+    <span class="hljs-meta">&lt;?php</span> <span class="hljs-keyword">foreach</span> ( <span class="hljs-variable">$produtos</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$produto</span> ) { <span class="hljs-meta">?&gt;</span>
+        &lt;li&gt;<span class="hljs-meta">&lt;?=</span> implode(<span class="hljs-variable">$produto</span>, <span class="hljs-string">&#x27;;&#x27;</span>)<span class="hljs-meta">?&gt;</span>&lt;/li&gt;
+    <span class="hljs-meta">&lt;?php</span> } <span class="hljs-meta">?&gt;</span>
+&lt;/ul&gt;
 </div></code></pre>
 <p>O resultado esperado será a lista de produtos, a qual contém o novo produto adicionado, como segue.</p>
 <div style="border: 1px dashed black; padding: 5px;">
+<p>Criando um novo produto</p>
+<p>Produto criado com sucesso</p>
 <p>Lista de produtos no banco de dados:</p>
 <ul>
     <li>1;Kit 4 pares de meias;Essas meias proporcionam conforto e proteção para os pés no dia a dia e durante suas atividades físicas;20</li>
@@ -413,18 +433,12 @@ $produtos = all();
     <li>4;Coleção Livros do Harry Potter;É uma coleção muito legal;300</li>
 </ul>
 </div>
-<p><strong>Desafio 1:</strong> Implemente a função <code>find($id)</code> no arquivo <code>produto_dao.php</code> e crie um arquivo de teste <code>testes_dao/produto_dao_find.php</code> e verifique se está funcionando corretamente para recuperar algum dos produtos na tabela <code>produto</code>.</p>
-<p><strong>Desafio 2:</strong> Implemente a função <code>edit($produto)</code> no arquivo <code>produto_dao.php</code> e crie um arquivo de teste <code>testes_dao/produto_dao_edit.php</code> e verifique se está funcionando corretamente. Teste com o seguinte produto:</p>
-<pre><code class="language-php"><div><span class="hljs-variable">$produto</span> = [
-    <span class="hljs-string">&#x27;id&#x27;</span> =&gt; <span class="hljs-string">&#x27;4&#x27;</span>,
-    <span class="hljs-string">&#x27;titulo&#x27;</span> =&gt; <span class="hljs-string">&#x27;Coleção Livros do Harry Potter&#x27;</span>,
-    <span class="hljs-string">&#x27;descricao&#x27;</span> =&gt; <span class="hljs-string">&#x27;É uma coleção muito legal&#x27;</span>,
-    <span class="hljs-string">&#x27;preco&#x27;</span> =&gt; <span class="hljs-string">&#x27;500.00&#x27;</span>
-    ];
-</div></code></pre>
 <h3 id="função-find">Função find</h3>
 <p>A funcionalidade <code>find</code> recebe como parâmetro o id de um produto e tem como objetivo retornar o registro da base de dados referente a esse id. Os dados são retornados no formato de um array associativo, ou seja, no formato $chave =&gt; $valor. Caso ele não encontre nada retorna uma array vazio. No arquivo <code>produto_dao</code> vamos acrescentar a função <code>find</code>, como segue:</p>
-<pre><code class="language-php"><div><span class="hljs-meta">&lt;?php</span>  <span class="hljs-comment">// ... continuando o arquivo produto_dao.php</span>
+<blockquote>
+<p>continuando o arquivo produto_dao.php</p>
+</blockquote>
+<pre><code class="language-php"><div><span class="hljs-meta">&lt;?php</span>
 
 <span class="hljs-comment">/**
  * A função find($id) recebe id de um produto retorna os 
@@ -435,13 +449,13 @@ $produtos = all();
  * 
  * <span class="hljs-doctag">@return</span> array array no formato chave =&gt; valor com os dados do produto.
  */</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">find</span>(<span class="hljs-params"><span class="hljs-variable">$id</span></span>)</span>{    
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">find</span>(<span class="hljs-params"><span class="hljs-keyword">integer</span> <span class="hljs-variable">$id</span></span>) : <span class="hljs-title">array</span> </span>{    
     <span class="hljs-variable">$conn</span> = get_connection();
     <span class="hljs-variable">$sql</span> = <span class="hljs-string">&#x27;SELECT id, titulo, descricao, preco FROM produto WHERE id = ?&#x27;</span>;
     <span class="hljs-variable">$stmt</span> = <span class="hljs-variable">$conn</span>-&gt;prepare(<span class="hljs-variable">$sql</span>);
     <span class="hljs-variable">$stmt</span>-&gt;bind_param(<span class="hljs-string">&quot;i&quot;</span>, <span class="hljs-variable">$id</span>);    
     <span class="hljs-variable">$stmt</span>-&gt;execute();
-    <span class="hljs-variable">$instance</span> = [];
+    <span class="hljs-variable">$instance</span> = []; <span class="hljs-comment">// instance no singular, pois é apenas um produto para retornar</span>
     <span class="hljs-variable">$result</span> = <span class="hljs-variable">$stmt</span>-&gt;get_result();
     <span class="hljs-keyword">if</span> (<span class="hljs-variable">$row</span> = <span class="hljs-variable">$result</span>-&gt;fetch_assoc())
         <span class="hljs-variable">$instance</span> = <span class="hljs-variable">$row</span>;    
@@ -453,27 +467,33 @@ $produtos = all();
 <span class="hljs-meta">?&gt;</span>
 </div></code></pre>
 <p>Após isso, vamos criar um novo programa de teste para testar essa funcionalidade. O arquivo <code>testes_dao/produto_dao_find.php</code> tem o seguinte conteúdo:</p>
-<pre><code class="language-html"><div>&lt;?php // arquivo testes_dao/produto_dao_find.php
+<blockquote>
+<p>arquivo testes_dao/produto_dao_find.php</p>
+</blockquote>
+<pre><code class="language-php"><div><span class="hljs-meta">&lt;?php</span>
 
-include(&#x27;../produto_dao.php&#x27;);
+<span class="hljs-keyword">include</span>(<span class="hljs-string">&#x27;../produto_dao.php&#x27;</span>);
 
-$produto = find(&quot;4&quot;);
+<span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;p&gt;Procurando um produto&lt;/p&gt;&quot;</span>;
+<span class="hljs-variable">$produto</span> = find(<span class="hljs-number">4</span>);
 
-if (!$produto){
-    echo &#x27;Produto não encontrado.&#x27;;
-    exit;
+<span class="hljs-keyword">if</span> (!<span class="hljs-variable">$produto</span>){
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;p&gt;Produto não encontrado&lt;/p&gt;&quot;</span>;
+    <span class="hljs-keyword">exit</span>;
 }
-?&gt;
 
-<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Dados do produto:<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
-    &lt;?php foreach($produto as $key =&gt; $value) { ?&gt;
-        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">b</span>&gt;</span>&lt;?= $key?&gt;<span class="hljs-tag">&lt;/<span class="hljs-name">b</span>&gt;</span>: &lt;?= $value ?&gt;<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
-    &lt;?php } ?&gt;
-<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+<span class="hljs-meta">?&gt;</span>
+
+&lt;p&gt;Dados <span class="hljs-keyword">do</span> produto:&lt;/p&gt;
+&lt;ul&gt;
+    <span class="hljs-meta">&lt;?php</span> <span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$produto</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$key</span> =&gt; <span class="hljs-variable">$value</span>) { <span class="hljs-meta">?&gt;</span>
+        &lt;li&gt;&lt;b&gt;<span class="hljs-meta">&lt;?=</span> <span class="hljs-variable">$key</span><span class="hljs-meta">?&gt;</span>&lt;/b&gt;: <span class="hljs-meta">&lt;?=</span> <span class="hljs-variable">$value</span> <span class="hljs-meta">?&gt;</span>&lt;/li&gt;
+    <span class="hljs-meta">&lt;?php</span> } <span class="hljs-meta">?&gt;</span>
+&lt;/ul&gt;
 </div></code></pre>
 <p>E o resultado será o seguinte:</p>
 <div style="border: 1px dashed black; padding: 5px;">
+<p>Procurando um produto</p>
 <p>Dados do produto:</p>
 <ul>
     <li><b>id</b>: 4</li>
@@ -482,10 +502,15 @@ if (!$produto){
     <li><b>preco</b>: 300</li>
 </ul>
 </div>
+<blockquote>
 <p>Experimente usar outros valores de id, que existam ou não na base de dados, para verificar o resultado.</p>
+</blockquote>
 <h3 id="função-edit">Função edit</h3>
 <p>A quarta funcionalidade de DAO é <code>edit</code>. Esta função recebe como parâmetro os dados de um produto, incluíndo o seu id, e tem como objetivo atualizar os dados do produto já existente na base de dados. Assim, no arquivo <code>produto_dao</code> adicionamos mais esta funcionalidade.</p>
-<pre><code class="language-php"><div><span class="hljs-meta">&lt;?php</span> <span class="hljs-comment">// ... continuando o arquivo produto_dao.php</span>
+<blockquote>
+<p>continuando o arquivo produto_dao.php</p>
+</blockquote>
+<pre><code class="language-php"><div><span class="hljs-meta">&lt;?php</span>
 
 <span class="hljs-comment">/**
  * A função edit($produto) recebe os dados de um 
@@ -493,9 +518,9 @@ if (!$produto){
  * 
  * <span class="hljs-doctag">@param</span> array um produto na forma de array no formato chave =&gt; valor.
  * 
- * <span class="hljs-doctag">@return</span> boolean retorna true se o registro foi alterado, caso contrário retorna false.
+ * <span class="hljs-doctag">@return</span> bool retorna true se o registro foi alterado, caso contrário retorna false.
  */</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">edit</span>(<span class="hljs-params"><span class="hljs-variable">$produto</span></span>)</span>{        
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">edit</span>(<span class="hljs-params"><span class="hljs-keyword">array</span> <span class="hljs-variable">$produto</span></span>) : <span class="hljs-title">bool</span> </span>{        
     <span class="hljs-variable">$conn</span> = get_connection();
     <span class="hljs-variable">$sql</span> = <span class="hljs-string">&#x27;UPDATE produto SET titulo = ?, descricao = ?, preco = ? WHERE id = ?&#x27;</span>;    
     <span class="hljs-variable">$stmt</span> = <span class="hljs-variable">$conn</span>-&gt;prepare(<span class="hljs-variable">$sql</span>);    
@@ -505,7 +530,8 @@ if (!$produto){
         <span class="hljs-variable">$produto</span>[<span class="hljs-string">&#x27;descricao&#x27;</span>], 
         <span class="hljs-variable">$produto</span>[<span class="hljs-string">&#x27;preco&#x27;</span>],
         <span class="hljs-variable">$produto</span>[<span class="hljs-string">&#x27;id&#x27;</span>]);
-    <span class="hljs-variable">$success</span> = <span class="hljs-variable">$stmt</span>-&gt;execute();    
+    <span class="hljs-variable">$stmt</span>-&gt;execute();
+    <span class="hljs-variable">$success</span> = <span class="hljs-variable">$stmt</span>-&gt;affected_rows &gt; <span class="hljs-number">0</span>;   
     <span class="hljs-variable">$stmt</span>-&gt;close();
     <span class="hljs-variable">$conn</span>-&gt;close();
     <span class="hljs-keyword">return</span> <span class="hljs-variable">$success</span>;
@@ -513,38 +539,46 @@ if (!$produto){
 <span class="hljs-meta">?&gt;</span>
 </div></code></pre>
 <p>Criamos o programa de teste para essa funcionalidade. O arquivo <code>testes_dao/produto_dao_edit.php</code> tem o seguinte conteúdo:</p>
-<pre><code class="language-html"><div>&lt;?php // arquivo testes_dao/produto_dao_edit.php
+<blockquote>
+<p>arquivo testes_dao/produto_dao_edit.php</p>
+</blockquote>
+<pre><code class="language-php"><div><span class="hljs-meta">&lt;?php</span> 
 
-$produto = [
-    &#x27;id&#x27; =&gt; &#x27;4&#x27;,
-    &#x27;titulo&#x27; =&gt; &#x27;Coleção Livros do Harry Potter&#x27;,
-    &#x27;descricao&#x27; =&gt; &#x27;É uma coleção muito legal&#x27;,
-    &#x27;preco&#x27; =&gt; &#x27;500.00&#x27; // Valor editado, antes era &#x27;300.00&#x27;
+<span class="hljs-variable">$produto</span> = [
+    <span class="hljs-string">&#x27;id&#x27;</span> =&gt; <span class="hljs-number">4</span>,
+    <span class="hljs-string">&#x27;titulo&#x27;</span> =&gt; <span class="hljs-string">&#x27;Coleção Livros do Harry Potter&#x27;</span>,
+    <span class="hljs-string">&#x27;descricao&#x27;</span> =&gt; <span class="hljs-string">&#x27;É uma coleção muito legal&#x27;</span>,
+    <span class="hljs-string">&#x27;preco&#x27;</span> =&gt; <span class="hljs-string">&#x27;500.00&#x27;</span> <span class="hljs-comment">// Valor editado, antes era &#x27;300.00&#x27;</span>
     ];
 
-include(&#x27;../produto_dao.php&#x27;);
+<span class="hljs-keyword">include</span>(<span class="hljs-string">&#x27;../produto_dao.php&#x27;</span>);
 
-// A função edit retorna falso caso não tenha conseguido editar
-if (!edit($produto)){
-    echo &#x27;Não ocorreu alteração de dados.&#x27;;
-    exit;
+<span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;p&gt;Editando um produto&lt;/p&gt;&quot;</span>;
+<span class="hljs-variable">$edited</span> = edit(<span class="hljs-variable">$produto</span>);
+
+<span class="hljs-keyword">if</span> (!<span class="hljs-variable">$edited</span>){
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;p&gt;O produto não foi editado ou não existe&lt;/p&gt;&quot;</span>;
+    <span class="hljs-keyword">exit</span>;
 }
 
-// Após alteração procuramos o produto na base de dados
-$produto_alterado = find(&#x27;4&#x27;);
+<span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;p&gt;Produto editado&lt;/p&gt;&quot;</span>;
+<span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;p&gt;Procurando o produto editado&lt;/p&gt;&quot;</span>;
+<span class="hljs-variable">$produto_editado</span> = find(<span class="hljs-number">4</span>);
+<span class="hljs-meta">?&gt;</span>
 
-?&gt;
-
-<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Dados do produto alterado:<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
-    &lt;?php foreach($produto_alterado as $key =&gt; $value) { ?&gt;
-        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">b</span>&gt;</span>&lt;?= $key?&gt;<span class="hljs-tag">&lt;/<span class="hljs-name">b</span>&gt;</span>: &lt;?= $value ?&gt;<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
-    &lt;?php } ?&gt;
-<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+&lt;p&gt;Dados <span class="hljs-keyword">do</span> produto editado:&lt;/p&gt;
+&lt;ul&gt;
+    <span class="hljs-meta">&lt;?php</span> <span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$produto_editado</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$key</span> =&gt; <span class="hljs-variable">$value</span>) { <span class="hljs-meta">?&gt;</span>
+        &lt;li&gt;&lt;b&gt;<span class="hljs-meta">&lt;?=</span> <span class="hljs-variable">$key</span><span class="hljs-meta">?&gt;</span>&lt;/b&gt;: <span class="hljs-meta">&lt;?=</span> <span class="hljs-variable">$value</span> <span class="hljs-meta">?&gt;</span>&lt;/li&gt;
+    <span class="hljs-meta">&lt;?php</span> } <span class="hljs-meta">?&gt;</span>
+&lt;/ul&gt;
 </div></code></pre>
 <p>O resultado esperado será o seguinte:</p>
 <div style="border: 1px dashed black; padding: 5px;">
-<p>Dados do produto:</p>
+<p>Produto editado</p>
+<p>Editando um produto</p>
+<p>Procurando o produto editado</p>
+<p>Dados do produto editado:</p>
 <ul>
     <li><b>id</b>: 4</li>
     <li><b>titulo</b>: Coleção Livros do Harry Potter</li>
@@ -554,36 +588,51 @@ $produto_alterado = find(&#x27;4&#x27;);
 </div>
 <p>Teste alterar outros valores de id. Você irá verificar que se o id não existe a função retorna falso pois não altera nenhum registro na base de dados. Da mesma forma que se tentar alterar um registro que já existe e você não mudou nada nesse registro, pois também não ocorreu alteração dos dados do mesmo.</p>
 <p>Vamos realizar um segundo teste da utilização da funcionalidade <code>edit</code> combinada com a funcionalidade <code>find</code>. Neste teste vamos procurar um registro na base de dados usando <code>find</code>. Após isso, alteramos alguma informação do produto e utilizamos a função <code>edit</code> para enviar essas alterações para a base de dados. O novo arquivo de teste é <code>testes_dao/produto_dao_edit_find.php</code>.</p>
-<pre><code class="language-html"><div>&lt;?php // arquivo testes_dao/produto_dao_edit_find.php
+<blockquote>
+<p>arquivo testes_dao/produto_dao_edit_find.php</p>
+</blockquote>
+<pre><code class="language-php"><div><span class="hljs-meta">&lt;?php</span>
 
-include(&#x27;../produto_dao.php&#x27;);
+<span class="hljs-keyword">include</span>(<span class="hljs-string">&#x27;../produto_dao.php&#x27;</span>);
 
-$produto = find(&#x27;4&#x27;);
+<span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;p&gt;Procurando um produto&lt;/p&gt;&quot;</span>;
+<span class="hljs-variable">$id</span> = <span class="hljs-number">4</span>;
+<span class="hljs-variable">$produto</span> = find(<span class="hljs-variable">$id</span>);
 
-if (!$produto){
-    echo &#x27;Produto não encontrado.&#x27;;
-    exit;
+<span class="hljs-keyword">if</span> (!<span class="hljs-variable">$produto</span>){
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;p&gt;Produto não encontrado&lt;/p&gt;&quot;</span>;
+    <span class="hljs-keyword">exit</span>;
+}
+<span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;p&gt;Produto encontrado&lt;/p&gt;&quot;</span>;
+
+<span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;p&gt;Editando o título do produto&lt;/p&gt;&quot;</span>;
+<span class="hljs-variable">$produto</span>[<span class="hljs-string">&#x27;titulo&#x27;</span>] = <span class="hljs-string">&#x27;Coleção Livros do Harry Potter Capa Dura&#x27;</span>;
+<span class="hljs-variable">$edited</span> = edit(<span class="hljs-variable">$produto</span>);
+
+<span class="hljs-keyword">if</span> (!<span class="hljs-variable">$edited</span>){
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;p&gt;O produto não foi editado ou não existe&lt;/p&gt;&quot;</span>;
+    <span class="hljs-keyword">exit</span>;
 }
 
-$produto[&#x27;titulo&#x27;] = &#x27;Coleção Livros do Harry Potter Capa Dura&#x27;;
+<span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;p&gt;Produto editado&lt;/p&gt;&quot;</span>;
+<span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;p&gt;Procurando o produto editado&lt;/p&gt;&quot;</span>;
+<span class="hljs-variable">$produto_editado</span> = find(<span class="hljs-variable">$id</span>);
+<span class="hljs-meta">?&gt;</span>
 
-if (!edit($produto)){
-    echo &#x27;Não ocorreu alteração de dados.&#x27;;
-    exit;
-}
-
-$produto_alterado = find(&#x27;4&#x27;)
-?&gt;
-
-<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Dados do produto alterado:<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
-    &lt;?php foreach($produto_alterado as $key =&gt; $value) { ?&gt;
-        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">b</span>&gt;</span>&lt;?= $key?&gt;<span class="hljs-tag">&lt;/<span class="hljs-name">b</span>&gt;</span>: &lt;?= $value ?&gt;<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
-    &lt;?php } ?&gt;
-<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+&lt;p&gt;Dados <span class="hljs-keyword">do</span> produto editado:&lt;/p&gt;
+&lt;ul&gt;
+    <span class="hljs-meta">&lt;?php</span> <span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$produto_editado</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$key</span> =&gt; <span class="hljs-variable">$value</span>) { <span class="hljs-meta">?&gt;</span>
+        &lt;li&gt;&lt;b&gt;<span class="hljs-meta">&lt;?=</span> <span class="hljs-variable">$key</span><span class="hljs-meta">?&gt;</span>&lt;/b&gt;: <span class="hljs-meta">&lt;?=</span> <span class="hljs-variable">$value</span> <span class="hljs-meta">?&gt;</span>&lt;/li&gt;
+    <span class="hljs-meta">&lt;?php</span> } <span class="hljs-meta">?&gt;</span>
+&lt;/ul&gt;
 </div></code></pre>
 <p>O resultado esperado será o seguinte:</p>
 <div style="border: 1px dashed black; padding: 5px;">
+<p>Procurando um produto</p>
+<p>Produto encontrado</p>
+<p>Editando o título do produto</p>
+<p>Produto editado</p>
+<p>Procurando o produto editado</p>
 <p>Dados do produto:</p>
 <ul>
     <li><b>id</b>: 4</li>
@@ -595,60 +644,82 @@ $produto_alterado = find(&#x27;4&#x27;)
 <p>Teste com outros id que existam ou não para verificar que funcionalidade esteja funcionando corretamente.</p>
 <h3 id="função-delete">Função delete</h3>
 <p>A última funcionalidade básica é o <code>delete</code>. Esta funcionalidade apaga um registro na base de dados utilizando apenas o id do produto, já que esta é a única informação necessária para pagar um registro na base de dados. Como é uma funcionalidade que se comunica com a base de dados também é implementada no arquivo <code>produto_dao.php</code>, da seguinte forma:</p>
-<pre><code class="language-php"><div><span class="hljs-meta">&lt;?php</span> <span class="hljs-comment">// ... continuando o arquivo produto_dao.php</span>
+<blockquote>
+<p>continuando o arquivo produto_dao.php</p>
+</blockquote>
+<pre><code class="language-php"><div><span class="hljs-meta">&lt;?php</span>
 
 <span class="hljs-comment">/**
  * A função delete($id) recebe o $id de um produto e apaga o registro da base de dados.
  * 
  * <span class="hljs-doctag">@param</span> integer id do produto
  * 
- * <span class="hljs-doctag">@return</span> boolean retorna true se o registro foi apagado, caso contrário retorna false.
+ * <span class="hljs-doctag">@return</span> bool retorna true se o registro foi apagado, caso contrário retorna false.
  */</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">delete</span>(<span class="hljs-params"><span class="hljs-variable">$id</span></span>)</span>{        
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">delete</span>(<span class="hljs-params"><span class="hljs-keyword">integer</span> <span class="hljs-variable">$id</span></span>) : <span class="hljs-title">bool</span> </span>{        
     <span class="hljs-variable">$conn</span> = get_connection();
     <span class="hljs-variable">$sql</span> = <span class="hljs-string">&#x27;DELETE FROM produto WHERE id = ?&#x27;</span>;    
     <span class="hljs-variable">$stmt</span> = <span class="hljs-variable">$conn</span>-&gt;prepare(<span class="hljs-variable">$sql</span>);    
     <span class="hljs-variable">$stmt</span>-&gt;bind_param(<span class="hljs-string">&quot;i&quot;</span>, <span class="hljs-variable">$id</span>);
     <span class="hljs-variable">$stmt</span>-&gt;execute();
-    <span class="hljs-variable">$result</span> = <span class="hljs-variable">$stmt</span>-&gt;affected_rows &gt; <span class="hljs-number">0</span>;
+    <span class="hljs-variable">$success</span> = <span class="hljs-variable">$stmt</span>-&gt;affected_rows &gt; <span class="hljs-number">0</span>;
     <span class="hljs-variable">$stmt</span>-&gt;close();
     <span class="hljs-variable">$conn</span>-&gt;close();
-    <span class="hljs-keyword">return</span> <span class="hljs-variable">$result</span>;
+    <span class="hljs-keyword">return</span> <span class="hljs-variable">$success</span>;
 }
 <span class="hljs-meta">?&gt;</span>
 </div></code></pre>
 <p>Criamos o arquivo de teste</p>
 <p><code>testes_dao/produto_dao_delete.php</code> tem o seguinte conteúdo:</p>
-<pre><code class="language-html"><div>&lt;?php // arquivo testes_dao/produto_dao_delete.php
+<blockquote>
+<p>arquivo testes_dao/produto_dao_delete.php</p>
+</blockquote>
+<pre><code class="language-html"><div><span class="hljs-comment">&lt;!-- language: php --&gt;</span>
+&lt;?php
 
 include(&#x27;../produto_dao.php&#x27;);
 
-$id = &#x27;4&#x27;;
-
-if ( !find($id) ){
-    echo &#x27;O produto não existe&#x27;;
+echo &quot;<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Procurando um produto<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>&quot;;
+$id = 4;
+$produto = find($id);
+if (!$produto){
+    echo &quot;<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Produto não encontrado<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>&quot;;
     exit;
 }
 
-delete($id);
+echo &quot;<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Deletando um produto<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>&quot;;
+$deleted = delete($id);
 
-if ( !find($id)){
-    echo &#x27;Produto apagado com sucesso&#x27;;
+if (!$deleted){
+    echo &quot;<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>O produto não pode ser deletado ou não existe<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>&quot;;
+    exit;
 }
 
+echo &quot;<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Produto deletado com sucesso<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>&quot;;
+
+$found = find($id);
+
+if (!$found){
+    echo &quot;<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>O produto já não foi encontrado na base de dados<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>&quot;;
+    exit;
+}
 ?&gt;
 </div></code></pre>
 <p>E o resultado de apagar o produto com id existente na base de dados será o seguinte.</p>
 <div style="border: 1px dashed black; padding: 5px;">
-Produto apagado com sucesso.
+<p>Procurando um produto</p>
+<p>Deletando um produto</p>
+<p>Produto deletado com sucesso</p>
+<p>O produto já não foi encontrado na base de dados</p>
 </div>
 <p>Caso você tente apagar um produto usando um id que não está na base de dados o resultado será o seguinte. Neste caso também estão arquele produtos que acabamos de apagar da base de dados.</p>
 <div style="border: 1px dashed black; padding: 5px;">
-Não foi possível apagar esse produto.
+<p>Produto não encontrado</p>
 </div>
-<p><strong>Desafio 1</strong>: crie uma função chamada <code>all_order_by_preco_asc()</code> que retorne os produtos ordenados em ordem crescente de preço.</p>
-<p><strong>Desafio 2</strong>: crie uma função chamada <code>all_order_by_preco($order)</code> que recebe a ordem de ordenação ('asc' ou 'desc') e retorna os produtos ordenados por preço de acordo com a escolha.</p>
-<p><strong>Desafio 3</strong>: crie uma função chamada <code>all_order_by($column, $order)</code> que recebe a coluna que quer ordenar ('titulo', 'descricao', 'preco') e a ordem de ordenação ('asc' ou 'desc') e retorna os produtos ordenados de acordo com a escolha.</p>
+<h3 id="variações-da-função-all">Variações da função <code>all()</code></h3>
+<p><strong>Atividade 1</strong>: crie uma função chamada <code>all_order_by_preco_asc()</code> que retorne os produtos ordenados em ordem crescente de preço.</p>
+<p><strong>Atividade 2</strong>: crie uma função chamada <code>all_order_by_preco($order)</code> que recebe a ordem de ordenação ('asc' ou 'desc') e retorna os produtos ordenados por preço de acordo com a escolha.</p>
+<p><strong>Atividade 3</strong>: crie uma função chamada <code>all_order_by($column, $order)</code> que recebe a coluna que quer ordenar ('titulo', 'descricao', 'preco') e a ordem de ordenação ('asc' ou 'desc') e retorna os produtos ordenados de acordo com a escolha.</p>
 <h2 id="desenvolvendo-as-operações">Desenvolvendo as Operações</h2>
 <p>Nesta segunda parte do projeto vamos produzir as páginas com HTML e CSS para interagir com o usuário e relacionar essas páginas às funcionalidades implementadas no DAO.</p>
 <p>Essas páginas serão criadas dentro de uma pasta chamada <code>views</code> e consistem nos seguintes arquivos.</p>
@@ -661,8 +732,10 @@ Não foi possível apagar esse produto.
 |</p>
 <h3 id="view-create">View create</h3>
 <p>Vamos iniciar pela criação da view create. Essa página consiste em um formulário com os dados que devem ser preenchidos para registrar um novo produto na base de dados. A implementação dessa página vai envolver conceitos de HTML, CSS, Bootstrap e PHP.</p>
-<pre><code class="language-html"><div><span class="hljs-comment">&lt;!-- arquivo view/produto_create.php --&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+<blockquote>
+<p>arquivo view/produto_create.php</p>
+</blockquote>
+<pre><code class="language-html"><div><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
 
 <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Cadastrar Produto<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
