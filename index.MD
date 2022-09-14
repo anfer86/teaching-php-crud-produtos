@@ -16,6 +16,7 @@ CRUD é a sigla utilizada para se referir as operações básicas que são reali
 - titulo: varchar de no máximo 40 caracteres
 - descricao: text
 - preco: float
+- imagem: varchar de no máximo 100 caracteres para armazenar o caminho do arquivo de imagem
 
 Baseados nos dados dessa entidade implementamos a DDL para criação da tabela em MySQL para construir essa entidade. Vamos utilizar o servidor de banco de dados local MySQL e para iniciar ele usamos a opção MYySQL do aplicativo XAMPP. Uma vez feito isso entramos no endereço `localhost/phpmyadmin` que irá apresentar o sistema gerenciador de banco de dados. Criamos uma base de dados para a nossa aplicação `des_loja` utilizando a seguinte DDL.
 
@@ -31,7 +32,8 @@ CREATE TABLE produto (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
     titulo VARCHAR(40) NOT NULL, 
     descricao TEXT NOT NULL, 
-    preco FLOAT NOT NULL    
+    preco FLOAT NOT NULL,
+    imagem VARCHAR(100)
     )
 ```
 
