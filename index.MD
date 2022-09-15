@@ -198,7 +198,7 @@ $produtos = all();
 <p>Lista de produtos no banco de dados:</p>
 <ul>
 <?php foreach ( $produtos as $produto ) { ?>
-    <li><?= implode($produto, ';')?></li>
+    <li><?= implode(';', $produto)?></li>
 <?php } ?>
 </ul>
 ```
@@ -258,7 +258,7 @@ Após isso, vamos criar um novo programa de teste para testar essa funcionalidad
 $novo_produto = [
     'titulo' => 'Coleção Livros do Harry Potter',
     'descricao' => 'É uma coleção muito legal',
-    'preco' => '300.00'
+    'preco' => 300.00
     ];
 
 include('../produto_dao.php');
@@ -279,7 +279,7 @@ $produtos = all();
 <p>Lista de produtos no banco de dados:</p>
 <ul>
     <?php foreach ( $produtos as $produto ) { ?>
-        <li><?= implode($produto, ';')?></li>
+        <li><?= implode(';', $produto)?></li>
     <?php } ?>
 </ul>
 ```

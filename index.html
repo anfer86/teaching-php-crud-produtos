@@ -341,7 +341,7 @@ Conexão fechada.
 &lt;p&gt;Lista de produtos no banco de dados:&lt;/p&gt;
 &lt;ul&gt;
 <span class="hljs-meta">&lt;?php</span> <span class="hljs-keyword">foreach</span> ( <span class="hljs-variable">$produtos</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$produto</span> ) { <span class="hljs-meta">?&gt;</span>
-    &lt;li&gt;<span class="hljs-meta">&lt;?=</span> implode(<span class="hljs-variable">$produto</span>, <span class="hljs-string">&#x27;;&#x27;</span>)<span class="hljs-meta">?&gt;</span>&lt;/li&gt;
+    &lt;li&gt;<span class="hljs-meta">&lt;?=</span> implode(<span class="hljs-string">&#x27;;&#x27;</span>, <span class="hljs-variable">$produto</span>)<span class="hljs-meta">?&gt;</span>&lt;/li&gt;
 <span class="hljs-meta">&lt;?php</span> } <span class="hljs-meta">?&gt;</span>
 &lt;/ul&gt;
 </div></code></pre>
@@ -396,7 +396,7 @@ Conexão fechada.
 <span class="hljs-variable">$novo_produto</span> = [
     <span class="hljs-string">&#x27;titulo&#x27;</span> =&gt; <span class="hljs-string">&#x27;Coleção Livros do Harry Potter&#x27;</span>,
     <span class="hljs-string">&#x27;descricao&#x27;</span> =&gt; <span class="hljs-string">&#x27;É uma coleção muito legal&#x27;</span>,
-    <span class="hljs-string">&#x27;preco&#x27;</span> =&gt; <span class="hljs-string">&#x27;300.00&#x27;</span>
+    <span class="hljs-string">&#x27;preco&#x27;</span> =&gt; <span class="hljs-number">300.00</span>
     ];
 
 <span class="hljs-keyword">include</span>(<span class="hljs-string">&#x27;../produto_dao.php&#x27;</span>);
@@ -417,7 +417,7 @@ Conexão fechada.
 &lt;p&gt;Lista de produtos no banco de dados:&lt;/p&gt;
 &lt;ul&gt;
     <span class="hljs-meta">&lt;?php</span> <span class="hljs-keyword">foreach</span> ( <span class="hljs-variable">$produtos</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$produto</span> ) { <span class="hljs-meta">?&gt;</span>
-        &lt;li&gt;<span class="hljs-meta">&lt;?=</span> implode(<span class="hljs-variable">$produto</span>, <span class="hljs-string">&#x27;;&#x27;</span>)<span class="hljs-meta">?&gt;</span>&lt;/li&gt;
+        &lt;li&gt;<span class="hljs-meta">&lt;?=</span> implode(<span class="hljs-string">&#x27;;&#x27;</span>, <span class="hljs-variable">$produto</span>)<span class="hljs-meta">?&gt;</span>&lt;/li&gt;
     <span class="hljs-meta">&lt;?php</span> } <span class="hljs-meta">?&gt;</span>
 &lt;/ul&gt;
 </div></code></pre>
