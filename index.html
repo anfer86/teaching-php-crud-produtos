@@ -445,11 +445,11 @@ Conexão fechada.
  * dados do produto se esse id existir, caso contrário, 
  * retorna um array vazio.
  * 
- * <span class="hljs-doctag">@param</span> integer id do produto que quero procurar na tabela.
+ * <span class="hljs-doctag">@param</span> int id do produto que quero procurar na tabela.
  * 
  * <span class="hljs-doctag">@return</span> array array no formato chave =&gt; valor com os dados do produto.
  */</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">find</span>(<span class="hljs-params"><span class="hljs-keyword">integer</span> <span class="hljs-variable">$id</span></span>) : <span class="hljs-title">array</span> </span>{    
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">find</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> <span class="hljs-variable">$id</span></span>) : <span class="hljs-title">array</span> </span>{    
     <span class="hljs-variable">$conn</span> = get_connection();
     <span class="hljs-variable">$sql</span> = <span class="hljs-string">&#x27;SELECT id, titulo, descricao, preco FROM produto WHERE id = ?&#x27;</span>;
     <span class="hljs-variable">$stmt</span> = <span class="hljs-variable">$conn</span>-&gt;prepare(<span class="hljs-variable">$sql</span>);
@@ -652,11 +652,11 @@ Conexão fechada.
 <span class="hljs-comment">/**
  * A função delete($id) recebe o $id de um produto e apaga o registro da base de dados.
  * 
- * <span class="hljs-doctag">@param</span> integer id do produto
+ * <span class="hljs-doctag">@param</span> int id do produto
  * 
  * <span class="hljs-doctag">@return</span> bool retorna true se o registro foi apagado, caso contrário retorna false.
  */</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">delete</span>(<span class="hljs-params"><span class="hljs-keyword">integer</span> <span class="hljs-variable">$id</span></span>) : <span class="hljs-title">bool</span> </span>{        
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">delete</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> <span class="hljs-variable">$id</span></span>) : <span class="hljs-title">bool</span> </span>{        
     <span class="hljs-variable">$conn</span> = get_connection();
     <span class="hljs-variable">$sql</span> = <span class="hljs-string">&#x27;DELETE FROM produto WHERE id = ?&#x27;</span>;    
     <span class="hljs-variable">$stmt</span> = <span class="hljs-variable">$conn</span>-&gt;prepare(<span class="hljs-variable">$sql</span>);    
@@ -719,7 +719,7 @@ Conexão fechada.
 <p><strong>Atividade 1</strong>: crie uma função chamada <code>all_order_by_preco_asc()</code> que retorne os produtos ordenados em ordem crescente de preço.</p>
 <p><strong>Atividade 2</strong>: crie uma função chamada <code>all_order_by_preco($order)</code> que recebe a ordem de ordenação ('asc' ou 'desc') e retorna os produtos ordenados por preço de acordo com a escolha.</p>
 <p><strong>Atividade 3</strong>: crie uma função chamada <code>all_order_by($column, $order)</code> que recebe a coluna que quer ordenar ('titulo', 'descricao', 'preco') e a ordem de ordenação ('asc' ou 'desc') e retorna os produtos ordenados de acordo com a escolha.</p>
-<h2 id="desenvolvendo-as-operações">Desenvolvendo as Operações</h2>
+<h2 id="desenvolvendo-views-e-operações">Desenvolvendo Views e Operações</h2>
 <p>Nesta segunda parte do projeto vamos produzir as páginas com HTML e CSS para interagir com o usuário e relacionar essas páginas às funcionalidades implementadas no DAO.</p>
 <p>Essas páginas serão criadas dentro de uma pasta chamada <code>views</code> e consistem nos seguintes arquivos.</p>
 <table>
@@ -801,15 +801,19 @@ Conexão fechada.
 <span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
 </div></code></pre>
 <p>Nesse código observamos o <code>include</code> de três arquivos: <code>import_css.php</code>, <code>header.php</code> e <code>import_js.php</code>. O que fizemos foi centralizar a importação de estilos, cabeçalho e a importação de javascripts. Vamos implementar cada um deles para deixar o código funcionando.</p>
-<p>Para fazer as páginas de <code>import_css.php</code> e <code>import_js.php</code> vamos acessar o site: <a href="https://getbootstrap.com/">https://getbootstrap.com/</a>. Nesse site observamos um quadro com título <code>Bootstrap CDN</code> e dentro dele temos um subquadro chamado <code>CSS Only</code>. A linha de código desse subquadro deve ser copiado para o arquivo <code>import_css.php</code> da seguinte forma:</p>
+<p>Para fazer as páginas de <code>import_css.php</code> e <code>import_js.php</code> vamos acessar o site: <a href="https://getbootstrap.com/">https://getbootstrap.com/</a>. Nesse site observamos um quadro com título <code>Bootstrap CDN</code>, dentro dele temos um subquadro chamado <code>CSS Only</code>. A linha de código desse subquadro deve ser copiado para o arquivo <code>import_css.php</code>.</p>
 <pre><code class="language-html"><div><span class="hljs-comment">&lt;!-- arquivo views/import_css.php --&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css&quot;</span> <span class="hljs-attr">integrity</span>=<span class="hljs-string">&quot;sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T&quot;</span> <span class="hljs-attr">crossorigin</span>=<span class="hljs-string">&quot;anonymous&quot;</span>&gt;</span>
+<span class="hljs-comment">&lt;!-- CSS only --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css&quot;</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attr">integrity</span>=<span class="hljs-string">&quot;sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT&quot;</span> <span class="hljs-attr">crossorigin</span>=<span class="hljs-string">&quot;anonymous&quot;</span>&gt;</span>
 </div></code></pre>
-<p>Ainda dentro do quadro <code>Bootstrap CDN</code> temos um subquadro titulado de <code>JS, Popper.js, and jQuery</code>. As linhas de código presentes nesse subquadro vamos copiá-las para o arquivo <code>import_js.php</code> da seguinte forma:</p>
+<blockquote>
+<p>Nota: se tivermos outras bibliocas de estilos ou arquivos de estilo próprios podemos adicionar nesse arquivo <code>import_css.php</code> para incluir ele em todas páginas que vamos criar.</p>
+</blockquote>
+<p>Ainda dentro do quadro <code>Bootstrap CDN</code> temos um subquadro titulado de <code>JavaScript Bundle with Popper</code>. A linha de código presente nesse subquadro vamos copiá-la para dentro do arquivo <code>import_js.php</code>. Além desse, vamos adicionar uma versão de <a href="https://developers.google.com/speed/libraries">JQuery</a> para usar.</p>
 <pre><code class="language-html"><div><span class="hljs-comment">&lt;!-- arquivo views/import_js.php --&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://code.jquery.com/jquery-3.3.1.slim.min.js&quot;</span> <span class="hljs-attr">integrity</span>=<span class="hljs-string">&quot;sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo&quot;</span> <span class="hljs-attr">crossorigin</span>=<span class="hljs-string">&quot;anonymous&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js&quot;</span> <span class="hljs-attr">integrity</span>=<span class="hljs-string">&quot;sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1&quot;</span> <span class="hljs-attr">crossorigin</span>=<span class="hljs-string">&quot;anonymous&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js&quot;</span> <span class="hljs-attr">integrity</span>=<span class="hljs-string">&quot;sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM&quot;</span> <span class="hljs-attr">crossorigin</span>=<span class="hljs-string">&quot;anonymous&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://ajax.googleapis.com/ajax/libs/cesiumjs/1.78/Build/Cesium/Cesium.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-comment">&lt;!-- JavaScript Bundle with Popper --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js&quot;</span> <span class="hljs-attr">integrity</span>=<span class="hljs-string">&quot;sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8&quot;</span> <span class="hljs-attr">crossorigin</span>=<span class="hljs-string">&quot;anonymous&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 </div></code></pre>
 <p>Por fim, vamos criar o nosso arquivo <code>header.php</code> que será o cabeçalho de todas as nossas páginas de interação com o usuário. Ele terá o seguinte conteúdo:</p>
 <pre><code class="language-html"><div><span class="hljs-comment">&lt;!-- arquivo views/header.php --&gt;</span>

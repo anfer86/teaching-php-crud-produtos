@@ -311,11 +311,11 @@ A funcionalidade `find` recebe como parâmetro o id de um produto e tem como obj
  * dados do produto se esse id existir, caso contrário, 
  * retorna um array vazio.
  * 
- * @param integer id do produto que quero procurar na tabela.
+ * @param int id do produto que quero procurar na tabela.
  * 
  * @return array array no formato chave => valor com os dados do produto.
  */
-function find(integer $id) : array {    
+function find(int $id) : array {    
     $conn = get_connection();
     $sql = 'SELECT id, titulo, descricao, preco FROM produto WHERE id = ?';
     $stmt = $conn->prepare($sql);
@@ -533,11 +533,11 @@ A última funcionalidade básica é o `delete`. Esta funcionalidade apaga um reg
 /**
  * A função delete($id) recebe o $id de um produto e apaga o registro da base de dados.
  * 
- * @param integer id do produto
+ * @param int id do produto
  * 
  * @return bool retorna true se o registro foi apagado, caso contrário retorna false.
  */
-function delete(integer $id) : bool {        
+function delete(int $id) : bool {        
     $conn = get_connection();
     $sql = 'DELETE FROM produto WHERE id = ?';    
     $stmt = $conn->prepare($sql);    
@@ -611,7 +611,7 @@ Caso você tente apagar um produto usando um id que não está na base de dados 
 
 **Atividade 3**: crie uma função chamada `all_order_by($column, $order)` que recebe a coluna que quer ordenar ('titulo', 'descricao', 'preco') e a ordem de ordenação ('asc' ou 'desc') e retorna os produtos ordenados de acordo com a escolha.
 
-## Desenvolvendo as Operações
+## Desenvolvendo Views e Operações
 
 Nesta segunda parte do projeto vamos produzir as páginas com HTML e CSS para interagir com o usuário e relacionar essas páginas às funcionalidades implementadas no DAO.
 
@@ -680,20 +680,23 @@ Vamos iniciar pela criação da view create. Essa página consiste em um formul�
 
 Nesse código observamos o `include` de três arquivos: `import_css.php`, `header.php` e `import_js.php`. O que fizemos foi centralizar a importação de estilos, cabeçalho e a importação de javascripts. Vamos implementar cada um deles para deixar o código funcionando.
 
-Para fazer as páginas de `import_css.php` e `import_js.php` vamos acessar o site: https://getbootstrap.com/. Nesse site observamos um quadro com título `Bootstrap CDN` e dentro dele temos um subquadro chamado `CSS Only`. A linha de código desse subquadro deve ser copiado para o arquivo `import_css.php` da seguinte forma:
+Para fazer as páginas de `import_css.php` e `import_js.php` vamos acessar o site: https://getbootstrap.com/. Nesse site observamos um quadro com título `Bootstrap CDN`, dentro dele temos um subquadro chamado `CSS Only`. A linha de código desse subquadro deve ser copiado para o arquivo `import_css.php`.
 
 ```html
 <!-- arquivo views/import_css.php -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 ```
 
-Ainda dentro do quadro `Bootstrap CDN` temos um subquadro titulado de `JS, Popper.js, and jQuery`. As linhas de código presentes nesse subquadro vamos copiá-las para o arquivo `import_js.php` da seguinte forma:
+> Nota: se tivermos outras bibliocas de estilos ou arquivos de estilo próprios podemos adicionar nesse arquivo `import_css.php` para incluir ele em todas páginas que vamos criar.
+
+Ainda dentro do quadro `Bootstrap CDN` temos um subquadro titulado de `JavaScript Bundle with Popper`. A linha de código presente nesse subquadro vamos copiá-la para dentro do arquivo `import_js.php`. Além desse, vamos adicionar uma versão de [JQuery](https://developers.google.com/speed/libraries) para usar. 
 
 ```html
 <!-- arquivo views/import_js.php -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/cesiumjs/1.78/Build/Cesium/Cesium.js"></script>
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
 ```
 
 Por fim, vamos criar o nosso arquivo `header.php` que será o cabeçalho de todas as nossas páginas de interação com o usuário. Ele terá o seguinte conteúdo:
