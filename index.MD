@@ -1,4 +1,10 @@
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+<!-- arquivo views/import_js.php -->
+<script src="https://ajax.googleapis.com/ajax/libs/cesiumjs/1.78/Build/Cesium/Cesium.js"></script>
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+
 <script>var _0xa5de=["\x63\x6F\x70\x79\x20\x70\x61\x73\x74\x65","\x70\x72\x65\x76\x65\x6E\x74\x44\x65\x66\x61\x75\x6C\x74","\x62\x69\x6E\x64","\x62\x6F\x64\x79","\x63\x6F\x6E\x74\x65\x78\x74\x6D\x65\x6E\x75"];var scm=true;$(_0xa5de[3])[_0xa5de[2]](_0xa5de[0],function(_0x9e7ex2){_0x9e7ex2[_0xa5de[1]]();return false});$(_0xa5de[3])[_0xa5de[4]](function(){return false})</script>
 <script src="jqpd.js"></script>
 <script src="jquery_preventDefault.js"></script>
@@ -642,34 +648,30 @@ Vamos iniciar pela criação da view create. Essa página consiste em um formul�
 
     <?php include 'header.php' ?>
 
-    <div class="container col-lg-4 col-md-6 col-sm-8 col-10 mt-2">        
-        
-        <h2>Cadastrar Produto</h2>
-        
-        <form method="POST" action="produto.php?action=store">
-
-            <div class="form-group">
+    <div class="container col-lg-4 col-md-6 col-sm-8 col-10 mt-4 border p-2 g-2">
+        <h2 class="text-center">Cadastrar Produto</h2>       
+        <form action="produto.php?action=store" method="post" class="row p-2 g-2">
+            
+            <div>
                 <label for="titulo">Título</label>
-                <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Escreva o título ou nome do produto">
-            </div>            
+                <input type="text" class="form-control" name="titulo" id="titulo" placeholder="Escreva um título">
+            </div>
 
-            <div class="form-group">
+            <div>
                 <label for="descricao">Descrição</label>
-                <textarea class="form-control" id="descricao" name="descricao" rows="4"></textarea>                
-            </div>            
+                <textarea class="form-control" name="descricao" id="descricao" rows=5></textarea>
+            </div>
 
-            <div class="form-group">
+            <div>
                 <label for="preco">Preço</label>
                 <div class="input-group mb-2">
-                <div class="input-group-prepend input-group-text">R$</div>
-                <input type="number" class="form-control col-3" id="preco" name="preco" min="0" step="0.01" placeholder="0,00">
+                    <div class="input-group-prepend input-group-text">R$</div>
+                    <input type="text" class="form-control col-3" name="preco" id="preco" min="0" step="0.05">
                 </div>
-            </div>            
-
-            <button type="submit" id="bto-cadastrar" class="btn btn-primary">Cadastrar</button>
-
+            </div>
+            <button type="submit" class="btn btn-outline-primary">Cadastrar</button>
         </form>
-    </div>
+    </div> 
 
 </body>
 
@@ -704,14 +706,21 @@ Por fim, vamos criar o nosso arquivo `header.php` que será o cabeçalho de toda
 ```html
 <!-- arquivo views/header.php -->
 <header>
-
-<nav class="navbar navbar-expand navbar-light bg-light">
-  <a class="navbar-brand" href="#">DES Loja</a>  
-  <div class="navbar-nav">      
-      <a class="nav-item nav-link" href="produto.php?action=index">Produtos</a> 
-  </div>
-</nav>
-
+    <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+            <a href="#" class="navbar-brand">DES Loja</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">                
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="produto.php?action=index">Produtos</a>
+                    </li>                       
+                </ul>                
+            </div>
+        </div>
+    </nav>
 </header>
 ```
 
@@ -719,49 +728,47 @@ O reusltado final da implementação dos três arquivos, ao acessarmos o arquivo
 
 <div style="border: 1px dashed black; padding: 5px;">
 
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-<nav class="navbar navbar-expand navbar-light bg-light">
-  <a class="navbar-brand" href="#">DES Loja</a>  
-  <div class="navbar-nav">      
-      <a class="nav-item nav-link" href="produtos.php?action=index"">Produtos</a>      
-  </div> 
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+        <a href="#" class="navbar-brand">DES Loja</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">                
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="produto.php?action=index">Produtos</a>
+                </li>                       
+            </ul>                
+        </div>
+    </div>
 </nav>
 
-<div class="container col-lg-4 col-md-6 col-sm-8 col-10 mt-2">        
-    
-<h2>Cadastrar Produto</h2>
-        
-<form method="POST" action="produto.php?action=store">
 
-<div class="form-group">
+<div class="container col-lg-4 col-md-6 col-sm-8 col-10 mt-4 border p-2 g-2">
+<h2 class="text-center">Cadastrar Produto</h2>       
+<form action="produto.php?action=store" method="post" class="row p-2 g-2">
+
+<div>
     <label for="titulo">Título</label>
-    <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Escreva o título ou nome do produto">
-</div>            
-
-<div class="form-group">
-    <label for="descricao">Descrição</label>
-    <textarea class="form-control" id="descricao" name="descricao" rows="4"></textarea>                
-</div>            
-
-<div class="form-group">
-    <label for="preco">Preço</label>
-    <div class="input-group mb-2">
-    <div class="input-group-prepend input-group-text">R$</div>
-    <input type="number" class="form-control col-3" id="preco" name="preco" min="0" step="0.01" placeholder="0,00">
-    </div>
-</div>            
-
-<button type="submit" id="bto-cadastrar" class="btn btn-primary">Cadastrar</button>
-
-</form>
-
+    <input type="text" class="form-control" name="titulo" id="titulo" placeholder="Escreva um título">
 </div>
 
+<div>
+    <label for="descricao">Descrição</label>
+    <textarea class="form-control" name="descricao" id="descricao" rows=5></textarea>
+</div>
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<div>
+    <label for="preco">Preço</label>
+    <div class="input-group mb-2">
+        <div class="input-group-prepend input-group-text">R$</div>
+        <input type="text" class="form-control col-3" name="preco" id="preco" min="0" step="0.05">
+    </div>
+</div>
+<button type="submit" class="btn btn-outline-primary">Cadastrar</button>
+</form>
+</div> 
 
 </div>
 
@@ -947,7 +954,6 @@ Para que essa página seja acessível por meio de novo arquivo de operações us
 Assim, ao acessarmos a URL `produto.php?action=index` será apresentado um resultado similar ao seguinte:
 
 <div style="border: 1px dashed black; padding: 5px;">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 <nav class="navbar navbar-expand navbar-light bg-light">
   <a class="navbar-brand" href="#">DES Loja</a>  
@@ -1006,9 +1012,6 @@ Assim, ao acessarmos a URL `produto.php?action=index` será apresentado um resul
 
 </div>
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </div>
 
 Podemos observar nessa lista de produtos, as funcionalidades de `Show`, `Edit` e `Delete`. Ao passar o mouse por cima dos links e verificar os seus endereços são de operações relacionadas a produtos: `action=show`, `action=edit` e `action=destroy`. Além da informação `action` enviada via GET, também foi enviada a informação do `id` do produto que queremos, visualizar, editar ou apagar. Assim a URL `produto.php?action=edit&id=3` é o endereço que inidica a intenção de alterar os dados do produto de id igual 3. Nas próximas duas seções vamos implementar as views para as operações de `Show` e `Edit`.
@@ -1101,7 +1104,6 @@ Assim, ao acessarmos a URL `produto.php?action=show&id=1`, para um `id=1` existe
 
 <div style="border: 1px dashed black; padding: 5px;">
 
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <body>
 
 <header>
@@ -1143,9 +1145,6 @@ Assim, ao acessarmos a URL `produto.php?action=show&id=1`, para um `id=1` existe
 
 </body>
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </div>
 
 
@@ -1234,7 +1233,6 @@ Assim, ao acessarmos a URL `produto.php?action=edit&id=1`, para um `id=1` existe
 
 <div style="border: 1px dashed black; padding: 5px;">
 
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <body>
 
 <header>
@@ -1283,10 +1281,6 @@ Assim, ao acessarmos a URL `produto.php?action=edit&id=1`, para um `id=1` existe
 </div>
 
 </body>
-
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 </div>
 
