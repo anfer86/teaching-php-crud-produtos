@@ -664,11 +664,11 @@ Vamos iniciar pela criação da view create. Essa página consiste em um formul�
                 <textarea class="form-control" name="descricao" id="descricao" rows=5></textarea>
             </div>
 
-            <div>
+            <div col='col-6'>
                 <label for="preco">Preço</label>
                 <div class="input-group mb-2">
                     <div class="input-group-prepend input-group-text">R$</div>
-                    <input type="text" class="form-control col-3" name="preco" id="preco" min="0" step="0.05">
+                    <input type="number" class="form-control col-3" name="preco" id="preco" min="0" step="0.05">
                 </div>
             </div>
             <button type="submit" class="btn btn-outline-primary">Cadastrar</button>
