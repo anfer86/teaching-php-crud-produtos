@@ -957,15 +957,24 @@ Assim, ao acessarmos a URL `produto.php?action=index` será apresentado um resul
 
 <div style="border: 1px dashed black; padding: 5px;">
 
-<nav class="navbar navbar-expand navbar-light bg-light">
-  <a class="navbar-brand" href="#">DES Loja</a>  
-  <div class="navbar-nav">      
-      <a class="nav-item nav-link" href="produtos.php?action=index"">Produtos</a>      
-  </div>
-</nav>
 
-</header>    
-    <div class="container col-md-8 col-12 mt-2">        
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+        <a href="#" class="navbar-brand">DES Loja</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">                
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="produto.php?action=index">Produtos</a>
+                </li>                       
+            </ul>                
+        </div>
+    </div>
+</nav>
+  
+<div class="container col-md-10 col-12 mt-2">        
         
 <div class="py-2">
 <a class="btn btn-success" href="produto.php?action=create">Criar Produto</a>
